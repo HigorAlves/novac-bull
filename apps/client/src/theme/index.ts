@@ -19,7 +19,8 @@ export const theme = createMuiTheme({
 			default: '#f8f8fb'
 		},
 		text: {
-			primary: '#3e3f5e'
+			primary: '#21222c',
+			secondary: '#fff'
 		}
 	},
 	typography: {
@@ -82,6 +83,12 @@ export const theme = createMuiTheme({
 					color: '#adafca',
 					fontWeight: 'bold'
 				}
+			}
+		},
+		MuiChip: {
+			root: {
+				borderRadius: 2,
+				backgroundColor: '#fff'
 			}
 		}
 	}
