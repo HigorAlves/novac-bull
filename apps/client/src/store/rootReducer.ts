@@ -1,9 +1,11 @@
 import { combineReducers } from 'redux'
 
-import { githubReducer } from './github/reducer'
+import { authenticationReducer } from './authentication/reducer'
+import { notificationReducer } from './notification/reducer'
 
 export const rootReducer = combineReducers({
-	github: githubReducer
+	authentication: authenticationReducer,
+	notification: notificationReducer
 })
 
 export type RootState = ReturnType<typeof rootReducer>

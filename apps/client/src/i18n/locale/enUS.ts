@@ -3,14 +3,26 @@ const en: AppLocale = {
 		'pt-BR': 'Portuguese',
 		'en-US': 'English'
 	},
-	home: {
-		metatags: {
-			title: 'CRA Template',
-			url: 'https://example.com.br',
-			description: 'Just a CRA template'
+	authentication: {
+		welcome: 'Welcome to',
+		about:
+			'MANAGE ALL YOUR INVESTMENTS IN ONE PLACE! A complete and free platform for you to follow!',
+		button: {
+			tab: {
+				login: 'Login',
+				register: 'Register'
+			},
+			login: 'See my Investiments',
+			register: 'Start invest'
 		},
-		content: 'Edit the src/Home.tsx file and save to reload.',
-		learn: 'Learn React'
+		form: {
+			loginTitle: 'Account Login',
+			registerTitle: 'Create your account',
+			email: 'Email',
+			password: 'Password',
+			fullname: 'Full name',
+			confirmPassword: 'Confirm your password'
+		}
 	}
 }
 

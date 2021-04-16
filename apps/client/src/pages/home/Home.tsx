@@ -1,48 +1,26 @@
-import React, { useCallback, useState } from 'react'
+import React, { useState } from 'react'
 
-import logo from 'assets/svg/logo.svg'
-import { Helmet } from 'react-helmet'
-import { useTranslation } from 'react-i18next'
+import { Grid } from '@material-ui/core'
+
+import RocketIcon from 'assets/images/icons/rocket.png'
+import { LoginForm, RegisterForm, SelectorSwitch } from 'containers'
+
+import { Main, FormIcon, FormWrapper } from './style.home'
 
 export function HomePage(): JSX.Element {
-	const { t: languages } = useTranslation('languages', { useSuspense: false })
-	const { t, i18n } = useTranslation('home', { useSuspense: false })
-	const [language, setLanguage] = useState<Languages>(
-		i18n.language as Languages
-	)
-
-	const toggleLanguage = useCallback(() => {
-		const toggleTo = language === 'pt-BR' ? 'en-US' : 'pt-BR'
-		setLanguage(toggleTo)
-		i18n.changeLanguage(toggleTo)
-	}, [language, setLanguage, i18n])
+	const [tab, setTab] = useState(0)
 
 	return (
-		<>
-			<Helmet>
-				<title>CRA TEMPLATE</title>
-				<meta name='description' content={t('metatags.description')} />
-				<meta name='url' content={t('metatags.url')} />
-				<meta property='og:title' content={t('metatags.title')} />
-				<meta property='og:description' content={t('metatags.description')} />
-				<meta property='og:url' content={t('metatags.url')} />
-			</Helmet>
-
-			<div>
-				<header>
-					<button onClick={toggleLanguage}>{languages(language)}</button>
-
-					<img src={logo} alt='logo' height={'400px'} />
-					<p>{t('content')}</p>
-					<a
-						href='https://reactjs.org'
-						target='_blank'
-						rel='noopener noreferrer'
-					>
-						{t('learn')}
-					</a>
-				</header>
-			</div>
-		</>
+		<Main container spacing={3} justify={'space-around'} alignItems={'center'}>
+			<Grid item sm={11} md={4} style={{ marginBottom: 80 }}>
+				<SelectorSwitch value={tab} setValue={setTab} />
+			</Grid>
+			<Grid item sm={12} md={4}>
+				<FormWrapper>
+					<FormIcon src={RocketIcon} alt={'foguete'} />
+					{tab === 0 ? <LoginForm /> : <RegisterForm />}
+				</FormWrapper>
+			</Grid>
+		</Main>
 	)
 }

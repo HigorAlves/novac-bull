@@ -1,11 +1,15 @@
 import React from 'react'
 
+import { CssBaseline, ThemeProvider } from '@material-ui/core'
 import * as Sentry from '@sentry/react'
 import { Integrations } from '@sentry/tracing'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
+
+import { Notification } from 'components'
 import Router from 'router'
 import { store } from 'store'
+import { theme } from 'theme'
 
 import * as serviceWorker from './serviceWorker'
 import './i18n'
@@ -16,15 +20,19 @@ Sentry.init({
 	integrations: [new Integrations.BrowserTracing()],
 	tracesSampleRate: 1.0,
 	debug: process.env.NODE_ENV === 'development',
-	environment: process.env.REACT_APP_ENVIROMENT
+	environment: process.env.REACT_APP_ENVIRONMENT
 })
 
 ReactDOM.render(
 	<React.StrictMode>
 		<Sentry.ErrorBoundary fallback={'An error has occurred'}>
-			<Provider store={store}>
-				<Router />
-			</Provider>
+			<ThemeProvider theme={theme}>
+				<CssBaseline />
+				<Provider store={store}>
+					<Notification />
+					<Router />
+				</Provider>
+			</ThemeProvider>
 		</Sentry.ErrorBoundary>
 	</React.StrictMode>,
 	document.getElementById('root')

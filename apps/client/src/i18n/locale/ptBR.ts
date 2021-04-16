@@ -1,16 +1,28 @@
 const ptBR: AppLocale = {
 	languages: {
-		'pt-BR': 'Português',
+		'pt-BR': 'Portuguese',
 		'en-US': 'English'
 	},
-	home: {
-		metatags: {
-			title: 'CRA Template',
-			url: 'https://example.com.br',
-			description: 'Apenas um template de CRA.'
+	authentication: {
+		welcome: 'Welcome to',
+		about:
+			'MANAGE ALL YOUR INVESTMENTS IN ONE PLACE! A complete and free platform for you to follow!',
+		button: {
+			tab: {
+				login: 'Login',
+				register: 'Register'
+			},
+			login: 'See my Investiments',
+			register: 'Start invest'
 		},
-		content: 'Edite o arquivo src/Home.tsx e salve para atualizar',
-		learn: 'Aprenda React'
+		form: {
+			loginTitle: 'Account Login',
+			registerTitle: 'Create your account',
+			email: 'Email',
+			password: 'Password',
+			fullname: 'Full name',
+			confirmPassword: 'Confirm your password'
+		}
 	}
 }
 

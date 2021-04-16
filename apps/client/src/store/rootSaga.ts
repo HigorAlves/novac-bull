@@ -1,8 +1,11 @@
 import { all, takeLatest } from 'redux-saga/effects'
 
-import { load } from './github/sagas'
-import { GithubActionTypes } from './github/types'
+import { login, register } from './authentication/sagas'
+import { AuthenticationActionTypes } from './authentication/types'
 
-export function* rootSaga(): Generator<any> {
-	return yield all([takeLatest(GithubActionTypes.GET_REPOSITORIES, load)])
+export function* rootSaga(): any {
+	return yield all([
+		takeLatest(AuthenticationActionTypes.LOGIN, login),
+		takeLatest(AuthenticationActionTypes.REGISTER, register)
+	])
 }

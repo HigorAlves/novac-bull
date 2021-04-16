@@ -1,8 +1,9 @@
 import React from 'react'
 
 import * as Sentry from '@sentry/react'
-import { HomePage, Login } from 'pages'
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import { Switch, Route, BrowserRouter } from 'react-router-dom'
+
+import { HomePage } from 'pages'
 
 const SentryRoute = Sentry.withSentryRouting(Route as any)
 
@@ -10,8 +11,8 @@ export default function Routes(): JSX.Element {
 	return (
 		<BrowserRouter>
 			<Switch>
-				<SentryRoute path='/login'>
-					<Login />
+				<SentryRoute path='/ts'>
+					<h1>S</h1>
 				</SentryRoute>
 				<SentryRoute path='/'>
 					<HomePage />
