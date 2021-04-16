@@ -1,0 +1,67 @@
+{
+	"name": "jetpack-stack",
+	"version": "0.3.0",
+	"main": "index.js",
+	"license": "MIT",
+	"repository": "git@github.com:HigorAlves/jetpack-stack.git",
+	"private": true,
+	"workspaces": [
+		"apps/*",
+		"packages/*",
+		"shared/*"
+	],
+	"scripts": {
+		"dev:api": "lerna run start:dev --scope @jetpack/api --stream",
+		"dev:client": "lerna run start --scope @jetpack/client --stream",
+		"dev:ssr": "lerna run dev --scope @jetpack/ssr --stream",
+		"build": "lerna run build --stream --concurrency 2",
+		"test": "lerna run test --stream --concurrency 2",
+		"test:ci": "lerna run test:ci --stream --concurrency 2",
+		"lint": "lerna run lint --stream --concurrency 2",
+		"prettier": "lerna run prettier --stream --concurrency 2",
+		"lighthouse": "lerna run lighthouse --stream --concurrency 2",
+		"release": "standard-version",
+		"release:major": "yarn run release --release-as major --no-verify",
+		"release:minor": "yarn run release --release-as minor --no-verify",
+		"release:patch": "yarn run release --release-as patch --no-verify",
+		"release:alpha": "yarn run release --prerelease alpha --no-verify",
+		"release:beta": "yarn run release --prerelease beta --no-verify"
+	},
+	"husky": {
+		"hooks": {
+			"pre-commit": "yarn lint && lint-staged",
+			"commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+			"pre-push": "yarn test"
+		}
+	},
+	"lint-staged": {
+		"*.{tsx,ts,json}": [
+			"pretty-quick --staged"
+		]
+	},
+	"devDependencies": {
+		"@commitlint/cli": "^12.1.1",
+		"@commitlint/config-conventional": "^12.1.1",
+		"@commitlint/config-lerna-scopes": "^12.1.1",
+		"@typescript-eslint/eslint-plugin": "^4.22.0",
+		"@typescript-eslint/parser": "^4.22.0",
+		"commitlint": "^12.1.1",
+		"eslint": "^7.24.0",
+		"eslint-config-prettier": "^8.2.0",
+		"eslint-config-standard": "^16.0.2",
+		"eslint-plugin-import": "^2.22.1",
+		"eslint-plugin-node": "^11.1.0",
+		"eslint-plugin-prettier": "^3.4.0",
+		"eslint-plugin-promise": "^5.1.0",
+		"eslint-plugin-react": "^7.23.2",
+		"eslint-plugin-standard": "^5.0.0",
+		"husky": "^6.0.0",
+		"lerna": "^4.0.0",
+		"lerna-changelog": "^1.0.1",
+		"lint-staged": "^10.5.4",
+		"prettier": "^2.2.1",
+		"pretty-quick": "^3.1.0",
+		"rimraf": "^3.0.2",
+		"standard-version": "^9.2.0"
+	}
+}
