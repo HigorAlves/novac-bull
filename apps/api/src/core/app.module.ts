@@ -9,6 +9,7 @@ import { AuthModule } from '~/core/auth/auth.module'
 import { UserModule } from '~/core/user/user.module'
 import { LoggerModule } from '~/interceptors/logger.interceptor'
 import { StocksModule } from './stocks/stocks.module';
+import { WalletModule } from './wallet/wallet.module';
 
 @Module({
 	imports: [
@@ -24,7 +25,8 @@ import { StocksModule } from './stocks/stocks.module';
 		LoggerModule,
 		AuthModule,
 		UserModule,
-		StocksModule
+		StocksModule,
+		WalletModule
 	],
 	controllers: [AppController]
 })
