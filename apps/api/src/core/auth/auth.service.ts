@@ -72,27 +72,35 @@ export class AuthService {
 		const userExists = await this.checkUserExists(data.email)
 
 		if (!userExists) {
-			await this.usersService.create(data)
-			try {
-				await sendMail({
-					from: 'higorhaalves@gmail.com',
-					to: data.email,
-					subject: 'Bem vindo a nossa plataforma',
-					dynamic_template_data: {
-						name: data.name
-					},
-					templateId: EmailTemplates.WELCOME
-				})
-			} catch (e) {
-				this.logger.log(`Cannot send welcome email for ${data.email}`)
+			const user = await this.usersService.create(data)
+			if (!user.error) {
+				try {
+					await sendMail({
+						from: 'higorhaalves@gmail.com',
+						to: data.email,
+						subject: 'Bem vindo a nossa plataforma',
+						dynamic_template_data: {
+							name: data.name
+						},
+						templateId: EmailTemplates.WELCOME
+					})
+				} catch (e) {
+					this.logger.log(`Cannot send welcome email for ${data.email}`)
+				}
+
+				this.logger.log('A new user inside our DB 🎉🎉')
+
+				return {
+					error: false,
+					message: 'User has been created',
+					status: 201
+				}
 			}
 
-			this.logger.log('A new user inside our DB 🎉🎉')
-
 			return {
-				error: false,
-				message: 'User has been created',
-				status: 201
+				status: user.status,
+				message: user.message,
+				error: true
 			}
 		}
 

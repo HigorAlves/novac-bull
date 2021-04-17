@@ -40,17 +40,30 @@ export class UserService {
 	}
 
 	async create(data: IUser): Promise<IResponse<UserDocument>> {
-		const saltOrRounds = 10
-		data.password = bcrypt.hashSync(data.password, saltOrRounds)
-		const user = await this.userRepository.createUser(data)
+		const cpfRegex = /[0-9]{3}\.?[0-9]{3}\.?[0-9]{3}-?[0-9]{2}/
+		const cpfIsValid = data.cpf.match(cpfRegex)
 
-		this.logger.log('New user created', { user: data.email })
+		if (cpfIsValid) {
+			const saltOrRounds = 10
+			data.password = bcrypt.hashSync(data.password, saltOrRounds)
+			const user = await this.userRepository.createUser(data)
 
+			this.logger.log('New user created', { user: data.email })
+
+			return {
+				status: 201,
+				message: 'User created successfully',
+				error: false,
+				data: user
+			}
+		}
+		this.logger.log('User cannot be create because CPF is not valid', {
+			user: data.email
+		})
 		return {
-			status: 201,
-			message: 'User created successfully',
-			error: false,
-			data: user
+			status: 412,
+			message: 'User cannot be create because CPF is not valid',
+			error: true
 		}
 	}
 

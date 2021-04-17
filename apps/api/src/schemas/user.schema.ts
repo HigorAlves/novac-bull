@@ -1,7 +1,6 @@
+import { IUser } from '@jetpack/interfaces'
 import { Prop, raw, Schema, SchemaFactory } from '@nestjs/mongoose'
 import { Document } from 'mongoose'
-
-import { IUser } from '~/interfaces/user'
 
 export type UserDocument = IUser & Document
 

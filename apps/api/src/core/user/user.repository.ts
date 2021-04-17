@@ -58,7 +58,7 @@ export class UserRepository {
 		return await this.Database.findOneAndUpdate({ id }, user).exec()
 	}
 
-	async updatePassword(email: string, password: string): Promise<any> {
+	async updatePassword(email: string, password: string): Promise<UserDocument> {
 		const user = await this.Database.findOne({ email }).exec()
 
 		user.update({ password })

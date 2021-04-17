@@ -30,3 +30,5 @@ export const LOG_DNA = {
 	env: process.env.LOGDNA_ENV,
 	handleExceptions: true
 }
+
+export const CRYPTO_PASS = process.env.CRYPTO_KEY
