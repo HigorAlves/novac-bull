@@ -12,7 +12,12 @@ export class UpdateUserDto {
 	@ApiProperty()
 	@IsNotEmpty({ message: ErrorMessages.isEmpty })
 	@IsString({ message: ErrorMessages.isString })
-	firstName: string
+	name: string
+
+	@ApiProperty()
+	@IsNotEmpty({ message: ErrorMessages.isEmpty })
+	@IsString({ message: ErrorMessages.isString })
+	cpf: string
 
 	@ApiProperty()
 	@IsNotEmpty({ message: ErrorMessages.isEmpty })
@@ -21,10 +26,10 @@ export class UpdateUserDto {
 
 	@ApiProperty()
 	@IsNotEmpty({ message: ErrorMessages.isEmpty })
-	@IsString({ message: ErrorMessages.isString })
-	lastName: string
+	locale: { currency: 'BRL' | 'USD'; language: 'pt-BR' | 'en-US' }
 
 	@ApiProperty()
 	@IsNotEmpty({ message: ErrorMessages.isEmpty })
-	locale: { currency: 'BRL' | 'USD'; language: 'Portuguese' | 'English' }
+	@IsString({ message: ErrorMessages.isString })
+	role: 'client' | 'admin'
 }

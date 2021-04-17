@@ -19,6 +19,9 @@ export class User {
 	@Prop()
 	email: string
 
+	@Prop()
+	cpf: string
+
 	@Prop(
 		raw({
 			currency: { type: String },

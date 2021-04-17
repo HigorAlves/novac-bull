@@ -18,12 +18,12 @@ export class CreateUserDto implements IUser {
 	@ApiProperty()
 	@IsNotEmpty({ message: ErrorMessages.isEmpty })
 	@IsString({ message: ErrorMessages.isString })
-	firstName: string
+	name: string
 
 	@ApiProperty()
 	@IsNotEmpty({ message: ErrorMessages.isEmpty })
 	@IsString({ message: ErrorMessages.isString })
-	lastName: string
+	cpf: string
 
 	@ApiProperty()
 	@IsNotEmpty({ message: ErrorMessages.isEmpty })
@@ -32,7 +32,7 @@ export class CreateUserDto implements IUser {
 
 	@ApiProperty()
 	@IsNotEmpty({ message: ErrorMessages.isEmpty })
-	locale: { currency: 'BRL' | 'USD'; language: 'Portuguese' | 'English' }
+	locale: { currency: 'BRL' | 'USD'; language: 'pt-BR' | 'en-US' }
 
 	@ApiProperty()
 	@IsNotEmpty({ message: ErrorMessages.isEmpty })
