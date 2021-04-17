@@ -5,7 +5,6 @@ import {
 	Avatar,
 	Button,
 	Chip,
-	Link,
 	Toolbar,
 	Typography
 } from '@material-ui/core'

@@ -6,7 +6,7 @@ export const useStyles = makeStyles((theme: Theme) =>
 		toolbar: {
 			display: 'flex',
 			justifyContent: 'space-between',
-			minHeight: 180,
+			minHeight: 200,
 			alignItems: 'flex-start',
 			paddingTop: theme.spacing(1),
 			paddingBottom: theme.spacing(2)
