@@ -1,9 +1,12 @@
-import { Injectable } from '@nestjs/common'
+import { IUserPosition } from '@jetpack/interfaces'
+import { forwardRef, Inject, Injectable } from '@nestjs/common'
 import * as bcrypt from 'bcrypt'
 import * as Cryptojs from 'crypto-js'
 
 import { CRYPTO_PASS } from '~/constants'
+import { StockRepository } from '~/core/stocks/stock.repository'
 import { UserRepository } from '~/core/user/user.repository'
+import { WalletRepository } from '~/core/wallet/wallet.repository'
 import { MyLogger } from '~/interceptors/logger.interceptor'
 import { IUser } from '~/interfaces/user'
 import { UserDocument } from '~/schemas/user.schema'
@@ -12,7 +15,9 @@ import { UserDocument } from '~/schemas/user.schema'
 export class UserService {
 	constructor(
 		private userRepository: UserRepository,
-		private logger: MyLogger
+		private logger: MyLogger,
+		private wallet: WalletRepository,
+		private stocks: StockRepository
 	) {
 		this.logger.setContext('UserService')
 	}
@@ -103,5 +108,28 @@ export class UserService {
 		this.logger.log('Updated user password', { user: email })
 		const passwordHash = bcrypt.hashSync(password, 10)
 		return this.userRepository.updatePassword(email, passwordHash)
+	}
+
+	async position(email: string): Promise<IResponse<IUserPosition | void>> {
+		const user = await this.userRepository.get(email)
+		const wallets = await this.wallet.getWallets(user.id)
+		const stock = await this.stocks.getStockList(user.id)
+		const wallet = wallets[0]
+		let stockPrice = 0
+
+		stock.forEach(item => (stockPrice += item.buyPrice))
+		console.log(stockPrice, wallet.amount)
+		const data: IUserPosition = {
+			checkingAccountAmount: wallet.amount,
+			consolidated: wallet.amount + stockPrice,
+			positions: stock
+		}
+
+		return {
+			message: 'Your folio',
+			status: 200,
+			error: false,
+			data
+		}
 	}
 }

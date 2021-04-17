@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common'
+import { forwardRef, Module } from '@nestjs/common'
 import { MongooseModule } from '@nestjs/mongoose'
 
 import { StocksController } from './stocks.controller'
@@ -13,12 +13,13 @@ import { StockSummarySchema } from '~/schemas/stockSummary.schema'
 	imports: [
 		LoggerModule,
 		WalletModule,
-		UserModule,
+		forwardRef(() => UserModule),
 		MongooseModule.forFeature([
 			{ name: 'StockSummary', schema: StockSummarySchema }
 		])
 	],
 	providers: [StocksService, StockRepository],
-	controllers: [StocksController]
+	controllers: [StocksController],
+	exports: [StockRepository]
 })
 export class StocksModule {}

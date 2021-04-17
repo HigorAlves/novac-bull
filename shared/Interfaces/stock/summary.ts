@@ -7,7 +7,7 @@ export interface IStock {
 export interface IStockSummary {
 	id?: string
 	owner: string
-	stocks: IStock[] | undefined
+	stock: IStock[] | undefined
 	createdAt?: Date
 	updatedAt?: Date
 }

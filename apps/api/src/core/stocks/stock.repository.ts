@@ -16,7 +16,7 @@ export class StockRepository {
 	async createStockSummary(uid: string): Promise<boolean> {
 		const summary: IStockSummary = {
 			owner: uid,
-			stocks: []
+			stock: []
 		}
 		const data = new this.Database(summary)
 
@@ -29,14 +29,19 @@ export class StockRepository {
 		}
 	}
 
+	async getStockList(uid: string): Promise<IStock[]> {
+		const summary = await this.Database.findOne({ owner: uid }).exec()
+		return summary.stock
+	}
+
 	async registerStocks(uid: string, stock: IStock[]): Promise<boolean> {
 		const summary = await this.Database.findOne({ owner: uid }).exec()
 		let stocks = []
 		if (!summary) {
 			await this.createStockSummary(uid)
 		} else {
-			if (summary.stocks) {
-				stocks = summary.stocks
+			if (summary.stock) {
+				stocks = summary.stock
 			}
 		}
 
