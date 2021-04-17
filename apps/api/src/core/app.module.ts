@@ -8,6 +8,7 @@ import { MONGO_DB_CONFIG } from '~/config/mongoose.config'
 import { AuthModule } from '~/core/auth/auth.module'
 import { UserModule } from '~/core/user/user.module'
 import { LoggerModule } from '~/interceptors/logger.interceptor'
+import { StocksModule } from './stocks/stocks.module';
 
 @Module({
 	imports: [
@@ -22,7 +23,8 @@ import { LoggerModule } from '~/interceptors/logger.interceptor'
 		}),
 		LoggerModule,
 		AuthModule,
-		UserModule
+		UserModule,
+		StocksModule
 	],
 	controllers: [AppController]
 })

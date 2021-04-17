@@ -79,7 +79,7 @@ export class AuthService {
 					to: data.email,
 					subject: 'Bem vindo a nossa plataforma',
 					dynamic_template_data: {
-						name: `${data.firstName} ${data.lastName}`
+						name: data.name
 					},
 					templateId: EmailTemplates.WELCOME
 				})
