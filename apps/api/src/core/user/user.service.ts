@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common'
 import * as bcrypt from 'bcrypt'
+import * as Cryptojs from 'crypto-js'
 
+import { CRYPTO_PASS } from '~/constants'
 import { UserRepository } from '~/core/user/user.repository'
 import { MyLogger } from '~/interceptors/logger.interceptor'
 import { IUser } from '~/interfaces/user'
@@ -27,6 +29,18 @@ export class UserService {
 		}
 	}
 
+	async getByID(id: string) {
+		this.logger.log('Getting user info by ID')
+		const user = await this.userRepository.getByID(id)
+
+		return {
+			error: false,
+			message: 'Data from user',
+			status: 200,
+			data: user
+		}
+	}
+
 	async findAll(): Promise<IResponse<IUser[]>> {
 		this.logger.log('Getting a list of users')
 		const users = await this.userRepository.getAll()
@@ -42,6 +56,7 @@ export class UserService {
 	async create(data: IUser): Promise<IResponse<UserDocument>> {
 		const cpfRegex = /[0-9]{3}\.?[0-9]{3}\.?[0-9]{3}-?[0-9]{2}/
 		const cpfIsValid = data.cpf.match(cpfRegex)
+		data.cpf = Cryptojs.AES.encrypt(data.cpf, CRYPTO_PASS).toString()
 
 		if (cpfIsValid) {
 			const saltOrRounds = 10

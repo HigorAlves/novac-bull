@@ -56,6 +56,3 @@ export class WalletController {
 		response.status(result.status).send(result)
 	}
 }
-
-// TODO: Criar testes para o fluxo de login
-// TODO: Enviar dinheiro por meio do SPB para isso preciso criar um modulo que use esse modulo

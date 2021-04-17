@@ -10,6 +10,7 @@ import { UserModule } from '~/core/user/user.module'
 import { LoggerModule } from '~/interceptors/logger.interceptor'
 import { StocksModule } from './stocks/stocks.module';
 import { WalletModule } from './wallet/wallet.module';
+import { SpbModule } from './spb/spb.module';
 
 @Module({
 	imports: [
@@ -26,7 +27,8 @@ import { WalletModule } from './wallet/wallet.module';
 		AuthModule,
 		UserModule,
 		StocksModule,
-		WalletModule
+		WalletModule,
+		SpbModule
 	],
 	controllers: [AppController]
 })

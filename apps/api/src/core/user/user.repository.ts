@@ -20,6 +20,14 @@ export class UserRepository {
 		return await this.Database.findOne({ email }).exec()
 	}
 
+	async getByCPF(cpf: string): Promise<UserDocument> {
+		return await this.Database.findOne({ cpf }).exec()
+	}
+
+	async getByID(uid: string): Promise<UserDocument> {
+		return await this.Database.findById(uid).exec()
+	}
+
 	async getAll(): Promise<IUser[]> {
 		return await this.Database.find().exec()
 	}

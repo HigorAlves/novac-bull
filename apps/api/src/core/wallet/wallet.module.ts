@@ -15,6 +15,7 @@ import { WalletSchema } from '~/schemas/wallet.schema'
 		LoggerModule
 	],
 	controllers: [WalletController],
-	providers: [WalletRepository, WalletService]
+	providers: [WalletRepository, WalletService],
+	exports: [WalletService]
 })
 export class WalletModule {}

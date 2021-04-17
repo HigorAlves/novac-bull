@@ -8,3 +8,4 @@ export type {
 export type { IUser } from './user'
 export type { ICompnay, ILogo, IQuote, IMostActiveStocks } from './iexcloud'
 export type { IWallet, ITransaction } from './wallet/wallet'
+export type { ISPBTransaction } from './spb/spb'
