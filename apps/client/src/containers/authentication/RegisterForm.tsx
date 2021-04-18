@@ -1,5 +1,6 @@
 import React from 'react'
 
+import { IUser } from '@jetpack/interfaces'
 import { Typography } from '@material-ui/core'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
@@ -34,14 +35,24 @@ export function RegisterForm() {
 	})
 	const formik = useFormik({
 		initialValues: {
-			fullname: '',
+			name: '',
 			email: '',
 			password: '',
 			passwordConfirmation: ''
 		},
 		validationSchema: validationSchema,
 		onSubmit: values => {
-			dispatch(requestRegister(values))
+			const data: IUser = {
+				...values,
+				image: 'tess',
+				cpf: '00000000000',
+				role: 'client',
+				locale: {
+					language: 'pt-BR',
+					currency: 'BRL'
+				}
+			}
+			dispatch(requestRegister(data))
 		}
 	})
 
@@ -59,14 +70,14 @@ export function RegisterForm() {
 					fullWidth
 					id='name'
 					name='name'
-					label={t('form.fullname')}
+					label={t('form.name')}
 					variant={'outlined'}
 					color={'secondary'}
 					size={'small'}
-					value={formik.values.fullname}
+					value={formik.values.name}
 					onChange={formik.handleChange}
-					error={formik.touched.fullname && Boolean(formik.errors.fullname)}
-					helperText={formik.touched.fullname && formik.errors.fullname}
+					error={formik.touched.name && Boolean(formik.errors.name)}
+					helperText={formik.touched.name && formik.errors.name}
 				/>
 				<TextField
 					fullWidth

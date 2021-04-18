@@ -1,13 +1,17 @@
-import { ILoginProps, IRegisterProps } from '@jetpack/interfaces'
+import {
+	ILogin as ILoginProps,
+	IUser as IRegisterProps
+} from '@jetpack/interfaces'
 
 import {
 	AuthenticationActionTypes,
 	ILogin,
-	ILoginSuccess,
 	ILoginError,
+	ILoginSuccess,
 	IRegister,
+	IRegisterError,
 	IRegisterSuccess,
-	IRegisterError
+	IVerifyLogin
 } from './types'
 
 export function requestLogin(payload: ILoginProps): ILogin {
@@ -51,5 +55,15 @@ export function registerSuccess(token: string): IRegisterSuccess {
 export function errorRegister(): IRegisterError {
 	return {
 		type: AuthenticationActionTypes.REGISTER_ERROR
+	}
+}
+
+export function verifyLogin(history: any, token: string): IVerifyLogin {
+	return {
+		type: AuthenticationActionTypes.VERIFY_LOGIN,
+		payload: {
+			history,
+			token
+		}
 	}
 }

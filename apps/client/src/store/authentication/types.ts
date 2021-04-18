@@ -1,4 +1,7 @@
-import { ILoginProps, IRegisterProps } from '@jetpack/interfaces'
+import {
+	ILogin as ILoginProps,
+	IUser as IRegisterProps
+} from '@jetpack/interfaces'
 
 export interface IAuthenticationState {
 	token: string | null
@@ -12,7 +15,8 @@ export enum AuthenticationActionTypes {
 	LOGIN_ERROR = '@auth/LOGIN_ERROR',
 	REGISTER = '@auth/REGISTER',
 	REGISTER_SUCCESS = '@auth/REGISTER_SUCCESS',
-	REGISTER_ERROR = '@auth/REGISTER_ERROR'
+	REGISTER_ERROR = '@auth/REGISTER_ERROR',
+	VERIFY_LOGIN = '@auth/VERIFY_LOGIN'
 }
 
 export interface ILogin {
@@ -47,6 +51,14 @@ export interface IRegisterError {
 	type: typeof AuthenticationActionTypes.REGISTER_ERROR
 }
 
+export interface IVerifyLogin {
+	type: typeof AuthenticationActionTypes.VERIFY_LOGIN
+	payload: {
+		history: any
+		token: string
+	}
+}
+
 export type AuthenticationActions =
 	| ILogin
 	| ILoginSuccess
@@ -54,3 +66,4 @@ export type AuthenticationActions =
 	| IRegister
 	| IRegisterSuccess
 	| IRegisterError
+	| IVerifyLogin

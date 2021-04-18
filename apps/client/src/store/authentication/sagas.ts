@@ -2,7 +2,8 @@ import * as Sentry from '@sentry/browser'
 import { Severity } from '@sentry/browser'
 import { call, put } from 'redux-saga/effects'
 
-import { ILogin, IRegister } from 'store/authentication/types'
+import { isTokenValid } from 'services/api/auth'
+import { ILogin, IRegister, IVerifyLogin } from 'store/authentication/types'
 import { openNotification } from 'store/notification/actions'
 
 import { loggedIn, registerSuccess } from './actions'
@@ -61,6 +62,28 @@ export function* register(action: IRegister) {
 				email: payload.email
 			})
 			Sentry.captureException(error)
+		})
+	}
+}
+
+export function* verifyLogin(action: IVerifyLogin): Generator {
+	const { payload } = action
+	try {
+		const isValid = yield call(isTokenValid, payload.token)
+		if (!isValid) {
+			payload.history.push('/')
+		}
+	} catch (e) {
+		openNotification({
+			open: true,
+			type: 'error',
+			message: 'Something went wrong'
+		})
+		Sentry.withScope(scope => {
+			scope.setTag('authentication', 'login')
+			scope.setLevel(Severity.Critical)
+
+			Sentry.captureException(e)
 		})
 	}
 }

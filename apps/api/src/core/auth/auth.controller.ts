@@ -10,6 +10,7 @@ import {
 } from '@nestjs/common'
 import {
 	ApiBearerAuth,
+	ApiCreatedResponse,
 	ApiOkResponse,
 	ApiResponse,
 	ApiTags
@@ -23,6 +24,7 @@ import {
 	UpdatePasswordDTO
 } from './dto'
 import { AuthService } from '~/core/auth/auth.service'
+import { VerifyTokenDTO } from '~/core/auth/dto/verifyToken.dto'
 import { JwtAuthGuard } from '~/guards'
 import { SentryInterceptor } from '~/interceptors/sentry.interceptor'
 import { jwtPayload } from '~/types/jwtPayload'
@@ -106,5 +108,15 @@ export class AuthController {
 		const userData = { ...user, ...data }
 		const response = await this.authService.updatePassword(userData)
 		return res.status(response.status).send(response)
+	}
+
+	@ApiCreatedResponse()
+	@Post('verifytoken')
+	async verifyToken(
+		@Body() { token }: VerifyTokenDTO,
+		@Res() response: Response
+	): Promise<Response> {
+		const result = await this.authService.validateToken(token)
+		return response.status(200).send(result)
 	}
 }

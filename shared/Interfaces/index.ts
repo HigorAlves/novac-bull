@@ -3,7 +3,8 @@ export type {
 	TRole,
 	ILogin,
 	INewPassword,
-	IUpdatePassword
+	IUpdatePassword,
+	IResponse
 } from './authentication'
 export type { IUser, IUserPosition } from './user'
 export type { ICompnay, ILogo, IQuote, IMostActiveStocks } from './iexcloud'

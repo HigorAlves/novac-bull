@@ -13,7 +13,6 @@ import { LoggerModule } from '~/interceptors/logger.interceptor'
 import { ILogin } from '~/interfaces/authentication'
 import { IUser } from '~/interfaces/user'
 import { RecoverySchema } from '~/schemas/recovery.schema'
-import { UserSchema } from '~/schemas/user.schema'
 import {
 	closeInMongodbConnection,
 	rootMongooseTestModule
@@ -23,12 +22,12 @@ describe('AuthService', () => {
 	let service: AuthService
 	const userData: IUser = {
 		email: 'higor.test@gmail.com',
-		firstName: 'Higor',
+		name: 'Higor Alves',
 		image: 'jesttest',
-		lastName: 'Alves',
+		cpf: '00000000000',
 		locale: {
 			currency: 'BRL',
-			language: 'Portuguese'
+			language: 'pt-BR'
 		},
 		password: 'jesttest',
 		role: 'client'
@@ -41,8 +40,8 @@ describe('AuthService', () => {
 	beforeAll(async () => {
 		const module: TestingModule = await Test.createTestingModule({
 			imports: [
-				UserModule,
 				rootMongooseTestModule(),
+				UserModule,
 				PassportModule,
 				MongooseModule.forFeature([
 					{ name: 'Recovery', schema: RecoverySchema }
@@ -55,7 +54,6 @@ describe('AuthService', () => {
 			],
 			providers: [AuthService, LocalStrategy, JwtStrategy, AuthRepository]
 		}).compile()
-
 		service = module.get<AuthService>(AuthService)
 	}, 30000)
 

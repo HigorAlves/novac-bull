@@ -208,4 +208,23 @@ export class AuthService {
 			return { error: error, message: 'Something goes wrong', status: 500 }
 		}
 	}
+
+	async validateToken(token: string): Promise<IResponse<boolean>> {
+		try {
+			await this.jwtService.verifyAsync(token)
+			return {
+				error: false,
+				status: 200,
+				data: true,
+				message: 'Token is valid'
+			}
+		} catch (error) {
+			return {
+				error: false,
+				status: 200,
+				data: false,
+				message: 'Token is not valid'
+			}
+		}
+	}
 }

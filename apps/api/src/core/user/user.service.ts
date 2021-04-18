@@ -118,7 +118,7 @@ export class UserService {
 		let stockPrice = 0
 
 		stock.forEach(item => (stockPrice += item.buyPrice))
-		console.log(stockPrice, wallet.amount)
+
 		const data: IUserPosition = {
 			checkingAccountAmount: wallet.amount,
 			consolidated: wallet.amount + stockPrice,

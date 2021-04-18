@@ -11,15 +11,19 @@ export const rootMongooseTestModule = () =>
 			const uri = await mongodb.getUri()
 			return {
 				uri,
-				useCreateIndex: true
+				useCreateIndex: true,
+				useNewUrlParser: true,
+				autoReconnect: true,
+				reconnectTries: Number.MAX_VALUE,
+				reconnectInterval: 1000
 			}
 		}
 	})
 
 export const closeInMongodbConnection = async () => {
 	if (mongodb) {
-		await mongoose.connection.db.dropDatabase()
-		await mongoose.disconnect()
+		await mongoose.connection.dropDatabase()
+		await mongoose.connection.close()
 		await mongodb.stop()
 	}
 }
