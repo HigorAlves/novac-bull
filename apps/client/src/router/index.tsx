@@ -19,6 +19,9 @@ export default function Routes(): JSX.Element {
 				<SentryRoute path='/'>
 					<HomePage />
 				</SentryRoute>
+				<SentryRoute path='*'>
+					<h1>404 not found</h1>
+				</SentryRoute>
 			</Switch>
 		</BrowserRouter>
 	)
