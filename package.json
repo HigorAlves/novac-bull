@@ -11,6 +11,7 @@
 		"shared/*"
 	],
 	"scripts": {
+		"start:prod:api": "lerna run start:prod --scope @jetpack/api --stream",
 		"dev:api": "lerna run start:dev --scope @jetpack/api --stream",
 		"dev:client": "lerna run start --scope @jetpack/client --stream",
 		"dev:ssr": "lerna run dev --scope @jetpack/ssr --stream",
