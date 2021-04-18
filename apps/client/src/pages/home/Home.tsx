@@ -7,7 +7,7 @@ import { LoginForm, RegisterForm, SelectorSwitch } from 'containers'
 
 import { Main, FormIcon, FormWrapper } from './style.home'
 
-export function HomePage(): JSX.Element {
+export default function HomePage(): JSX.Element {
 	const [tab, setTab] = useState(0)
 
 	return (

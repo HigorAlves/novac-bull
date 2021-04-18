@@ -1,28 +1,56 @@
-import React from 'react'
+import React, {
+	ComponentType,
+	lazy,
+	LazyExoticComponent,
+	ReactNode
+} from 'react'
 
-import * as Sentry from '@sentry/react'
-import { Switch, Route, BrowserRouter } from 'react-router-dom'
+import { BrowserRouter } from 'react-router-dom'
 
-import { HomePage, MyAccount } from 'pages'
+import Router from 'router/Router'
 
-import { PrivateRoute } from './PrivateRoute'
+export interface IRoute {
+	path: string
+	exact: boolean
+	fallback: NonNullable<ReactNode> | null
+	component?: LazyExoticComponent<ComponentType<any>> | any
+	routes?: IRoute[]
+	redirect?: string
+	private?: boolean
+}
 
-const SentryRoute = Sentry.withSentryRouting(Route as any)
+export const ROUTES: IRoute[] = [
+	{
+		path: '/login',
+		exact: true,
+		fallback: <div> Loading... </div>,
+		component: lazy(() => import('../pages/home/Home'))
+	},
+	{
+		path: '/register',
+		exact: true,
+		fallback: <div> Loading... </div>,
+		component: lazy(() => import('../pages/home/Home'))
+	},
+	{
+		path: '/',
+		exact: true,
+		fallback: <div> Loading... </div>,
+		component: lazy(() => import('../pages/home/Home'))
+	},
+	{
+		path: '*',
+		exact: false,
+		private: false,
+		fallback: <div> Loading... </div>,
+		component: lazy(() => import('pages/404'))
+	}
+]
 
 export default function Routes(): JSX.Element {
 	return (
 		<BrowserRouter>
-			<Switch>
-				<PrivateRoute path='/dashboard'>
-					<MyAccount />
-				</PrivateRoute>
-				<SentryRoute path='/'>
-					<HomePage />
-				</SentryRoute>
-				<SentryRoute path='*'>
-					<h1>404 not found</h1>
-				</SentryRoute>
-			</Switch>
+			<Router routes={ROUTES} />
 		</BrowserRouter>
 	)
 }
