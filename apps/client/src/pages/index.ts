@@ -1,2 +1,4 @@
-export { HomePage } from './home/Home'
+import HomePage from './home/Home'
 export * from './Dashboard'
+
+export { HomePage }
