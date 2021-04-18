@@ -11,7 +11,12 @@
 
 ## Front End
 
-- [ ] TORO 001 - Implementar login
-- [ ] TORO 002 - Visualizar saldo, investimentos e patrimonio
+- [ ] TORO 001 - Implementar
+	- [ ] Login
+	- [ ] Registro - adicionar o campo de cpf
+- [ ] TORO 002 - Visualizar
+	- [ ] Saldo
+	- [ ] Investimentos
+	- [ ] Patrimonio
 - [ ] TORO 004 - Visualizar uma lista de 5 ações
 - [ ] TORO 004 - Comprar uma ação com o codigo dela
