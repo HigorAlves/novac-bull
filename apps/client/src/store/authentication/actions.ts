@@ -2,65 +2,64 @@ import {
 	ILogin as ILoginProps,
 	IUser as IRegisterProps
 } from '@jetpack/interfaces'
+import { History } from 'history'
 
-import {
-	AuthenticationActionTypes,
-	ILogin,
-	ILoginError,
-	ILoginSuccess,
-	IRegister,
-	IRegisterError,
-	IRegisterSuccess,
-	IVerifyLogin
-} from './types'
+import * as Types from 'store/authentication/types'
 
-export function requestLogin(payload: ILoginProps): ILogin {
+export function requestLogin(
+	login: ILoginProps,
+	history: History
+): Types.ILogin {
+	const { password, email } = login
 	return {
-		type: AuthenticationActionTypes.LOGIN,
-		payload
+		type: Types.AuthenticationActionTypes.LOGIN,
+		payload: {
+			email,
+			password,
+			history
+		}
 	}
 }
 
-export function loggedIn(token: string): ILoginSuccess {
+export function loggedIn(token: string): Types.ILoginSuccess {
 	return {
-		type: AuthenticationActionTypes.LOGIN_SUCCESS,
+		type: Types.AuthenticationActionTypes.LOGIN_SUCCESS,
 		payload: {
 			token
 		}
 	}
 }
 
-export function erroLogin(): ILoginError {
+export function errorLogin(): Types.ILoginError {
 	return {
-		type: AuthenticationActionTypes.LOGIN_ERROR
+		type: Types.AuthenticationActionTypes.LOGIN_ERROR
 	}
 }
-
-export function requestRegister(payload: IRegisterProps): IRegister {
+export function requestRegister(payload: IRegisterProps): Types.IRegister {
 	return {
-		type: AuthenticationActionTypes.REGISTER,
+		type: Types.AuthenticationActionTypes.REGISTER,
 		payload
 	}
 }
 
-export function registerSuccess(token: string): IRegisterSuccess {
+export function registerSuccess(token: string): Types.IRegisterSuccess {
 	return {
-		type: AuthenticationActionTypes.REGISTER_SUCCESS,
+		type: Types.AuthenticationActionTypes.REGISTER_SUCCESS,
 		payload: {
 			token
 		}
 	}
 }
 
-export function errorRegister(): IRegisterError {
+export function errorRegister(): Types.IRegisterError {
 	return {
-		type: AuthenticationActionTypes.REGISTER_ERROR
+		type: Types.AuthenticationActionTypes.REGISTER_ERROR
 	}
 }
 
-export function verifyLogin(history: any, token: string): IVerifyLogin {
+export function verifyLogin(history: any, token: string): Types.IVerifyLogin {
 	return {
-		type: AuthenticationActionTypes.VERIFY_LOGIN,
+		type: Types.AuthenticationActionTypes.VERIFY_LOGIN,
 		payload: {
 			history,
 			token

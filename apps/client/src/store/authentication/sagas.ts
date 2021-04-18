@@ -2,24 +2,42 @@ import * as Sentry from '@sentry/browser'
 import { Severity } from '@sentry/browser'
 import { call, put } from 'redux-saga/effects'
 
-import { isTokenValid } from 'services/api/auth'
+import { isTokenValid, loginAPI, registerUser } from 'services/api/auth'
 import { ILogin, IRegister, IVerifyLogin } from 'store/authentication/types'
 import { openNotification } from 'store/notification/actions'
 
-import { loggedIn, registerSuccess } from './actions'
+import { errorLogin, errorRegister, loggedIn, registerSuccess } from './actions'
 
-export function* login(action: ILogin) {
+export function* login(action: ILogin): Generator {
 	const { payload } = action
+	const loginData = {
+		email: payload.email,
+		password: payload.password
+	}
 	try {
-		yield call(console.log, payload)
-		yield put(
-			openNotification({
-				open: true,
-				type: 'success',
-				message: 'Usuario logado com sucesso, redirecionando para dashboard'
-			})
-		)
-		yield put(loggedIn('asd'))
+		const result = yield call(loginAPI, loginData)
+
+		if (result != false) {
+			yield put(
+				openNotification({
+					open: true,
+					type: 'success',
+					message: 'Logged with success, redirecting you!'
+				})
+			)
+			localStorage.setItem('token', result as string)
+			yield put(loggedIn(result as string))
+			payload.history.push('/dashboard')
+		} else {
+			yield put(errorLogin())
+			yield put(
+				openNotification({
+					open: true,
+					type: 'warning',
+					message: 'Your user or password is wrong'
+				})
+			)
+		}
 	} catch (error) {
 		openNotification({
 			open: true,
@@ -37,18 +55,30 @@ export function* login(action: ILogin) {
 	}
 }
 
-export function* register(action: IRegister) {
+export function* register(action: IRegister): Generator {
 	const { payload } = action
 	try {
-		yield call(console.log, payload)
-		yield put(
-			openNotification({
-				open: true,
-				type: 'success',
-				message: 'New user registred, taking you to dashboard!'
-			})
-		)
-		yield put(registerSuccess('asd'))
+		const result = yield call(registerUser, payload)
+
+		if (result) {
+			yield put(
+				openNotification({
+					open: true,
+					type: 'success',
+					message: 'New user registred, taking you to dashboard!'
+				})
+			)
+			yield put(registerSuccess('asd'))
+		} else {
+			yield put(
+				openNotification({
+					open: true,
+					type: 'error',
+					message: 'This user is already registered!'
+				})
+			)
+			yield put(errorRegister())
+		}
 	} catch (error) {
 		openNotification({
 			open: true,
