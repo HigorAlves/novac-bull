@@ -1,7 +1,6 @@
 import { join } from 'path'
 
 import { Logger } from '@nestjs/common'
-import { ConfigService } from '@nestjs/config'
 import { NestFactory } from '@nestjs/core'
 import { NestExpressApplication } from '@nestjs/platform-express'
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger'
@@ -9,14 +8,12 @@ import * as Sentry from '@sentry/node'
 import * as rateLimit from 'express-rate-limit'
 import * as helmet from 'helmet'
 
+import { PORT, SENTRY } from '~/constants'
 import { AppModule } from '~/core/app.module'
 
 async function bootstrap() {
 	const app = await NestFactory.create<NestExpressApplication>(AppModule)
-	const configService = app.get(ConfigService)
 	const packageVersion = process.env.npm_package_version
-	const port = configService.get('port')
-	const sentry = configService.get('sentry')
 
 	app.setViewEngine('hbs')
 	app.useStaticAssets(join(__dirname, '..', 'public'))
@@ -31,7 +28,7 @@ async function bootstrap() {
 	const document = SwaggerModule.createDocument(app, options)
 
 	SwaggerModule.setup('api', app, document)
-	Sentry.init({ dsn: sentry.dsn })
+	Sentry.init({ dsn: SENTRY.dsn })
 
 	app.use(helmet())
 	app.enableCors()
@@ -42,7 +39,7 @@ async function bootstrap() {
 		})
 	)
 
-	await app.listen(port)
+	await app.listen(PORT)
 	Logger.log(`🚀 Server running on ${await app.getUrl()}`, 'BOOTSTRAP')
 }
 
