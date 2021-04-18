@@ -1,1 +1,1 @@
-web: npm run start:prod:api
+api: node apps/api/dist/main
