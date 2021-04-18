@@ -20,8 +20,9 @@ const ptBR: AppLocale = {
 			registerTitle: 'Create your account',
 			email: 'Email',
 			password: 'Password',
-			fullname: 'Full name',
-			confirmPassword: 'Confirm your password'
+			name: 'Full name',
+			confirmPassword: 'Confirm your password',
+			cpf: 'CPF'
 		}
 	}
 }

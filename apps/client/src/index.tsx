@@ -7,6 +7,7 @@ import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 
 import { Notification } from 'components'
+import ErrorBoundary from 'containers/errorBoundary/ErrorBoundary'
 import Router from 'router'
 import { store } from 'store'
 import { theme } from 'theme'
@@ -23,9 +24,11 @@ Sentry.init({
 	environment: process.env.REACT_APP_ENVIRONMENT
 })
 
+const fallback = <ErrorBoundary />
+
 ReactDOM.render(
 	<React.StrictMode>
-		<Sentry.ErrorBoundary fallback={'An error has occurred'}>
+		<Sentry.ErrorBoundary fallback={fallback}>
 			<ThemeProvider theme={theme}>
 				<CssBaseline />
 				<Provider store={store}>

@@ -6,15 +6,18 @@ import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 import { useFormik } from 'formik'
 import { useTranslation } from 'react-i18next'
-import { useDispatch } from 'react-redux'
+import InputMask from 'react-input-mask'
+import { useDispatch, useSelector } from 'react-redux'
 import * as yup from 'yup'
 
+import { AppState } from 'store'
 import { requestRegister } from 'store/authentication/actions'
 
 import { Form } from './styles'
 
 const validationSchema = yup.object({
 	name: yup.string().required('Name is required'),
+	cpf: yup.string().required('CPF is required'),
 	email: yup
 		.string()
 		.email('Enter a valid email')
@@ -30,6 +33,9 @@ const validationSchema = yup.object({
 
 export function RegisterForm() {
 	const dispatch = useDispatch()
+	const isLoading = useSelector(
+		(state: AppState) => state.authentication.loading
+	)
 	const { t } = useTranslation('authentication', {
 		useSuspense: false
 	})
@@ -38,14 +44,14 @@ export function RegisterForm() {
 			name: '',
 			email: '',
 			password: '',
-			passwordConfirmation: ''
+			passwordConfirmation: '',
+			cpf: ''
 		},
 		validationSchema: validationSchema,
 		onSubmit: values => {
 			const data: IUser = {
 				...values,
 				image: 'tess',
-				cpf: '00000000000',
 				role: 'client',
 				locale: {
 					language: 'pt-BR',
@@ -78,6 +84,7 @@ export function RegisterForm() {
 					onChange={formik.handleChange}
 					error={formik.touched.name && Boolean(formik.errors.name)}
 					helperText={formik.touched.name && formik.errors.name}
+					disabled={isLoading}
 				/>
 				<TextField
 					fullWidth
@@ -92,7 +99,31 @@ export function RegisterForm() {
 					onChange={formik.handleChange}
 					error={formik.touched.email && Boolean(formik.errors.email)}
 					helperText={formik.touched.email && formik.errors.email}
+					disabled={isLoading}
 				/>
+
+				<InputMask
+					mask='999.999.999-99'
+					value={formik.values.cpf}
+					disabled={isLoading}
+					onChange={formik.handleChange}
+				>
+					{() => (
+						<TextField
+							fullWidth
+							id='cpf'
+							name='cpf'
+							label={t('form.cpf')}
+							variant={'outlined'}
+							color={'secondary'}
+							size={'small'}
+							error={formik.touched.cpf && Boolean(formik.errors.cpf)}
+							helperText={formik.touched.cpf && formik.errors.cpf}
+							disabled={isLoading}
+						/>
+					)}
+				</InputMask>
+
 				<TextField
 					fullWidth
 					id='password'
@@ -106,6 +137,7 @@ export function RegisterForm() {
 					onChange={formik.handleChange}
 					error={formik.touched.password && Boolean(formik.errors.password)}
 					helperText={formik.touched.password && formik.errors.password}
+					disabled={isLoading}
 				/>
 				<TextField
 					fullWidth
@@ -126,6 +158,7 @@ export function RegisterForm() {
 						formik.touched.passwordConfirmation &&
 						formik.errors.passwordConfirmation
 					}
+					disabled={isLoading}
 				/>
 				<Button
 					color='primary'
@@ -134,6 +167,7 @@ export function RegisterForm() {
 					type='submit'
 					fullWidth
 					style={{ marginTop: 30 }}
+					disabled={isLoading}
 				>
 					{t('button.register')}
 				</Button>

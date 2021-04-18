@@ -19,8 +19,9 @@ type AppLocale = {
 			registerTitle: string
 			email: string
 			password: string
-			fullname: string
+			name: string
 			confirmPassword: string
+			cpf: string
 		}
 	}
 }

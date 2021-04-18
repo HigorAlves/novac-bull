@@ -9,10 +9,10 @@ import {
 	RegisterSuccess
 } from './types'
 
-export function login(props: Login): LoadData {
+export function login(payload: Login): LoadData {
 	return {
 		type: LoginTypes.LOGIN,
-		payload: props
+		payload: payload
 	}
 }
 

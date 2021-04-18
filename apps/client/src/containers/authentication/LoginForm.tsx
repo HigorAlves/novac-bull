@@ -5,9 +5,11 @@ import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 import { useFormik } from 'formik'
 import { useTranslation } from 'react-i18next'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { useHistory } from 'react-router'
 import * as yup from 'yup'
 
+import { AppState } from 'store'
 import { requestLogin } from 'store/authentication/actions'
 
 import { Form } from './styles'
@@ -25,6 +27,10 @@ const validationSchema = yup.object({
 
 export function LoginForm() {
 	const dispatch = useDispatch()
+	const history = useHistory()
+	const isLoading = useSelector(
+		(state: AppState) => state.authentication.loading
+	)
 	const { t } = useTranslation('authentication', {
 		useSuspense: false
 	})
@@ -35,7 +41,7 @@ export function LoginForm() {
 		},
 		validationSchema: validationSchema,
 		onSubmit: values => {
-			dispatch(requestLogin(values))
+			dispatch(requestLogin(values, history))
 		}
 	})
 
@@ -61,6 +67,7 @@ export function LoginForm() {
 					onChange={formik.handleChange}
 					error={formik.touched.email && Boolean(formik.errors.email)}
 					helperText={formik.touched.email && formik.errors.email}
+					disabled={isLoading}
 				/>
 				<TextField
 					fullWidth
@@ -75,6 +82,7 @@ export function LoginForm() {
 					onChange={formik.handleChange}
 					error={formik.touched.password && Boolean(formik.errors.password)}
 					helperText={formik.touched.password && formik.errors.password}
+					disabled={isLoading}
 				/>
 				<Button
 					color='secondary'
@@ -83,6 +91,7 @@ export function LoginForm() {
 					type='submit'
 					size={'large'}
 					style={{ marginTop: 30 }}
+					disabled={isLoading}
 				>
 					{t('button.login')}
 				</Button>
