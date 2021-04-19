@@ -1,17 +1,26 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-import {
-	AppBar,
-	Avatar,
-	Button,
-	Chip,
-	Toolbar,
-	Typography
-} from '@material-ui/core'
+import { AppBar, Button, Toolbar, Typography } from '@material-ui/core'
+import Lottie from 'react-lottie'
+
+import animationData from 'assets/lottie/menu-toogle.json'
 
 import { useStyles } from './styles.navbar'
 
+const defaultOptions = {
+	loop: false,
+	autoplay: false,
+	animationData: animationData,
+	rendererSettings: {
+		preserveAspectRatio: 'xMidYMid slice'
+	}
+}
+
 export function Navbar() {
+	const [animationState, setAnimationSate] = useState({
+		isStopped: true,
+		direction: -1
+	})
 	const styles = useStyles()
 	return (
 		<AppBar
@@ -21,40 +30,36 @@ export function Navbar() {
 			elevation={0}
 		>
 			<Toolbar className={styles.toolbar}>
-				<Button>NOVAK BULL</Button>
-				<div className={styles.leftView}>
-					<Chip label={'CONTA DIGITAL'} size={'small'} />
-					<Typography variant={'h4'} component={'h3'} color={'textSecondary'}>
-						Oi, Higor
-					</Typography>
-					<Typography
-						variant={'caption'}
-						component={'p'}
-						color={'textSecondary'}
-					>
-						O que você quer fazer hoje?
-					</Typography>
-				</div>
-
-				<div className={styles.rightView}>
-					<Typography variant={'body1'} component={'p'} color={'textSecondary'}>
-						Seu patrimonio hoje
-					</Typography>
-					<Typography
-						variant={'subtitle1'}
-						component={'p'}
-						color={'textSecondary'}
-						style={{ fontWeight: 'bold' }}
-					>
-						R$ 4.002,32
-					</Typography>
-				</div>
+				<Typography
+					variant={'body1'}
+					color={'textSecondary'}
+					style={{ fontWeight: 'bold' }}
+				>
+					NOVAK BULL
+				</Typography>
 
 				<section className={styles.desktop}>
-					<Avatar
-						alt='Remy Sharp'
-						src='https://instagram.fjdf1-1.fna.fbcdn.net/v/t51.2885-19/s150x150/135438095_824407534791326_2920232573424990552_n.jpg?tp=1&_nc_ht=instagram.fjdf1-1.fna.fbcdn.net&_nc_ohc=nVFGM6HrDXsAX9Fh0xU&edm=ABfd0MgAAAAA&ccb=7-4&oh=81729fc894f3309c1125c18d10c38b2d&oe=609E1CF6&_nc_sid=7bff83'
-					/>
+					<Button>Carteiras</Button>
+					<Button>Ações</Button>
+				</section>
+
+				<section className={styles.mobile}>
+					<div
+						onClick={() =>
+							setAnimationSate({
+								isStopped: false,
+								direction: animationState.direction === -1 ? 1 : -1
+							})
+						}
+					>
+						<Lottie
+							options={defaultOptions}
+							height={40}
+							width={40}
+							isStopped={animationState.isStopped}
+							direction={animationState.direction}
+						/>
+					</div>
 				</section>
 			</Toolbar>
 		</AppBar>

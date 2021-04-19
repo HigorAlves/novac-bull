@@ -1,1 +1,1 @@
-export * from './MyAccount'
+export * from 'pages/Dashboard/Home'

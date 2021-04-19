@@ -1,3 +1,5 @@
 export * from './notification/Notification'
 export * from './navbar/Navbar'
 export * from './portfolioSummary/portfolioSummary'
+export * from './banner/Banner'
+export * from './status/Status'
