@@ -11,9 +11,10 @@
 
 ## Front End
 
-- [ ] TORO 001 - Implementar
-	- [ ] Login
-	- [ ] Registro - adicionar o campo de cpf
+- [X] TORO 001 - Implementar
+	- [X] Login
+	- [X] Registro - adicionar o campo de cpf
+- [ ] OPTIONAL - Implementar tela de Loading #3e3f5e
 - [ ] TORO 002 - Visualizar
 	- [ ] Saldo
 	- [ ] Investimentos

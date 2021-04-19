@@ -6,25 +6,9 @@ export const useStyles = makeStyles((theme: Theme) =>
 		toolbar: {
 			display: 'flex',
 			justifyContent: 'space-between',
-			minHeight: 200,
-			alignItems: 'flex-start',
+			alignItems: 'center',
 			paddingTop: theme.spacing(1),
 			paddingBottom: theme.spacing(2)
-		},
-		leftView: {
-			marginTop: 10,
-			flexGrow: 1,
-			alignSelf: 'flex-end'
-		},
-		rightView: {
-			alignSelf: 'flex-end'
-		},
-		menu: {
-			listStyleType: 'none',
-			marginRight: 20,
-			'& li': {
-				color: '#fff !imporant'
-			}
 		},
 		desktop: {
 			display: 'none',
