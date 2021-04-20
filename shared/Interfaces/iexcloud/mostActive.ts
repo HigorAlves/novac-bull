@@ -1,4 +1,4 @@
-interface Stock {
+export interface Stock {
 	symbol: string
 	currentPrive: number
 }

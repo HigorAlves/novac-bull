@@ -7,7 +7,13 @@ export type {
 	IResponse
 } from './authentication'
 export type { IUser, IUserPosition } from './user'
-export type { ICompnay, ILogo, IQuote, IMostActiveStocks } from './iexcloud'
+export type {
+	ICompnay,
+	ILogo,
+	IQuote,
+	IMostActiveStocks,
+	Stock
+} from './iexcloud'
 export type { IWallet, ITransaction } from './wallet/wallet'
 export type { ISPBTransaction } from './spb/spb'
 export type { IOrder } from './stock/order'

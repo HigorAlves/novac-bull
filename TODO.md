@@ -16,7 +16,7 @@
 	- [X] Registro
 - [ ] TORO 002 - Consultar
 	- [x] Saldo
-	- [ ] Lista de ativos
+	- [x] Lista de ativos
 	- [x] Patrimonio
 - [ ] TORO 004 - Ações
 	- [ ] Visualizar as 5 ações mais negociadas.
