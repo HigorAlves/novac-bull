@@ -5,6 +5,7 @@ import { call, put } from 'redux-saga/effects'
 import { isTokenValid, loginAPI, registerUser } from 'services/api/auth'
 import { ILogin, IRegister, IVerifyLogin } from 'store/authentication/types'
 import { openNotification } from 'store/notification/actions'
+import { getUserData } from 'store/user/actions'
 
 import { errorLogin, errorRegister, loggedIn, registerSuccess } from './actions'
 
@@ -26,6 +27,7 @@ export function* login(action: ILogin): Generator {
 				})
 			)
 			localStorage.setItem('token', result as string)
+			yield put(getUserData())
 			yield put(loggedIn(result as string))
 			payload.history.push('/dashboard')
 		} else {

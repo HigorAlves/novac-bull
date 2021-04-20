@@ -11,13 +11,30 @@
 
 ## Front End
 
-- [X] TORO 001 - Implementar
+- [X] TORO 001 - Acesso a plataforma
 	- [X] Login
-	- [X] Registro - adicionar o campo de cpf
-- [ ] OPTIONAL - Implementar tela de Loading #3e3f5e
-- [ ] TORO 002 - Visualizar
-	- [ ] Saldo
-	- [ ] Investimentos
-	- [ ] Patrimonio
-- [ ] TORO 004 - Visualizar uma lista de 5 ações
-- [ ] TORO 004 - Comprar uma ação com o codigo dela
+	- [X] Registro
+- [ ] TORO 002 - Consultar
+	- [x] Saldo
+	- [ ] Lista de ativos
+	- [x] Patrimonio
+- [ ] TORO 004 - Ações
+	- [ ] Visualizar as 5 ações mais negociadas.
+	- [ ] Comprar uma ação usando o código dela.
+- [x] OPTIONAL - Implementar tela de Loading.
+
+
+# Categorias da conta
+-  Uma categoria pode ter dois tipos `gasto` e `ganho` e o usuario pode escolher
+o nome que deseja da para aquela carteira e se ela ja vai começar com alguma
+quantia de dinheiro
+
+# Carteira
+Construir o frontend para cadastrar uma nova carteira, assim
+eu posso adicioanr quantas eu quiser, e tambem uma parte para adicionar as
+categorias
+
+
+- [ ] Cadastrar carteira
+- [ ] Editar carteira
+- [ ] Deletar carteira

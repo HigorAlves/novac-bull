@@ -46,6 +46,9 @@ export const theme = createMuiTheme({
 				textTransform: 'none',
 				fontWeight: 700,
 				boxShadow: 'box-shadow: 4px 7px 12px 0 rgb(97 93 250 / 20%)'
+			},
+			root: {
+				color: '#fff'
 			}
 		},
 		MuiTabs: {
