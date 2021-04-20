@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 
-import { Container, Grid } from '@material-ui/core'
+import { Container, Divider, Grid } from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { Banner, Navbar, Status, StockCard } from 'components'
@@ -20,9 +20,9 @@ export default function Home() {
 			<Navbar />
 			<Container style={{ marginTop: 40 }}>
 				<Grid container justify='center' spacing={2}>
-					<Grid item xs={12}>
-						<Banner />
-					</Grid>
+					{/* <Grid item xs={12}> */}
+					{/*	<Banner /> */}
+					{/* </Grid> */}
 					<Grid item xs={12} sm={4} md={3}>
 						<Status
 							amount={position?.checkingAccountAmount ?? 0}
@@ -53,7 +53,25 @@ export default function Home() {
 						/>
 					</Grid>
 				</Grid>
-				<StockCard />
+				<br />
+				<br />
+				<Divider />
+				<br />
+				<br />
+				<Grid container justify='center' spacing={2}>
+					<Grid item xs={12} sm={3}>
+						<StockCard />
+					</Grid>
+					<Grid item xs={12} sm={3}>
+						<StockCard />
+					</Grid>
+					<Grid item xs={12} sm={3}>
+						<StockCard />
+					</Grid>
+					<Grid item xs={12} sm={3}>
+						<StockCard />
+					</Grid>
+				</Grid>
 			</Container>
 		</>
 	)
