@@ -5,7 +5,10 @@ class API {
 	constructor() {
 		this.api = axios.create({
 			baseURL: process.env.REACT_APP_API,
-			headers: { 'Content-Type': 'application/json' },
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${localStorage.getItem('token')}`
+			},
 			timeout: 3 * 1000
 		})
 	}

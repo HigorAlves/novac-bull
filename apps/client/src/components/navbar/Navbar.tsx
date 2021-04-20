@@ -2,8 +2,10 @@ import React, { useState } from 'react'
 
 import { AppBar, Button, Toolbar, Typography } from '@material-ui/core'
 import Lottie from 'react-lottie'
+import { useSelector } from 'react-redux'
 
 import animationData from 'assets/lottie/menu-toogle.json'
+import { RootState } from 'store/rootReducer'
 
 import { useStyles } from './styles.navbar'
 
@@ -17,6 +19,7 @@ const defaultOptions = {
 }
 
 export function Navbar() {
+	const user = useSelector((state: RootState) => state.user.data)
 	const [animationState, setAnimationSate] = useState({
 		isStopped: true,
 		direction: -1
@@ -41,6 +44,17 @@ export function Navbar() {
 				<section className={styles.desktop}>
 					<Button>Carteiras</Button>
 					<Button>Ações</Button>
+				</section>
+
+				<section className={styles.desktop}>
+					<Typography
+						variant={'body1'}
+						component={'p'}
+						color={'textSecondary'}
+						style={{}}
+					>
+						Oi, {user?.name}
+					</Typography>
 				</section>
 
 				<section className={styles.mobile}>

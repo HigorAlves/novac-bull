@@ -35,6 +35,14 @@ export class UserController {
 
 	@Roles(Role.CLIENT, Role.ADMIN)
 	@Get()
+	async get(@Req() req: Request, @Res() res: Response) {
+		const { email } = req.user as jwtPayload
+		const response = await this.userService.getByEmail(email)
+		return res.status(response.status).send(response)
+	}
+
+	@Roles(Role.CLIENT, Role.ADMIN)
+	@Get('/one')
 	async findOne(@Body('email') email: string, @Res() res: Response) {
 		const response = await this.userService.getByEmail(email)
 		return res.status(response.status).send(response)

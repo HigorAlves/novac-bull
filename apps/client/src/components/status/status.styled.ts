@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import wrapperOne from 'assets/images/status/01.jpg'
+import wrapperOne from 'assets/images/status/02.jpg'
 
 export const Wrapper = styled.section`
 	background-image: url(${wrapperOne});
