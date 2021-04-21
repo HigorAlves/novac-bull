@@ -2,7 +2,7 @@ import React from 'react'
 
 import { render, act, fireEvent } from '@testing-library/react'
 
-import { HomePage } from './Home'
+import HomePage from './Home'
 
 describe('Home screen', () => {
 	it('renders learn react link', () => {
