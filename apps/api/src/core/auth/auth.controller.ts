@@ -62,7 +62,7 @@ export class AuthController {
 		status: 409,
 		description: 'There is already a code generated for this email.'
 	})
-	@Post('recoverpassword')
+	@Post('passwordRecovery')
 	async passwordRecovery(
 		@Body('email') email: string,
 		@Res() res: Response
@@ -99,7 +99,7 @@ export class AuthController {
 	@ApiBearerAuth()
 	@UseGuards(JwtAuthGuard)
 	@Put('updatepassword')
-	async passwordUpdate(
+	async updatePassword(
 		@Body() data: UpdatePasswordDTO,
 		@Req() req: Request,
 		@Res() res: Response
