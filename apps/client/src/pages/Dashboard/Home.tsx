@@ -5,7 +5,7 @@ import { Container, Divider, Grid, Typography } from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { Navbar, Status, StockCard } from 'components'
-import { getStockTrends } from 'services/api/stocks'
+import { buyStock, getStockTrends } from 'services/api/stocks'
 import { RootState } from 'store/rootReducer'
 import { getUserPosition } from 'store/user/actions'
 
@@ -18,6 +18,11 @@ export default function Home() {
 		dispatch(getUserPosition())
 		const stocksResult = await getStockTrends()
 		setStockTrends(stocksResult)
+	}
+
+	async function buyOneStock(symbol: string) {
+		await buyStock(1, symbol)
+		dispatch(getUserPosition())
 	}
 
 	useEffect(() => {
@@ -39,7 +44,6 @@ export default function Home() {
 					<Grid item xs={12} sm={4} md={3}>
 						<Status
 							amount={position?.consolidated ?? 0}
-							// title='Ações'
 							title={'Consolidado'}
 							subtitle={'Neste mês'}
 						/>
@@ -74,6 +78,7 @@ export default function Home() {
 								buyPrice={item.buyPrice}
 								symbol={item.symbol}
 								createdAt={item.createdAt}
+								onBuyClick={buyOneStock}
 							/>
 						</Grid>
 					))}
@@ -94,6 +99,7 @@ export default function Home() {
 									buyPrice={item.currentPrive}
 									symbol={item.symbol}
 									createdAt={new Date()}
+									onBuyClick={buyOneStock}
 								/>
 							</Grid>
 						))}

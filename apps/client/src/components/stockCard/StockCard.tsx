@@ -5,7 +5,13 @@ import { Button, Paper, Typography } from '@material-ui/core'
 
 import { numberToMoney } from 'utils/numberToMoney'
 
-export function StockCard({ buyPrice, symbol }: IStock) {
+interface IProps {
+	onBuyClick: (symbol: string) => void
+}
+
+type Props = IProps & IStock
+
+export function StockCard({ buyPrice, symbol, onBuyClick }: Props) {
 	return (
 		<>
 			<Paper elevation={0} style={{ textAlign: 'center' }}>
@@ -16,7 +22,12 @@ export function StockCard({ buyPrice, symbol }: IStock) {
 					{numberToMoney(buyPrice, 'pt-BR', 'BRL')}
 				</Typography>
 			</Paper>
-			<Button variant={'contained'} color={'primary'} fullWidth>
+			<Button
+				variant={'contained'}
+				color={'primary'}
+				fullWidth
+				onClick={() => onBuyClick(symbol)}
+			>
 				COMPRAR
 			</Button>
 		</>

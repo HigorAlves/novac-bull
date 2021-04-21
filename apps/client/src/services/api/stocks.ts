@@ -19,3 +19,23 @@ export async function getStockTrends(): Promise<IMostActiveStocks | null> {
 		return null
 	}
 }
+
+export async function buyStock(
+	amount: number,
+	symbol: string
+): Promise<boolean> {
+	try {
+		await api.post('/stocks/order', {
+			amount,
+			symbol
+		})
+		return true
+	} catch (e) {
+		Sentry.withScope(scope => {
+			scope.setTag('STOCKS', 'GET_TRENDS')
+			scope.setLevel(Severity.Error)
+			Sentry.captureException(e)
+		})
+		return false
+	}
+}

@@ -48,7 +48,7 @@ export class StocksService {
 		if (totalToPay < wallet.amount) {
 			const currentWalletAmount = wallet.amount - totalToPay
 			const data: IStock[] = []
-			for (let i = 0; i <= order.amount; i++) {
+			for (let i = 0; i < order.amount; i++) {
 				data.push({
 					symbol: order.symbol,
 					buyPrice: stock.latestPrice,
