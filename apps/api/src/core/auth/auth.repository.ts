@@ -36,6 +36,6 @@ export class AuthRepository {
 
 	async deleteRecoverToken(code: string) {
 		const token = await this.RecoveryModel.findOne({ code }).exec()
-		return await this.RecoveryModel.deleteOne({ id: token.id })
+		return this.RecoveryModel.deleteOne({ id: token.id })
 	}
 }

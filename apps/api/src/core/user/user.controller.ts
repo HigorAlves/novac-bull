@@ -15,7 +15,6 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
 import { Request, Response } from 'express'
 
 import { CreateUserDto, UpdateUserDto } from './dto'
-import { UpdatePasswordDTO } from '~/core/auth/dto'
 import { UserService } from '~/core/user/user.service'
 import { Roles } from '~/decorators/roles.decorator'
 import { JwtAuthGuard, RolesGuard } from '~/guards'
@@ -78,19 +77,5 @@ export class UserController {
 	) {
 		const result = await this.userService.update(id, user)
 		return response.status(201).send(result)
-	}
-
-	@ApiBearerAuth()
-	@UseGuards(JwtAuthGuard)
-	@Get('/position')
-	async passwordUpdate(
-		@Body() data: UpdatePasswordDTO,
-		@Req() req: Request,
-		@Res() res: Response
-	) {
-		const user = req.user as jwtPayload
-
-		const response = await this.userService.position(user.email)
-		return res.status(response.status).send(response)
 	}
 }

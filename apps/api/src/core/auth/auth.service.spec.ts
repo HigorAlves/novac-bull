@@ -1,3 +1,4 @@
+import { IUser } from '@jetpack/interfaces'
 import { JwtModule } from '@nestjs/jwt'
 import { MongooseModule } from '@nestjs/mongoose'
 import { PassportModule } from '@nestjs/passport'
@@ -11,7 +12,6 @@ import { LocalStrategy } from '~/core/auth/strategys/local.strategy'
 import { UserModule } from '~/core/user/user.module'
 import { LoggerModule } from '~/interceptors/logger.interceptor'
 import { ILogin } from '~/interfaces/authentication'
-import { IUser } from '~/interfaces/user'
 import { RecoverySchema } from '~/schemas/recovery.schema'
 import {
 	closeInMongodbConnection,

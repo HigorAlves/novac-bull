@@ -1,3 +1,4 @@
+import { IUser } from '@jetpack/interfaces'
 import {
 	Injectable,
 	InternalServerErrorException,
@@ -7,7 +8,6 @@ import { InjectModel } from '@nestjs/mongoose'
 import { ObjectID } from 'mongodb'
 import { Model } from 'mongoose'
 
-import { IUser } from '~/interfaces/user'
 import { UserDocument } from '~/schemas/user.schema'
 
 @Injectable()

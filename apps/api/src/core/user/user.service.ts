@@ -1,14 +1,12 @@
-import { IUserPosition } from '@jetpack/interfaces'
-import { forwardRef, Inject, Injectable } from '@nestjs/common'
+import { IUser } from '@jetpack/interfaces'
+import { Injectable } from '@nestjs/common'
 import * as bcrypt from 'bcrypt'
 import * as Cryptojs from 'crypto-js'
 
 import { CRYPTO_PASS } from '~/constants'
-import { StockRepository } from '~/core/stocks/stock.repository'
 import { UserRepository } from '~/core/user/user.repository'
 import { WalletRepository } from '~/core/wallet/wallet.repository'
 import { MyLogger } from '~/interceptors/logger.interceptor'
-import { IUser } from '~/interfaces/user'
 import { UserDocument } from '~/schemas/user.schema'
 
 @Injectable()
@@ -16,8 +14,7 @@ export class UserService {
 	constructor(
 		private userRepository: UserRepository,
 		private logger: MyLogger,
-		private wallet: WalletRepository,
-		private stocks: StockRepository
+		private wallet: WalletRepository
 	) {
 		this.logger.setContext('UserService')
 	}
@@ -59,31 +56,17 @@ export class UserService {
 	}
 
 	async create(data: IUser): Promise<IResponse<UserDocument>> {
-		const cpfRegex = /[0-9]{3}\.?[0-9]{3}\.?[0-9]{3}-?[0-9]{2}/
-		const cpfIsValid = data.cpf.match(cpfRegex)
-		data.cpf = Cryptojs.AES.encrypt(data.cpf, CRYPTO_PASS).toString()
+		const saltOrRounds = 10
+		data.password = bcrypt.hashSync(data.password, saltOrRounds)
+		const user = await this.userRepository.createUser(data)
 
-		if (cpfIsValid) {
-			const saltOrRounds = 10
-			data.password = bcrypt.hashSync(data.password, saltOrRounds)
-			const user = await this.userRepository.createUser(data)
+		this.logger.log('New user created', { user: data.email })
 
-			this.logger.log('New user created', { user: data.email })
-
-			return {
-				status: 201,
-				message: 'User created successfully',
-				error: false,
-				data: user
-			}
-		}
-		this.logger.log('User cannot be create because CPF is not valid', {
-			user: data.email
-		})
 		return {
-			status: 412,
-			message: 'User cannot be create because CPF is not valid',
-			error: true
+			status: 201,
+			message: 'User created successfully',
+			error: false,
+			data: user
 		}
 	}
 
@@ -108,28 +91,5 @@ export class UserService {
 		this.logger.log('Updated user password', { user: email })
 		const passwordHash = bcrypt.hashSync(password, 10)
 		return this.userRepository.updatePassword(email, passwordHash)
-	}
-
-	async position(email: string): Promise<IResponse<IUserPosition | void>> {
-		const user = await this.userRepository.get(email)
-		const wallets = await this.wallet.getWallets(user.id)
-		const stock = await this.stocks.getStockList(user.id)
-		const wallet = wallets[0]
-		let stockPrice = 0
-
-		stock.forEach(item => (stockPrice += item.buyPrice))
-
-		const data: IUserPosition = {
-			checkingAccountAmount: wallet.amount,
-			consolidated: wallet.amount + stockPrice,
-			positions: stock
-		}
-
-		return {
-			message: 'Your folio',
-			status: 200,
-			error: false,
-			data
-		}
 	}
 }

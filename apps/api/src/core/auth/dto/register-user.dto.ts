@@ -1,8 +1,8 @@
+import { IUser } from '@jetpack/interfaces'
 import { ApiProperty } from '@nestjs/swagger'
 import { IsBoolean, IsNotEmpty, IsString } from 'class-validator'
 
 import { ErrorMessages } from '~/constants/dtoMessages'
-import { IUser } from '~/interfaces/user'
 
 export class RegisterUserDTO implements IUser {
 	@ApiProperty()
