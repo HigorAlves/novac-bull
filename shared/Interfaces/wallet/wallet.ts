@@ -10,26 +10,23 @@ export interface ICategory {
 	icon: string
 	backgroundColor: string
 	type: CategoryType
-	createdAt?: Date
-	updatedAt?: Date
 }
 
 export interface ITransaction {
 	id?: string
 	amount: number
-	category: string
+	category: ICategory
 	createdAt?: Date
 	updatedAt?: Date
 }
 
-// TODO: Add name for wallet
 export interface IWallet {
 	id?: string
-	// name: string
-	// description: string
-	// isDefault: boolean
+	name: string
+	description: string
+	isDefault: boolean
 	owner: string
-	// initialAmount: string
+	initialAmount: string
 	amount: number
 	transactions: [ITransaction] | null
 	createdAt?: Date

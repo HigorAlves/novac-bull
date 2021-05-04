@@ -1,4 +1,9 @@
-import { IUser } from '@jetpack/interfaces'
+import {
+	IUser,
+	ILogin,
+	INewPassword,
+	IUpdatePassword
+} from '@jetpack/interfaces'
 import { Injectable } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
 import * as bcrypt from 'bcrypt'
@@ -6,11 +11,6 @@ import * as bcrypt from 'bcrypt'
 import { AuthRepository } from './auth.repository'
 import { UserService } from '~/core/user/user.service'
 import { MyLogger } from '~/interceptors/logger.interceptor'
-import {
-	ILogin,
-	INewPassword,
-	IUpdatePassword
-} from '~/interfaces/authentication'
 import { EmailTemplates, sendMail } from '~/lib/mail'
 
 @Injectable()
