@@ -1,4 +1,4 @@
-import { IUser } from '@jetpack/interfaces'
+import { IUser, ILogin } from '@jetpack/interfaces'
 import { JwtModule } from '@nestjs/jwt'
 import { MongooseModule } from '@nestjs/mongoose'
 import { PassportModule } from '@nestjs/passport'
@@ -11,7 +11,6 @@ import { JwtStrategy } from '~/core/auth/strategys/jwt.strategy'
 import { LocalStrategy } from '~/core/auth/strategys/local.strategy'
 import { UserModule } from '~/core/user/user.module'
 import { LoggerModule } from '~/interceptors/logger.interceptor'
-import { ILogin } from '~/interfaces/authentication'
 import { RecoverySchema } from '~/schemas/recovery.schema'
 import {
 	closeInMongodbConnection,
@@ -23,13 +22,7 @@ describe('AuthService', () => {
 	const userData: IUser = {
 		email: 'higor.test@gmail.com',
 		name: 'Higor Alves',
-		image: 'jesttest',
-		cpf: '00000000000',
-		locale: {
-			currency: 'BRL',
-			language: 'pt-BR'
-		},
-		password: 'jesttest',
+		password: 'test',
 		role: 'client'
 	}
 

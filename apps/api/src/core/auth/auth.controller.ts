@@ -35,7 +35,7 @@ import { jwtPayload } from '~/types/jwtPayload'
 export class AuthController {
 	constructor(private authService: AuthService) {}
 
-	@ApiOkResponse({ description: 'Successfuly loged in' })
+	@ApiOkResponse({ description: 'Successfully logged in' })
 	@ApiResponse({ status: 403, description: 'Email or password wrong' })
 	@Post('login')
 	async login(@Body() data: LoginDTO, @Res() res: Response): Promise<Response> {

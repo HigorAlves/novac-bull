@@ -1,9 +1,7 @@
 export interface IUser {
 	id?: string
+	name: string
 	email: string
 	password?: string
-	name: string
-	image: string
-	locale: { currency: 'BRL' | 'USD'; language: 'pt-BR' | 'en-US' }
 	role?: 'client' | 'admin'
 }
