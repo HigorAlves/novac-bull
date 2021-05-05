@@ -4,11 +4,12 @@ import { ExtractJwt, Strategy } from 'passport-jwt'
 
 import { AuthService } from '../auth.service'
 import { JWT } from '~/constants'
+import { UserService } from '~/core/user/user.service'
 import { jwtPayload } from '~/types/jwtPayload'
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
-	constructor(private authService: AuthService) {
+	constructor(private authService: AuthService, private user: UserService) {
 		super({
 			jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
 			ignoreExpiration: false,
@@ -17,7 +18,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 	}
 
 	async validate(payload: jwtPayload) {
-		const exists = await this.authService.checkUserExists(payload.email)
+		const exists = await this.user.checkUserExists(payload.email)
 
 		if (exists) {
 			return { ...payload }

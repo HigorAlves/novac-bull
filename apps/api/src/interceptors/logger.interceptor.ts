@@ -1,13 +1,13 @@
-import { Injectable, Scope, Logger, Module } from '@nestjs/common'
+import { Injectable, Scope, Logger as NestLogger, Module } from '@nestjs/common'
 import * as LogdnaWinston from 'logdna-winston'
 import { createLogger, Logger as winston } from 'winston'
 
 import { LOG_DNA } from '~/constants'
 
 @Injectable({ scope: Scope.TRANSIENT })
-export class MyLogger extends Logger {
+export class Logger extends NestLogger {
 	private winston: winston
-	private readonly logger = new Logger()
+	private readonly logger = new NestLogger()
 
 	constructor() {
 		super()
@@ -58,16 +58,10 @@ export class MyLogger extends Logger {
 		this.logger.verbose(message)
 		this.winston.verbose(message, { context: this.context, metadata })
 	}
-
-	customLog() {
-		this.logger.setContext(this.context)
-		this.logger.verbose('This is a test log')
-		this.winston.info('This is a test log', { meta: this.context })
-	}
 }
 
 @Module({
-	providers: [MyLogger],
-	exports: [MyLogger]
+	providers: [Logger],
+	exports: [Logger]
 })
 export class LoggerModule {}

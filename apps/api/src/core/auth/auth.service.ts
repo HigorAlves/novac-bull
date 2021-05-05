@@ -7,72 +7,61 @@ import {
 import { Injectable } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
 import * as bcrypt from 'bcrypt'
+import { I18nRequestScopeService } from 'nestjs-i18n'
 
 import { AuthRepository } from './auth.repository'
+import { HTTP_CODE } from '~/constants/httpCode'
 import { UserService } from '~/core/user/user.service'
-import { MyLogger } from '~/interceptors/logger.interceptor'
+import { Logger } from '~/interceptors/logger.interceptor'
 import { EmailTemplates, sendMail } from '~/lib/mail'
 
 @Injectable()
 export class AuthService {
 	constructor(
 		private repository: AuthRepository,
-		private usersService: UserService,
-		private jwtService: JwtService,
-		private logger: MyLogger
+		private user: UserService,
+		private jwt: JwtService,
+		private logger: Logger,
+		private readonly i18n: I18nRequestScopeService
 	) {
-		this.logger.setContext('Authentication')
-	}
-
-	async checkUserPassword(user: ILogin): Promise<boolean> {
-		const { data } = await this.usersService.getByEmail(user.email)
-
-		if (data) {
-			try {
-				return bcrypt.compareSync(user.password, data.password)
-			} catch (error) {
-				this.logger.error(error)
-				return false
-			}
-		}
-
-		return false
-	}
-
-	async checkUserExists(email: string): Promise<boolean> {
-		const result = await this.usersService.getByEmail(email)
-		return !!result.data
+		this.logger.setContext('AUTH_SERVICE')
 	}
 
 	async login(login: ILogin): Promise<IResponse> {
-		const isValid = await this.checkUserPassword(login)
+		const isValid = await this.user.checkExists(login.email)
+		let message: string
 
 		if (isValid) {
-			const { data } = await this.usersService.getByEmail(login.email)
+			const { data } = await this.user.getByEmail(login.email)
 			const payload = { email: data.email, roles: [data.role] }
+			this.logger.log('User has logged in', { user: data.email })
+			message = await this.i18n.translate('auth.SUCCESS_MESSAGE')
 
-			this.logger.log('New user loggin', { user: data.email })
 			return {
-				message: 'Successfuly logged in',
-				status: 200,
-				token: this.jwtService.sign(payload),
+				message,
+				status: HTTP_CODE.OK,
+				token: this.jwt.sign(payload),
 				error: false
 			}
 		}
 
-		this.logger.log('User typed wrong password or email')
+		this.logger.log('User cannot logged email or password wrong', {
+			user: login.email
+		})
+
+		message = await this.i18n.translate('auth.WRONG_DATA')
 		return {
-			message: 'Email or password wrong.',
-			status: 403,
+			message,
+			status: HTTP_CODE.Unauthorized,
 			error: true
 		}
 	}
 
 	async register(data: IUser): Promise<IResponse> {
-		const userExists = await this.checkUserExists(data.email)
+		const userExists = await this.user.checkUserExists(data.email)
 
 		if (!userExists) {
-			const user = await this.usersService.create(data)
+			const user = await this.user.create(data)
 			if (!user.error) {
 				try {
 					await sendMail({
@@ -138,7 +127,7 @@ export class AuthService {
 	}
 
 	async newPassword(data: INewPassword): Promise<IResponse> {
-		const user = await this.checkUserExists(data.email)
+		const user = await this.user.checkUserExists(data.email)
 		const isCodeValid = await this.repository.verifyRecoverToken(data.code)
 
 		if (!user && !isCodeValid) {
@@ -152,13 +141,13 @@ export class AuthService {
 			}
 		}
 
-		const { password } = await this.usersService.updatePassword(
+		const { password } = await this.user.updatePassword(
 			data.email,
 			data.password
 		)
 
 		if (password) {
-			this.repository.deleteRecoverToken(data.code)
+			await this.repository.deleteRecoverToken(data.code)
 
 			this.logger.log('User has updated the password', { user: data.email })
 			return {
@@ -171,7 +160,7 @@ export class AuthService {
 
 	async updatePassword(user: IUpdatePassword): Promise<IResponse> {
 		try {
-			const { data } = await this.usersService.getByEmail(user.email)
+			const { data } = await this.user.getByEmail(user.email)
 			const isPasswordEqual = bcrypt.compareSync(
 				user.oldPassword,
 				data.password
@@ -179,10 +168,7 @@ export class AuthService {
 
 			if (isPasswordEqual) {
 				const password = await bcrypt.hashSync(user.newPassword, 10)
-				const hasChange = await this.usersService.updatePassword(
-					data.email,
-					password
-				)
+				const hasChange = await this.user.updatePassword(data.email, password)
 
 				if (hasChange) {
 					this.logger.log('Password has been updated', { user: data.email })
