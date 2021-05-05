@@ -26,7 +26,7 @@ export interface IWallet {
 	description: string
 	isDefault: boolean
 	owner: string
-	initialAmount: string
+	initialAmount: number
 	amount: number
 	transactions: [ITransaction] | null
 	createdAt?: Date
