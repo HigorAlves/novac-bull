@@ -49,11 +49,11 @@ export class AuthController {
 
 	@ApiResponse({
 		status: HTTP_CODE.Created,
-		description: 'User has been created'
+		description: 'User has been registered'
 	})
 	@ApiResponse({
 		status: HTTP_CODE.Conflict,
-		description: 'This user cannot be created.'
+		description: 'This user cannot be created. Its already in use!'
 	})
 	@Post('register')
 	async register(
@@ -72,7 +72,7 @@ export class AuthController {
 		status: 409,
 		description: 'There is already a code generated for this email.'
 	})
-	@Post('passwordRecovery')
+	@Post('password/recovery')
 	async passwordRecovery(
 		@Body('email') email: string,
 		@Res() res: Response
@@ -89,7 +89,7 @@ export class AuthController {
 		status: 406,
 		description: 'Your code our email is not right'
 	})
-	@Put('newpassword')
+	@Put('password/new')
 	async newPassword(
 		@Body() data: NewPasswordDTO,
 		@Res() res: Response
@@ -108,7 +108,7 @@ export class AuthController {
 	})
 	@ApiBearerAuth()
 	@UseGuards(JwtAuthGuard)
-	@Put('updatepassword')
+	@Put('password/update')
 	async updatePassword(
 		@Body() data: UpdatePasswordDTO,
 		@Req() req: Request,
@@ -121,7 +121,7 @@ export class AuthController {
 	}
 
 	@ApiCreatedResponse()
-	@Post('verifytoken')
+	@Post('verify/token')
 	async verifyToken(
 		@Body() { token }: VerifyTokenDTO,
 		@Res() response: Response
