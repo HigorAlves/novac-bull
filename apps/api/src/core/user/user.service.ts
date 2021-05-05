@@ -1,27 +1,41 @@
-import { IUser } from '@jetpack/interfaces'
+import { ILogin, IUser } from '@jetpack/interfaces'
 import { Injectable } from '@nestjs/common'
 import * as bcrypt from 'bcrypt'
-import * as Cryptojs from 'crypto-js'
 
-import { CRYPTO_PASS } from '~/constants'
 import { UserRepository } from '~/core/user/user.repository'
-import { WalletRepository } from '~/core/wallet/wallet.repository'
-import { MyLogger } from '~/interceptors/logger.interceptor'
+import { Logger } from '~/interceptors/logger.interceptor'
 import { UserDocument } from '~/schemas/user.schema'
 
 @Injectable()
 export class UserService {
-	constructor(
-		private userRepository: UserRepository,
-		private logger: MyLogger,
-		private wallet: WalletRepository
-	) {
-		this.logger.setContext('UserService')
+	constructor(private repository: UserRepository, private logger: Logger) {
+		this.logger.setContext('USER_SERVICE')
+	}
+
+	async checkExists(email: string): Promise<boolean> {
+		this.logger.log('Checking if the users exists inside database')
+		const result = await this.getByEmail(email)
+		return !!result.data
+	}
+
+	async verifyPassword(user: ILogin): Promise<boolean> {
+		const { data } = await this.getByEmail(user.email)
+		this.logger.log('Verifying if password of the user is correct')
+		if (data) {
+			try {
+				return bcrypt.compareSync(user.password, data.password)
+			} catch (error) {
+				this.logger.error(error)
+				return false
+			}
+		}
+
+		return false
 	}
 
 	async getByEmail(email: string): Promise<IResponse<UserDocument>> {
 		this.logger.log('Getting user info by email')
-		const user = await this.userRepository.get(email)
+		const user = await this.repository.get(email)
 
 		return {
 			error: false,
@@ -33,7 +47,7 @@ export class UserService {
 
 	async getByID(id: string) {
 		this.logger.log('Getting user info by ID')
-		const user = await this.userRepository.getByID(id)
+		const user = await this.repository.getByID(id)
 
 		return {
 			error: false,
@@ -45,7 +59,7 @@ export class UserService {
 
 	async findAll(): Promise<IResponse<IUser[]>> {
 		this.logger.log('Getting a list of users')
-		const users = await this.userRepository.getAll()
+		const users = await this.repository.getAll()
 
 		return {
 			error: false,
@@ -58,7 +72,7 @@ export class UserService {
 	async create(data: IUser): Promise<IResponse<UserDocument>> {
 		const saltOrRounds = 10
 		data.password = bcrypt.hashSync(data.password, saltOrRounds)
-		const user = await this.userRepository.createUser(data)
+		const user = await this.repository.createUser(data)
 
 		this.logger.log('New user created', { user: data.email })
 
@@ -71,7 +85,7 @@ export class UserService {
 	}
 
 	async delete(id: string): Promise<IResponse<boolean>> {
-		await this.userRepository.deleteUser(id)
+		await this.repository.deleteUser(id)
 		this.logger.log('Removing an user', { userId: id })
 
 		return {
@@ -84,12 +98,12 @@ export class UserService {
 	async update(id: string, user: IUser) {
 		this.logger.log('Updated user data', { user: user.email })
 		delete user.email
-		return this.userRepository.updateUser(user, id)
+		return this.repository.updateUser(user, id)
 	}
 
 	async updatePassword(email: string, password: string): Promise<UserDocument> {
 		this.logger.log('Updated user password', { user: email })
 		const passwordHash = bcrypt.hashSync(password, 10)
-		return this.userRepository.updatePassword(email, passwordHash)
+		return this.repository.updatePassword(email, passwordHash)
 	}
 }

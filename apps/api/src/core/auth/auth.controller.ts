@@ -16,6 +16,7 @@ import {
 	ApiTags
 } from '@nestjs/swagger'
 import { Request, Response } from 'express'
+import { I18n, I18nContext } from 'nestjs-i18n'
 
 import {
 	LoginDTO,
