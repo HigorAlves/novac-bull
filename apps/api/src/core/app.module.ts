@@ -26,13 +26,13 @@ import { LoggerModule } from '~/interceptors/logger.interceptor'
 			parser: I18nJsonParser,
 			parserOptions: {
 				path: path.join(__dirname, '../i18n/')
-			}
-			// resolvers: [
-			// 	{ use: QueryResolver, options: ['lang', 'locale', 'l'] },
-			// 	new HeaderResolver(['x-custom-lang']),
-			// 	AcceptLanguageResolver,
-			// 	new CookieResolver(['lang', 'locale', 'l'])
-			// ]
+			},
+			resolvers: [
+				{ use: QueryResolver, options: ['lang', 'locale', 'l'] },
+				new HeaderResolver(['x-custom-lang']),
+				AcceptLanguageResolver,
+				new CookieResolver(['lang', 'locale', 'l'])
+			]
 		}),
 		ConfigModule.forRoot({
 			envFilePath: ['.development.env', '.production.env', '.env'],

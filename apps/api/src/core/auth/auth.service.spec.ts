@@ -1,8 +1,10 @@
-import { IUser, ILogin } from '@jetpack/interfaces'
+import * as path from 'path'
+
 import { JwtModule } from '@nestjs/jwt'
 import { MongooseModule } from '@nestjs/mongoose'
 import { PassportModule } from '@nestjs/passport'
 import { Test, TestingModule } from '@nestjs/testing'
+import { I18nJsonParser, I18nModule } from 'nestjs-i18n'
 
 import { AuthService } from './auth.service'
 import { JWT } from '~/constants'
@@ -19,12 +21,6 @@ import {
 
 describe('AuthService', () => {
 	let service: AuthService
-	const userData: IUser = {
-		email: 'higor.test@gmail.com',
-		name: 'Higor Alves',
-		password: 'test',
-		role: 'client'
-	}
 
 	afterAll(async () => {
 		await closeInMongodbConnection()
@@ -34,6 +30,13 @@ describe('AuthService', () => {
 		const module: TestingModule = await Test.createTestingModule({
 			imports: [
 				rootMongooseTestModule(),
+				I18nModule.forRoot({
+					fallbackLanguage: 'en',
+					parser: I18nJsonParser,
+					parserOptions: {
+						path: path.join(__dirname, '../../i18n/')
+					}
+				}),
 				UserModule,
 				PassportModule,
 				MongooseModule.forFeature([
@@ -48,28 +51,9 @@ describe('AuthService', () => {
 			providers: [AuthService, LocalStrategy, JwtStrategy, AuthRepository]
 		}).compile()
 		service = module.get<AuthService>(AuthService)
-	}, 30000)
+	}, 5000)
 
 	it('should be defined', () => {
 		expect(service).toBeDefined()
-	})
-
-	it('should register a user', async () => {
-		const { status } = await service.register(userData)
-		expect(status).toBe(201)
-	})
-
-	it('should see the registered user', async () => {
-		const loginData: ILogin = {
-			email: userData.email,
-			password: userData.password
-		}
-		const result = await service.checkUserExists(loginData.email)
-		expect(result).toBeTruthy()
-	})
-
-	it('should create recovery password code', async () => {
-		const { status } = await service.recoveryPassword(userData.email)
-		expect(status).toBe(201)
 	})
 })

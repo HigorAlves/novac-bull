@@ -16,7 +16,6 @@ import {
 	ApiTags
 } from '@nestjs/swagger'
 import { Request, Response } from 'express'
-import { I18n, I18nContext } from 'nestjs-i18n'
 
 import {
 	LoginDTO,
@@ -24,6 +23,7 @@ import {
 	RegisterUserDTO,
 	UpdatePasswordDTO
 } from './dto'
+import { HTTP_CODE } from '~/constants/httpCode'
 import { AuthService } from '~/core/auth/auth.service'
 import { VerifyTokenDTO } from '~/core/auth/dto/verifyToken.dto'
 import { JwtAuthGuard } from '~/guards'
@@ -37,15 +37,24 @@ export class AuthController {
 	constructor(private authService: AuthService) {}
 
 	@ApiOkResponse({ description: 'Successfully logged in' })
-	@ApiResponse({ status: 403, description: 'Email or password wrong' })
+	@ApiResponse({
+		status: HTTP_CODE.Unauthorized,
+		description: 'Email or password wrong'
+	})
 	@Post('login')
 	async login(@Body() data: LoginDTO, @Res() res: Response): Promise<Response> {
 		const response = await this.authService.login(data)
 		return res.status(response.status).send(response)
 	}
 
-	@ApiResponse({ status: 201, description: 'User has been created' })
-	@ApiResponse({ status: 409, description: 'This user cannot be created.' })
+	@ApiResponse({
+		status: HTTP_CODE.Created,
+		description: 'User has been created'
+	})
+	@ApiResponse({
+		status: HTTP_CODE.Conflict,
+		description: 'This user cannot be created.'
+	})
 	@Post('register')
 	async register(
 		@Body() user: RegisterUserDTO,
