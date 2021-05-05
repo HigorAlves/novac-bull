@@ -12,10 +12,7 @@ export const rootMongooseTestModule = () =>
 			return {
 				uri,
 				useCreateIndex: true,
-				useNewUrlParser: true,
-				autoReconnect: true,
-				reconnectTries: Number.MAX_VALUE,
-				reconnectInterval: 1000
+				useNewUrlParser: true
 			}
 		}
 	})

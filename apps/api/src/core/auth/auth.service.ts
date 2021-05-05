@@ -58,7 +58,8 @@ export class AuthService {
 	}
 
 	async register(data: IUser): Promise<IResponse> {
-		const userExists = await this.user.checkUserExists(data.email)
+		const userExists = await this.user.checkExists(data.email)
+		let message: string
 
 		if (!userExists) {
 			const user = await this.user.create(data)
@@ -73,32 +74,39 @@ export class AuthService {
 						},
 						templateId: EmailTemplates.WELCOME
 					})
+					this.logger.log(`A welcome email was send to ${data.email}`)
 				} catch (e) {
 					this.logger.log(`Cannot send welcome email for ${data.email}`)
 				}
 
-				this.logger.log('A new user inside our DB 🎉🎉')
+				this.logger.log('A new user inside our DB 🎉🎉', { user: data.email })
+				message = await this.i18n.t('auth.REGISTERED')
 
 				return {
+					message,
 					error: false,
-					message: 'User has been created',
 					status: 201
 				}
 			}
 
+			this.logger.log('Something went wrong while trying to register', {
+				user: data.email
+			})
+			message = await this.i18n.t('auth.REGISTERED_ERROR')
 			return {
-				status: user.status,
-				message: user.message,
+				message,
+				status: HTTP_CODE.BadRequest,
 				error: true
 			}
 		}
 
+		message = await this.i18n.t('auth.REGISTERED_CONFLICT')
 		this.logger.log('Something went wrong and we cannot create the user', {
 			user: data.email
 		})
 		return {
-			status: 409,
-			message: 'This user cannot be created. Its already in use!',
+			message,
+			status: HTTP_CODE.Conflict,
 			error: true
 		}
 	}
@@ -127,17 +135,17 @@ export class AuthService {
 	}
 
 	async newPassword(data: INewPassword): Promise<IResponse> {
-		const user = await this.user.checkUserExists(data.email)
+		const user = await this.user.checkExists(data.email)
 		const isCodeValid = await this.repository.verifyRecoverToken(data.code)
 
 		if (!user && !isCodeValid) {
-			this.logger.error('Can`t set new password for user.', {
+			this.logger.error('The user or code is invalid!', {
 				user: data.email
 			})
 			return {
 				error: true,
 				message: 'Your code our email is not right',
-				status: 406
+				status: HTTP_CODE.NotAcceptable
 			}
 		}
 
@@ -151,7 +159,7 @@ export class AuthService {
 
 			this.logger.log('User has updated the password', { user: data.email })
 			return {
-				status: 204,
+				status: HTTP_CODE.NoContent,
 				error: false,
 				message: 'Your password has been changed'
 			}
@@ -173,7 +181,7 @@ export class AuthService {
 				if (hasChange) {
 					this.logger.log('Password has been updated', { user: data.email })
 					return {
-						status: 204,
+						status: HTTP_CODE.NoContent,
 						error: false,
 						message: 'Your password has been updated'
 					}
@@ -181,7 +189,7 @@ export class AuthService {
 
 				this.logger.warn('Password has not been updated', { user: data.email })
 				return {
-					status: 409,
+					status: HTTP_CODE.Conflict,
 					error: true,
 					message: 'We cant update this password'
 				}
@@ -196,20 +204,27 @@ export class AuthService {
 	}
 
 	async validateToken(token: string): Promise<IResponse<boolean>> {
+		let message: string
+		this.logger.log('Trying to validate token')
+
 		try {
-			await this.jwtService.verifyAsync(token)
+			await this.jwt.verifyAsync(token)
+			message = await this.i18n.t('auth.VALID_TOKEN')
+			this.logger.log('This token has been validated with success')
 			return {
 				error: false,
-				status: 200,
+				status: HTTP_CODE.OK,
 				data: true,
-				message: 'Token is valid'
+				message
 			}
 		} catch (error) {
+			this.logger.log('This token is not valid')
+			message = await this.i18n.t('auth.INVALID_TOKEN')
 			return {
 				error: false,
-				status: 200,
+				status: HTTP_CODE.BadRequest,
 				data: false,
-				message: 'Token is not valid'
+				message
 			}
 		}
 	}
