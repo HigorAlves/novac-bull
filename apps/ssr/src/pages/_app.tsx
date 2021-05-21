@@ -6,6 +6,7 @@ import Head from 'next/head'
 import JsonLd from '~/components/JSONLD/Jsonld'
 import { getHomeSchema } from '~/services/schema'
 import { storeWrapper } from '~/store'
+import 'tailwindcss/tailwind.css'
 
 function MyApp({ Component, pageProps }: AppProps): JSX.Element {
 	return (
