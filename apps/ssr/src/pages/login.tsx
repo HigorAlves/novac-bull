@@ -1,5 +1,7 @@
 import React from 'react'
 
+import { Button, Input } from '~/components'
+
 export default function Login() {
 	return (
 		<section className='flex items-center h-screen text-gray-400 bg-gray-900 body-font'>
@@ -21,33 +23,18 @@ export default function Login() {
 						<label htmlFor='email' className='leading-7 text-sm text-gray-400'>
 							Email
 						</label>
-						<input
-							type='email'
-							id='email'
-							name='email'
-							className='w-full bg-gray-600 bg-opacity-20 focus:bg-transparent focus:ring-2 focus:ring-indigo-900 rounded border border-gray-600 focus:border-indigo-500 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out'
-						/>
+						<Input type={'email'} id={'email'} name={'email'} />
 					</div>
 					<div className='relative mb-4'>
 						<label
-							htmlFor='full-name'
+							htmlFor='password'
 							className='leading-7 text-sm text-gray-400'
 						>
 							Senha
 						</label>
-						<input
-							type='password'
-							id='full-name'
-							name='full-name'
-							className='w-full bg-gray-600 bg-opacity-20 focus:bg-transparent focus:ring-2 focus:ring-indigo-900 rounded border border-gray-600 focus:border-indigo-500 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out'
-						/>
+						<Input type={'password'} id={'password'} name={'password'} />
 					</div>
-					<button className='text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg'>
-						ENTRAR
-					</button>
-					<p className='text-xs mt-3'>
-						Literally you probably haven't heard of them jean shorts.
-					</p>
+					<Button text={'ENTRAR'} />
 				</div>
 			</div>
 		</section>
