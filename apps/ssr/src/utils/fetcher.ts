@@ -1,4 +1,17 @@
 import axios from 'axios'
 
-export const fetcher = <T>(url: string): Promise<T> =>
-	axios.get(url).then(res => res.data)
+import { AuthToken } from '~/utils/authToken'
+
+const API_URL =
+	process.env.NODE_ENV === 'development'
+		? 'http://localhost:5000'
+		: 'https://www.api.midiaturbo.com.br'
+
+const config = {
+	headers: { Authorization: `Bearer ${AuthToken.getToken()}` }
+}
+
+export const api = axios.create({
+	baseURL: API_URL,
+	...config
+})
