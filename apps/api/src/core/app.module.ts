@@ -13,6 +13,7 @@ import {
 } from 'nestjs-i18n'
 
 import { AppController } from './app.controller'
+import { LeadModule } from './lead/lead.module'
 import ENV_CONFIG from '~/config/configuration'
 import { MONGO_DB_CONFIG } from '~/config/mongoose.config'
 import { AuthModule } from '~/core/auth/auth.module'
@@ -45,7 +46,8 @@ import { LoggerModule } from '~/interceptors/logger.interceptor'
 		}),
 		LoggerModule,
 		AuthModule,
-		UserModule
+		UserModule,
+		LeadModule
 	],
 	controllers: [AppController]
 })

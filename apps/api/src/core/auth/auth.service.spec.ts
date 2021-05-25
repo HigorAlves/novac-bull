@@ -15,7 +15,7 @@ import { UserModule } from '~/core/user/user.module'
 import { LoggerModule } from '~/interceptors/logger.interceptor'
 import { RecoverySchema } from '~/schemas/recovery.schema'
 import {
-	closeInMongodbConnection,
+	closeInMongodConnection,
 	rootMongooseTestModule
 } from '~/utils/mongodb-test'
 
@@ -23,7 +23,7 @@ describe('AuthService', () => {
 	let service: AuthService
 
 	afterAll(async () => {
-		await closeInMongodbConnection()
+		await closeInMongodConnection()
 	})
 
 	beforeAll(async () => {

@@ -1,4 +1,4 @@
-import { forwardRef, Module } from '@nestjs/common'
+import { Module } from '@nestjs/common'
 import { MongooseModule } from '@nestjs/mongoose'
 
 import { UserRepository } from './user.repository'
@@ -9,7 +9,6 @@ import { UserSchema } from '~/schemas/user.schema'
 
 @Module({
 	imports: [
-		// forwardRef(() => WalletModule),
 		LoggerModule,
 		MongooseModule.forFeature([{ name: 'User', schema: UserSchema }])
 	],
