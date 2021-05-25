@@ -10,11 +10,11 @@
 	"transform": {
 		"^.+\\.(t|j)s$": "ts-jest"
 	},
-	"testTimeout": 1000,
+	"testTimeout": 5000,
+	"timers": "fake",
 	"collectCoverageFrom": [
 		"**/*.(t|j)s"
 	],
-	"coverageDirectory": "/coverage",
 	"testEnvironment": "node",
 	"moduleNameMapper": {
 		"~/(.*)": [

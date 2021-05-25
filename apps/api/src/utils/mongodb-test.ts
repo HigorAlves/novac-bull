@@ -1,26 +1,20 @@
-import { MongooseModule } from '@nestjs/mongoose'
+import { MongooseModule, MongooseModuleOptions } from '@nestjs/mongoose'
 import { MongoMemoryServer } from 'mongodb-memory-server'
-import mongoose from 'mongoose'
 
-let mongodb: MongoMemoryServer
+let mongod: MongoMemoryServer
 
-export const rootMongooseTestModule = () =>
+export const rootMongooseTestModule = (options: MongooseModuleOptions = {}) =>
 	MongooseModule.forRootAsync({
 		useFactory: async () => {
-			mongodb = new MongoMemoryServer()
-			const uri = await mongodb.getUri()
+			mongod = new MongoMemoryServer()
+			const mongoUri = await mongod.getUri()
 			return {
-				uri,
-				useCreateIndex: true,
-				useNewUrlParser: true
+				uri: mongoUri,
+				...options
 			}
 		}
 	})
 
-export const closeInMongodbConnection = async () => {
-	if (mongodb) {
-		await mongoose.connection.dropDatabase()
-		await mongoose.connection.close()
-		await mongodb.stop()
-	}
+export const closeInMongodConnection = async () => {
+	if (mongod) await mongod.stop()
 }
