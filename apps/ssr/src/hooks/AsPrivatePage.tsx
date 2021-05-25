@@ -19,7 +19,6 @@ const asPrivatePage = (C: any) => {
 						}
 					}
 
-					console.log('asdf')
 					// const isValidToken = await verifyToken(token)
 					const isValidToken = true
 
