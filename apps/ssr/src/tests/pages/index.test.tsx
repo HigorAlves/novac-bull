@@ -5,7 +5,7 @@ import { render } from '@testing-library/react'
 
 import HomePage from '~/pages/index'
 
-describe('Home Page', () => {
+describe('Index Page', () => {
 	it('should render the colors correctly', () => {
 		const { container } = render(<HomePage />)
 

@@ -4,6 +4,7 @@ import { AppProps } from 'next/app'
 import Head from 'next/head'
 
 import JsonLd from '~/components/JSONLD/Jsonld'
+import LayoutWrapper from '~/layout/layoutWrapper'
 import { getHomeSchema } from '~/services/schema'
 import { storeWrapper } from '~/store'
 import 'tailwindcss/tailwind.css'
@@ -27,7 +28,9 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
 				/>
 			</Head>
 
-			<Component {...pageProps} />
+			<LayoutWrapper {...pageProps}>
+				<Component {...pageProps} />
+			</LayoutWrapper>
 		</>
 	)
 }
