@@ -51,7 +51,7 @@ describe('AuthService', () => {
 			providers: [AuthService, LocalStrategy, JwtStrategy, AuthRepository]
 		}).compile()
 		service = module.get<AuthService>(AuthService)
-	}, 5000)
+	}, 500000)
 
 	it('should be defined', () => {
 		expect(service).toBeDefined()
