@@ -16,9 +16,10 @@ export default function DashboardLayout({ children }: IProps) {
 			</Head>
 
 			<AppBar />
-			<main>{children}</main>
 
-			{/* <Footer /> */}
+			<main className='text-gray-400 bg-gray-900 body-font h-screen pt-6'>
+				{children}
+			</main>
 		</span>
 	)
 }
