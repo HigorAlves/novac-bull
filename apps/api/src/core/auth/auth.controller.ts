@@ -1,12 +1,12 @@
 import {
+	Body,
 	Controller,
 	Post,
-	Body,
-	UseInterceptors,
-	Res,
 	Put,
+	Req,
+	Res,
 	UseGuards,
-	Req
+	UseInterceptors
 } from '@nestjs/common'
 import {
 	ApiBearerAuth,
@@ -77,7 +77,7 @@ export class AuthController {
 		@Body('email') email: string,
 		@Res() res: Response
 	): Promise<Response> {
-		const response = await this.authService.recoveryPassword(email)
+		const response = await this.authService.recoverPassword(email)
 		return res.status(response.status).send(response)
 	}
 

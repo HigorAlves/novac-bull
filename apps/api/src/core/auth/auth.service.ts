@@ -1,8 +1,8 @@
 import {
-	IUser,
 	ILogin,
 	INewPassword,
-	IUpdatePassword
+	IUpdatePassword,
+	IUser
 } from '@jetpack/interfaces'
 import { Injectable } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
@@ -111,7 +111,7 @@ export class AuthService {
 		}
 	}
 
-	async recoveryPassword(email: string): Promise<IResponse<string>> {
+	async recoverPassword(email: string): Promise<IResponse<string>> {
 		const alreadyHaveActiveCode = await this.repository.alreadyGenerated(email)
 
 		if (!alreadyHaveActiveCode) {
