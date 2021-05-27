@@ -22,6 +22,7 @@ export class WalletService {
 				owner: id,
 				transactions: null
 			}
+
 			await this.Database.create(data)
 			return {
 				error: false,

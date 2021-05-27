@@ -24,7 +24,7 @@ import { RecoverySchema } from '~/schemas/recovery.schema'
 		UserModule,
 		LoggerModule
 	],
-	providers: [AuthService, LocalStrategy, JwtStrategy, AuthRepository],
+	providers: [LocalStrategy, JwtStrategy, AuthRepository, AuthService],
 	controllers: [AuthController]
 })
 export class AuthModule {}
