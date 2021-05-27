@@ -7,7 +7,6 @@ import {
 import { Injectable } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
 import * as bcrypt from 'bcrypt'
-import { I18nRequestScopeService } from 'nestjs-i18n'
 
 import { AuthRepository } from './auth.repository'
 import { HTTP_CODE } from '~/constants/httpCode'
@@ -21,8 +20,7 @@ export class AuthService {
 		private repository: AuthRepository,
 		private user: UserService,
 		private jwt: JwtService,
-		private logger: Logger,
-		private readonly i18n: I18nRequestScopeService
+		private logger: Logger
 	) {
 		this.logger.setContext('AUTH_SERVICE')
 	}
@@ -49,12 +47,11 @@ export class AuthService {
 
 	async login(login: ILogin): Promise<IResponse> {
 		const isValid = await this.checkUserPassword(login)
-		let message: string
+		const message = 'todo'
 		if (isValid) {
 			const { data } = await this.user.getByEmail(login.email)
 			const payload = { email: data.email, roles: [data.role], id: data.id }
 			this.logger.log('User has logged in', { user: data.email })
-			message = await this.i18n.translate('auth.SUCCESS_MESSAGE')
 
 			return {
 				message,
@@ -68,7 +65,6 @@ export class AuthService {
 			user: login.email
 		})
 
-		message = await this.i18n.translate('auth.WRONG_DATA')
 		return {
 			message,
 			status: HTTP_CODE.Unauthorized,
@@ -78,7 +74,7 @@ export class AuthService {
 
 	async register(data: IUser): Promise<IResponse> {
 		const userExists = await this.user.checkExists(data.email)
-		let message: string
+		const message = 'todo'
 
 		if (!userExists) {
 			const user = await this.user.create(data)
@@ -99,7 +95,6 @@ export class AuthService {
 				}
 
 				this.logger.log('A new user inside our DB 🎉🎉', { user: data.email })
-				message = await this.i18n.t('auth.REGISTERED')
 
 				return {
 					message,
@@ -111,7 +106,7 @@ export class AuthService {
 			this.logger.log('Something went wrong while trying to register', {
 				user: data.email
 			})
-			message = await this.i18n.t('auth.REGISTERED_ERROR')
+
 			return {
 				message,
 				status: HTTP_CODE.BadRequest,
@@ -119,7 +114,6 @@ export class AuthService {
 			}
 		}
 
-		message = await this.i18n.t('auth.REGISTERED_CONFLICT')
 		this.logger.log('Something went wrong and we cannot create the user', {
 			user: data.email
 		})
@@ -223,12 +217,12 @@ export class AuthService {
 	}
 
 	async validateToken(token: string): Promise<IResponse<boolean>> {
-		let message: string
+		const message = 'todo'
 		this.logger.log('Trying to validate token')
 
 		try {
 			await this.jwt.verifyAsync(token)
-			message = await this.i18n.t('auth.VALID_TOKEN')
+
 			this.logger.log('This token has been validated with success')
 			return {
 				error: false,
@@ -238,7 +232,7 @@ export class AuthService {
 			}
 		} catch (error) {
 			this.logger.log('This token is not valid')
-			message = await this.i18n.t('auth.INVALID_TOKEN')
+
 			return {
 				error: false,
 				status: HTTP_CODE.BadRequest,
