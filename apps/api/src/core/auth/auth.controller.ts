@@ -1,8 +1,8 @@
 import {
 	Body,
 	Controller,
+	Patch,
 	Post,
-	Put,
 	Req,
 	Res,
 	UseGuards,
@@ -89,7 +89,7 @@ export class AuthController {
 		status: 406,
 		description: 'Your code our email is not right'
 	})
-	@Put('password/new')
+	@Patch('password/new')
 	async newPassword(
 		@Body() data: NewPasswordDTO,
 		@Res() res: Response
@@ -108,7 +108,7 @@ export class AuthController {
 	})
 	@ApiBearerAuth()
 	@UseGuards(JwtAuthGuard)
-	@Put('password/update')
+	@Patch('password/update')
 	async updatePassword(
 		@Body() data: UpdatePasswordDTO,
 		@Req() req: Request,
