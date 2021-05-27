@@ -1,7 +1,7 @@
 export enum CategoryType {
-	INCOME = 0,
-	EXPENSE = 1,
-	TRANSFER = 2
+	INCOME = 'income',
+	EXPENSE = 'expense',
+	TRANSFER = 'transfer'
 }
 
 export interface ICategory {
