@@ -2,7 +2,7 @@ const withPlugins = require('next-compose-plugins')
 
 const nextConfig = {
 	future: {
-		webpack5: true
+		webpack5: false
 	},
 	webpack: (config, { isServer }) => {
 		if (!isServer) {
