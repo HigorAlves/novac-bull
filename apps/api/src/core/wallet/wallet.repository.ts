@@ -1,4 +1,4 @@
-import { IWallet } from '@jetpack/interfaces'
+import { ITransaction, IWallet } from '@jetpack/interfaces'
 import { Injectable, Logger } from '@nestjs/common'
 import { InjectModel } from '@nestjs/mongoose'
 import { Model } from 'mongoose'
@@ -17,6 +17,38 @@ export class WalletRepository {
 		try {
 			await wallet.save()
 			return true
+		} catch (e) {
+			this.logger.error('ERROR: ', e)
+			return false
+		}
+	}
+
+	async findOne(id: string): Promise<WalletDocument | boolean> {
+		try {
+			return await this.Database.findById(id).exec()
+		} catch (e) {
+			this.logger.error('ERROR: ', e)
+			return false
+		}
+	}
+
+	async findAll(id: string): Promise<WalletDocument[] | boolean> {
+		try {
+			return await this.Database.find({ owner: id }).exec()
+		} catch (e) {
+			this.logger.error('ERROR: ', e)
+			return false
+		}
+	}
+
+	async pushTransaction(
+		walletId: string,
+		transaction: ITransaction
+	): Promise<WalletDocument | boolean> {
+		try {
+			const wallet = await this.Database.findById(walletId).exec()
+			wallet.transactions.push(transaction)
+			return wallet.save()
 		} catch (e) {
 			this.logger.error('ERROR: ', e)
 			return false
