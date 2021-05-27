@@ -7,7 +7,6 @@ import { AuthController } from './auth.controller'
 import { AuthRepository } from './auth.repository'
 import { AuthService } from './auth.service'
 import { JwtStrategy } from './strategys/jwt.strategy'
-import { LocalStrategy } from './strategys/local.strategy'
 import { JWT } from '~/constants'
 import { UserModule } from '~/core/user/user.module'
 import { LoggerModule } from '~/interceptors/logger.interceptor'
@@ -24,7 +23,7 @@ import { RecoverySchema } from '~/schemas/recovery.schema'
 		UserModule,
 		LoggerModule
 	],
-	providers: [LocalStrategy, JwtStrategy, AuthRepository, AuthService],
+	providers: [JwtStrategy, AuthRepository, AuthService],
 	controllers: [AuthController]
 })
 export class AuthModule {}
