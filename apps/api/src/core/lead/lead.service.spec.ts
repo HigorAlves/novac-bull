@@ -60,7 +60,6 @@ describe('LeadService', () => {
 
 	it('should create a lead inside database', async () => {
 		const result: IResponse = await service.registerNewLead('lead@email.com')
-		console.log(result, 'aqui')
 		expect(result.status).toEqual(HTTP_CODE.Created)
 	})
 })

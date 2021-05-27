@@ -14,6 +14,7 @@ export class LeadService {
 		const result = await this.repository.create(email)
 		if (result) {
 			this.logger.log('New lead was registered')
+
 			return {
 				status: HTTP_CODE.Created,
 				error: false,
