@@ -7,4 +7,9 @@ export type {
 	IResponse
 } from './authentication'
 export type { IUser } from './user'
-export type { IWallet, ITransaction } from './wallet/wallet'
+export type {
+	IWallet,
+	ITransaction,
+	CategoryType,
+	ICategory
+} from './wallet/wallet'

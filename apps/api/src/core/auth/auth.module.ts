@@ -15,13 +15,13 @@ import { RecoverySchema } from '~/schemas/recovery.schema'
 
 @Module({
 	imports: [
-		UserModule,
 		PassportModule,
 		MongooseModule.forFeature([{ name: 'Recovery', schema: RecoverySchema }]),
 		JwtModule.register({
 			secret: JWT.secret,
 			signOptions: { expiresIn: JWT.duration }
 		}),
+		UserModule,
 		LoggerModule
 	],
 	providers: [AuthService, LocalStrategy, JwtStrategy, AuthRepository],

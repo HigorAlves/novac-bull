@@ -27,13 +27,32 @@ export class AuthService {
 		this.logger.setContext('AUTH_SERVICE')
 	}
 
-	async login(login: ILogin): Promise<IResponse> {
-		const isValid = await this.user.checkExists(login.email)
-		let message: string
+	async checkUserPassword(user: ILogin): Promise<boolean> {
+		const { data } = await this.user.getByEmail(user.email)
 
+		if (data) {
+			try {
+				return bcrypt.compareSync(user.password, data.password)
+			} catch (error) {
+				this.logger.error(error)
+				return false
+			}
+		}
+
+		return false
+	}
+
+	async checkUserExists(email: string): Promise<boolean> {
+		const result = await this.user.getByEmail(email)
+		return !!result.data
+	}
+
+	async login(login: ILogin): Promise<IResponse> {
+		const isValid = await this.checkUserPassword(login)
+		let message: string
 		if (isValid) {
 			const { data } = await this.user.getByEmail(login.email)
-			const payload = { email: data.email, roles: [data.role] }
+			const payload = { email: data.email, roles: [data.role], id: data.id }
 			this.logger.log('User has logged in', { user: data.email })
 			message = await this.i18n.translate('auth.SUCCESS_MESSAGE')
 
