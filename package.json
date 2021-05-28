@@ -1,9 +1,7 @@
 {
-	"name": "jetpack-stack",
+	"name": "novacbull",
 	"version": "0.3.0",
-	"main": "index.js",
 	"license": "MIT",
-	"repository": "git@github.com:HigorAlves/jetpack-stack.git",
 	"private": true,
 	"workspaces": [
 		"apps/*",
@@ -11,13 +9,13 @@
 		"shared/*"
 	],
 	"scripts": {
-		"start:prod:api": "lerna run start:prod --scope @jetpack/api --stream",
-		"dev:api": "lerna run start:dev --scope @jetpack/api --stream",
-		"dev:client": "lerna run start --scope @jetpack/client --stream",
-		"dev:ssr": "lerna run dev --scope @jetpack/ssr --stream",
+		"start:prod:api": "lerna run start:prod --scope @novac/api --stream",
+		"dev:api": "lerna run start:dev --scope @novac/api --stream",
+		"dev:client": "lerna run start --scope @novac/client --stream",
+		"dev:ssr": "lerna run dev --scope @novac/ssr --stream",
 		"build": "lerna run build --stream --concurrency 2",
-		"build:ssr": "lerna run build --scope @jetpack/ssr",
-		"heroku-postbuild": "lerna run build --scope @jetpack/api --stream",
+		"build:ssr": "lerna run build --scope @novac/ssr",
+		"heroku-postbuild": "lerna run build --scope @novac/api --stream",
 		"test": "lerna run test --stream --concurrency 2",
 		"test:ci": "lerna run test:ci --stream --concurrency 2",
 		"lint": "lerna run lint --stream --concurrency 2",
