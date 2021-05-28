@@ -3,7 +3,7 @@ import { join } from 'path'
 import { Logger } from '@nestjs/common'
 import { NestFactory } from '@nestjs/core'
 import { NestExpressApplication } from '@nestjs/platform-express'
-import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger'
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 import * as Sentry from '@sentry/node'
 import * as rateLimit from 'express-rate-limit'
 import * as helmet from 'helmet'
@@ -23,7 +23,6 @@ async function bootstrap() {
 		.setTitle('NestJS API Template')
 		.setDescription('This is API Version')
 		.setVersion(packageVersion)
-		.addTag('api')
 		.build()
 	const document = SwaggerModule.createDocument(app, options)
 

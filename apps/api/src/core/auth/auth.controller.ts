@@ -1,34 +1,17 @@
+import { Body, Controller, Post, Res, UseInterceptors } from '@nestjs/common'
 import {
-	Body,
-	Controller,
-	Patch,
-	Post,
-	Req,
-	Res,
-	UseGuards,
-	UseInterceptors
-} from '@nestjs/common'
-import {
-	ApiBearerAuth,
 	ApiCreatedResponse,
 	ApiOkResponse,
 	ApiResponse,
 	ApiTags
 } from '@nestjs/swagger'
-import { Request, Response } from 'express'
+import { Response } from 'express'
 
-import {
-	LoginDTO,
-	NewPasswordDTO,
-	RegisterUserDTO,
-	UpdatePasswordDTO
-} from './dto'
+import { LoginDTO, RegisterUserDTO } from './dto'
 import { HTTP_CODE } from '~/constants/httpCode'
 import { AuthService } from '~/core/auth/auth.service'
 import { VerifyTokenDTO } from '~/core/auth/dto/verifyToken.dto'
-import { JwtAuthGuard } from '~/guards'
 import { SentryInterceptor } from '~/interceptors/sentry.interceptor'
-import { jwtPayload } from '~/types/jwtPayload'
 
 @ApiTags('Auth')
 @UseInterceptors(SentryInterceptor)
@@ -64,69 +47,13 @@ export class AuthController {
 		return res.status(response.status).send(response)
 	}
 
-	@ApiResponse({
-		status: 201,
-		description: 'Recovery code created successfully'
-	})
-	@ApiResponse({
-		status: 409,
-		description: 'There is already a code generated for this email.'
-	})
-	@Post('password/recovery')
-	async passwordRecovery(
-		@Body('email') email: string,
-		@Res() res: Response
-	): Promise<Response> {
-		const response = await this.authService.recoverPassword(email)
-		return res.status(response.status).send(response)
-	}
-
-	@ApiResponse({
-		status: 204,
-		description: 'Your password has been changed'
-	})
-	@ApiResponse({
-		status: 406,
-		description: 'Your code our email is not right'
-	})
-	@Patch('password/new')
-	async newPassword(
-		@Body() data: NewPasswordDTO,
-		@Res() res: Response
-	): Promise<Response> {
-		const response = await this.authService.newPassword(data)
-		return res.status(response.status).send(response)
-	}
-
-	@ApiResponse({
-		status: 204,
-		description: 'Your password has been updated'
-	})
-	@ApiResponse({
-		status: 409,
-		description: 'We cant update this password'
-	})
-	@ApiBearerAuth()
-	@UseGuards(JwtAuthGuard)
-	@Patch('password/update')
-	async updatePassword(
-		@Body() data: UpdatePasswordDTO,
-		@Req() req: Request,
-		@Res() res: Response
-	) {
-		const user = req.user as jwtPayload
-		const userData = { ...user, ...data }
-		const response = await this.authService.updatePassword(userData)
-		return res.status(response.status).send(response)
-	}
-
 	@ApiCreatedResponse()
-	@Post('verify/token')
+	@Post('token')
 	async verifyToken(
 		@Body() { token }: VerifyTokenDTO,
 		@Res() response: Response
 	): Promise<Response> {
-		const result = await this.authService.validateToken(token)
+		const result = await this.authService.isTokenValid(token)
 		return response.status(200).send(result)
 	}
 }

@@ -1,9 +1,4 @@
-import {
-	ILogin,
-	INewPassword,
-	IUpdatePassword,
-	IUser
-} from '@jetpack/interfaces'
+import { ILogin, IUser } from '@jetpack/interfaces'
 import { Injectable } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
 import * as bcrypt from 'bcrypt'
@@ -25,7 +20,7 @@ export class AuthService {
 		this.logger.setContext('AUTH_SERVICE')
 	}
 
-	async checkUserPassword(user: ILogin): Promise<boolean> {
+	async isPasswordValid(user: ILogin): Promise<boolean> {
 		const { data } = await this.user.getByEmail(user.email)
 
 		if (data) {
@@ -40,21 +35,19 @@ export class AuthService {
 		return false
 	}
 
-	async checkUserExists(email: string): Promise<boolean> {
+	async userExists(email: string): Promise<boolean> {
 		const result = await this.user.getByEmail(email)
 		return !!result.data
 	}
 
 	async login(login: ILogin): Promise<IResponse> {
-		const isValid = await this.checkUserPassword(login)
-		const message = 'todo'
+		const isValid = await this.isPasswordValid(login)
 		if (isValid) {
 			const { data } = await this.user.getByEmail(login.email)
 			const payload = { email: data.email, roles: [data.role], id: data.id }
 			this.logger.log('User has logged in', { user: data.email })
-
 			return {
-				message,
+				message: 'You are logged in successfuly',
 				status: HTTP_CODE.OK,
 				token: this.jwt.sign(payload),
 				error: false
@@ -66,7 +59,7 @@ export class AuthService {
 		})
 
 		return {
-			message,
+			message: 'Something went wront with your login',
 			status: HTTP_CODE.Unauthorized,
 			error: true
 		}
@@ -74,7 +67,6 @@ export class AuthService {
 
 	async register(data: IUser): Promise<IResponse> {
 		const userExists = await this.user.checkExists(data.email)
-		const message = 'todo'
 
 		if (!userExists) {
 			const user = await this.user.create(data)
@@ -97,7 +89,7 @@ export class AuthService {
 				this.logger.log('A new user inside our DB 🎉🎉', { user: data.email })
 
 				return {
-					message,
+					message: 'You are now registrated to our system',
 					error: false,
 					status: 201
 				}
@@ -108,7 +100,7 @@ export class AuthService {
 			})
 
 			return {
-				message,
+				message: 'Something went wrong with your registration process',
 				status: HTTP_CODE.BadRequest,
 				error: true
 			}
@@ -118,105 +110,13 @@ export class AuthService {
 			user: data.email
 		})
 		return {
-			message,
+			message: 'Something went wrong with your registration process',
 			status: HTTP_CODE.Conflict,
 			error: true
 		}
 	}
 
-	async recoverPassword(email: string): Promise<IResponse<string>> {
-		const alreadyHaveActiveCode = await this.repository.alreadyGenerated(email)
-
-		if (!alreadyHaveActiveCode) {
-			const code = await this.repository.createRecoveryCode(email)
-
-			this.logger.warn('User created a recovery password code', { user: email })
-			return {
-				error: false,
-				message: 'Recovery code created successfully.',
-				status: 201,
-				data: code as string
-			}
-		}
-
-		this.logger.warn('There is alredy a code for this email', { user: email })
-		return {
-			status: 409,
-			error: true,
-			message: 'There is already a code generated for this email.'
-		}
-	}
-
-	async newPassword(data: INewPassword): Promise<IResponse> {
-		const user = await this.user.checkExists(data.email)
-		const isCodeValid = await this.repository.verifyRecoverToken(data.code)
-
-		if (!user && !isCodeValid) {
-			this.logger.error('The user or code is invalid!', {
-				user: data.email
-			})
-			return {
-				error: true,
-				message: 'Your code our email is not right',
-				status: HTTP_CODE.NotAcceptable
-			}
-		}
-
-		const { password } = await this.user.updatePassword(
-			data.email,
-			data.password
-		)
-
-		if (password) {
-			await this.repository.deleteRecoverToken(data.code)
-
-			this.logger.log('User has updated the password', { user: data.email })
-			return {
-				status: HTTP_CODE.NoContent,
-				error: false,
-				message: 'Your password has been changed'
-			}
-		}
-	}
-
-	async updatePassword(user: IUpdatePassword): Promise<IResponse> {
-		try {
-			const { data } = await this.user.getByEmail(user.email)
-			const isPasswordEqual = bcrypt.compareSync(
-				user.oldPassword,
-				data.password
-			)
-
-			if (isPasswordEqual) {
-				const password = await bcrypt.hashSync(user.newPassword, 10)
-				const hasChange = await this.user.updatePassword(data.email, password)
-
-				if (hasChange) {
-					this.logger.log('Password has been updated', { user: data.email })
-					return {
-						status: HTTP_CODE.NoContent,
-						error: false,
-						message: 'Your password has been updated'
-					}
-				}
-
-				this.logger.warn('Password has not been updated', { user: data.email })
-				return {
-					status: HTTP_CODE.Conflict,
-					error: true,
-					message: 'We cant update this password'
-				}
-			}
-		} catch (error) {
-			this.logger.error(
-				'Something goes wrong while someone tries to update password',
-				{ error }
-			)
-			return { error: error, message: 'Something goes wrong', status: 500 }
-		}
-	}
-
-	async validateToken(token: string): Promise<IResponse<boolean>> {
+	async isTokenValid(token: string): Promise<IResponse<boolean>> {
 		const message = 'todo'
 		this.logger.log('Trying to validate token')
 
