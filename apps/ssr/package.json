@@ -1,5 +1,5 @@
 {
-	"name": "@jetpack/ssr",
+	"name": "@novac/ssr",
 	"version": "1.0.0",
 	"private": true,
 	"scripts": {
