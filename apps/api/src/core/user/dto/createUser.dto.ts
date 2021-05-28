@@ -23,11 +23,6 @@ export class CreateUserDto implements IUser {
 	@ApiProperty()
 	@IsNotEmpty({ message: ErrorMessages.isEmpty })
 	@IsString({ message: ErrorMessages.isString })
-	cpf: string
-
-	@ApiProperty()
-	@IsNotEmpty({ message: ErrorMessages.isEmpty })
-	@IsString({ message: ErrorMessages.isString })
 	image: string
 
 	@ApiProperty()
