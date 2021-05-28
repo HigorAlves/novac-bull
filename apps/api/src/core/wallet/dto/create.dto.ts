@@ -21,11 +21,6 @@ export class CreateWalletDTO {
 
 	@ApiProperty()
 	@IsNotEmpty({ message: ErrorMessages.isEmpty })
-	@IsString({ message: ErrorMessages.isString })
-	owner: string
-
-	@ApiProperty()
-	@IsNotEmpty({ message: ErrorMessages.isEmpty })
 	@IsNumber()
 	initialAmount: number
 

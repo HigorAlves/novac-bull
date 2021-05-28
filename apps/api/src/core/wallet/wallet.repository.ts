@@ -12,7 +12,11 @@ export class WalletRepository {
 	constructor(@InjectModel('Wallet') private Database: Model<WalletDocument>) {}
 
 	async create(data: IWallet): Promise<boolean | string> {
-		const wallet = new this.Database(data)
+		const walletData = {
+			...data,
+			amount: 0
+		}
+		const wallet = new this.Database(walletData)
 
 		try {
 			await wallet.save()
@@ -47,7 +51,13 @@ export class WalletRepository {
 	): Promise<WalletDocument | boolean> {
 		try {
 			const wallet = await this.Database.findById(walletId).exec()
-			wallet.transactions.push(transaction)
+			wallet.amount += parseFloat(transaction.amount)
+			if (wallet.transactions !== null) {
+				wallet.transactions.push(transaction)
+			} else {
+				wallet.transactions = [transaction]
+			}
+
 			return wallet.save()
 		} catch (e) {
 			this.logger.error('ERROR: ', e)
