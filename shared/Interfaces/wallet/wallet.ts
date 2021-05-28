@@ -14,7 +14,7 @@ export interface ICategory {
 
 export interface ITransaction {
 	id?: string
-	amount: number
+	amount: string
 	category: ICategory
 	createdAt?: Date
 	updatedAt?: Date

@@ -1,21 +1,22 @@
 {
 	"bail": 1,
+	"silent": true,
+	"testTimeout": 5000,
+	"timers": "fake",
+	"testRegex": ".*\\.spec\\.ts$",
+	"preset": "@shelf/jest-mongodb",
+	"testEnvironment": "node",
 	"moduleFileExtensions": [
 		"js",
 		"json",
 		"ts"
 	],
-	"silent": true,
-	"testRegex": ".*\\.spec\\.ts$",
 	"transform": {
 		"^.+\\.(t|j)s$": "ts-jest"
 	},
-	"testTimeout": 5000,
-	"timers": "fake",
 	"collectCoverageFrom": [
 		"**/*.(t|j)s"
 	],
-	"testEnvironment": "node",
 	"moduleNameMapper": {
 		"~/(.*)": [
 			"<rootDir>/src/$1"

@@ -1,57 +1,32 @@
-import * as path from 'path'
-
 import { MongooseModule } from '@nestjs/mongoose'
 import { Test, TestingModule } from '@nestjs/testing'
-import {
-	AcceptLanguageResolver,
-	CookieResolver,
-	HeaderResolver,
-	I18nJsonParser,
-	I18nModule,
-	QueryResolver
-} from 'nestjs-i18n'
+import { MongoClient } from 'mongodb'
 
 import { LeadService } from './lead.service'
 import { HTTP_CODE } from '~/constants/httpCode'
 import { LeadRepository } from '~/core/lead/lead.repository'
 import { LoggerModule } from '~/interceptors/logger.interceptor'
 import { LeadSchema } from '~/schemas/lead.schema'
-import {
-	closeInMongodConnection,
-	rootMongooseTestModule
-} from '~/utils/mongodb-test'
 
 describe('LeadService', () => {
 	let service: LeadService
+	let db
 
 	beforeAll(async () => {
+		const connection = await MongoClient.connect(process.env.MONGO_URL, {
+			useNewUrlParser: true,
+			useUnifiedTopology: true
+		})
+		db = connection.db()
 		const module: TestingModule = await Test.createTestingModule({
 			imports: [
-				rootMongooseTestModule(),
 				MongooseModule.forFeature([{ name: 'Lead', schema: LeadSchema }]),
-				I18nModule.forRoot({
-					fallbackLanguage: 'en',
-					parser: I18nJsonParser,
-					parserOptions: {
-						path: path.join(__dirname, '../../i18n')
-					},
-					resolvers: [
-						{ use: QueryResolver, options: ['lang', 'locale', 'l'] },
-						new HeaderResolver(['x-custom-lang']),
-						AcceptLanguageResolver,
-						new CookieResolver(['lang', 'locale', 'l'])
-					]
-				}),
 				LoggerModule
 			],
-			providers: [LeadRepository, LeadService]
+			providers: [LeadService, LeadRepository]
 		}).compile()
 
 		service = module.get<LeadService>(LeadService)
-	})
-
-	afterAll(async () => {
-		await closeInMongodConnection()
 	})
 
 	it('should be defined', () => {
