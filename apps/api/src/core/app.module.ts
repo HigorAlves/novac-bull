@@ -2,7 +2,6 @@ import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 import { MongooseModule } from '@nestjs/mongoose'
 
-import { AppController } from './app.controller'
 import { LeadModule } from './lead/lead.module'
 import { WalletModule } from './wallet/wallet.module'
 import ENV_CONFIG from '~/config/configuration'
@@ -27,7 +26,6 @@ import { LoggerModule } from '~/interceptors/logger.interceptor'
 		UserModule,
 		LeadModule,
 		WalletModule
-	],
-	controllers: [AppController]
+	]
 })
 export class AppModule {}
