@@ -7,10 +7,7 @@ export type UserDocument = IUser & Document
 @Schema({ timestamps: true })
 export class User {
 	@Prop()
-	firstName: string
-
-	@Prop()
-	lastName: string
+	name: string
 
 	@Prop()
 	image: string
@@ -19,7 +16,10 @@ export class User {
 	email: string
 
 	@Prop()
-	cpf: string
+	role: 'admin' | 'client'
+
+	@Prop()
+	password: string
 
 	@Prop(
 		raw({
@@ -28,12 +28,6 @@ export class User {
 		})
 	)
 	locale: Record<string, string>
-
-	@Prop()
-	role: 'admin' | 'client'
-
-	@Prop()
-	password: string
 }
 
 export const UserSchema = SchemaFactory.createForClass(User)

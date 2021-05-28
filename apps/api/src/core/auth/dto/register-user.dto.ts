@@ -1,6 +1,6 @@
 import { IUser } from '@jetpack/interfaces'
 import { ApiProperty } from '@nestjs/swagger'
-import { IsBoolean, IsNotEmpty, IsString } from 'class-validator'
+import { IsNotEmpty, IsString } from 'class-validator'
 
 import { ErrorMessages } from '~/constants/dtoMessages'
 
@@ -19,11 +19,6 @@ export class RegisterUserDTO implements IUser {
 	@IsNotEmpty({ message: ErrorMessages.isEmpty })
 	@IsString({ message: ErrorMessages.isString })
 	name: string
-
-	@ApiProperty()
-	@IsNotEmpty({ message: ErrorMessages.isEmpty })
-	@IsString({ message: ErrorMessages.isString })
-	cpf: string
 
 	@ApiProperty()
 	@IsNotEmpty({ message: ErrorMessages.isEmpty })

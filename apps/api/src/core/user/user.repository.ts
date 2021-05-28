@@ -20,10 +20,6 @@ export class UserRepository {
 		return await this.Database.findOne({ email }).exec()
 	}
 
-	async getByCPF(cpf: string): Promise<UserDocument> {
-		return await this.Database.findOne({ cpf }).exec()
-	}
-
 	async getByID(uid: string): Promise<UserDocument> {
 		return await this.Database.findById(uid).exec()
 	}
@@ -51,11 +47,7 @@ export class UserRepository {
 			_id: new ObjectID(id)
 		})
 
-		if (result.deletedCount == 0) {
-			return false
-		}
-
-		return true
+		return result.deletedCount != 0
 	}
 
 	async checkEmailAlreadyInUse(email: string) {

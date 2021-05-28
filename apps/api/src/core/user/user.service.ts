@@ -1,4 +1,4 @@
-import { ILogin, IUser } from '@jetpack/interfaces'
+import { IUser } from '@jetpack/interfaces'
 import { Injectable } from '@nestjs/common'
 import * as bcrypt from 'bcrypt'
 
@@ -16,21 +16,6 @@ export class UserService {
 		this.logger.log('Checking if the users exists inside database')
 		const result = await this.getByEmail(email)
 		return !!result.data
-	}
-
-	async verifyPassword(user: ILogin): Promise<boolean> {
-		const { data } = await this.getByEmail(user.email)
-		this.logger.log('Verifying if password of the user is correct')
-		if (data) {
-			try {
-				return bcrypt.compareSync(user.password, data.password)
-			} catch (error) {
-				this.logger.error(error)
-				return false
-			}
-		}
-
-		return false
 	}
 
 	async getByEmail(email: string): Promise<IResponse<UserDocument>> {
