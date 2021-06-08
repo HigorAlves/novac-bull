@@ -2,7 +2,6 @@
 	"bail": 1,
 	"silent": true,
 	"testTimeout": 5000,
-	"timers": "fake",
 	"testRegex": ".*\\.spec\\.ts$",
 	"preset": "@shelf/jest-mongodb",
 	"testEnvironment": "node",
