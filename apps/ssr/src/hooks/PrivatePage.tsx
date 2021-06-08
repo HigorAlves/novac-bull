@@ -5,7 +5,7 @@ import ServerCookie from 'next-cookies'
 import { TOKEN_STORAGE_KEY } from '~/utils/authToken'
 import redirect from '~/utils/redirect'
 
-const asPrivatePage = (C: any) => {
+const PrivatePage = (C: any) => {
 	return (layout: 'dashboard') => {
 		return class AuthComponent extends React.Component {
 			static async getInitialProps(ctx) {
@@ -45,4 +45,4 @@ const asPrivatePage = (C: any) => {
 	}
 }
 
-export default asPrivatePage
+export default PrivatePage

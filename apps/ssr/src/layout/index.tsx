@@ -1,16 +1,18 @@
 import React from 'react'
 
-import DashboardLayout from './dashboard'
-import DefaultLayout from './default'
+import DashboardLayout from './Dashboard'
+import DefaultLayout from './Default'
 
 const layouts = {
 	default: DefaultLayout,
 	dashboard: DashboardLayout
 }
 
-const LayoutWrapper = props => {
+const LayoutWrapper = (props: any) => {
 	// to get the text value of the assigned layout of each component
 	const Layout =
+		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+		// @ts-ignore
 		// eslint-disable-next-line react/prop-types
 		layouts[props.children.props.layout || props.children.type.layout]
 

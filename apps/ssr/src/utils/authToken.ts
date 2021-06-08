@@ -10,11 +10,11 @@ export class AuthToken {
 		await Router.push('/dashboard')
 	}
 
-	static getToken(): string {
+	static getToken(): string | undefined {
 		return Cookie.get(TOKEN_STORAGE_KEY)
 	}
 
-	static getOnServer(ctx): string {
+	static getOnServer(ctx: any): string | undefined {
 		return ServerCookie(ctx)[TOKEN_STORAGE_KEY]
 	}
 }
