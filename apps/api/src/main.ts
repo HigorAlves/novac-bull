@@ -8,7 +8,7 @@ import * as Sentry from '@sentry/node'
 import * as rateLimit from 'express-rate-limit'
 import * as helmet from 'helmet'
 
-import { PORT, SENTRY } from '~/constants'
+import { LOG_DNA, PORT, SENTRY } from '~/constants'
 import { AppModule } from '~/core/app.module'
 
 async function bootstrap() {
@@ -20,14 +20,23 @@ async function bootstrap() {
 	app.setBaseViewsDir(join(__dirname, '..', 'views'))
 
 	const options = new DocumentBuilder()
-		.setTitle('NestJS API Template')
+		.setTitle('NOVAC BULL API')
 		.setDescription('This is API Version')
 		.setVersion(packageVersion)
 		.build()
 	const document = SwaggerModule.createDocument(app, options)
 
 	SwaggerModule.setup('api', app, document)
-	Sentry.init({ dsn: SENTRY.dsn })
+	Sentry.init({
+		dsn: SENTRY.dsn,
+		tracesSampleRate: 1.0,
+		debug: process.env.NODE_ENV === 'development',
+		release: packageVersion,
+		environment: LOG_DNA.env,
+		attachStacktrace: true,
+		serverName: LOG_DNA.app,
+		integrations: [new Sentry.Integrations.Http({ tracing: true })]
+	})
 
 	app.use(helmet())
 	app.enableCors()
