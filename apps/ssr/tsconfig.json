@@ -1,33 +1,26 @@
 {
-  "extends": "../tsconfig.settings.json",
   "compilerOptions": {
     "target": "es5",
-    "module": "esnext",
-    "moduleResolution": "node",
-    "isolatedModules": true,
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
-    "strict": false,
+    "skipLibCheck": true,
+    "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node",
     "resolveJsonModule": true,
+    "isolatedModules": true,
     "jsx": "preserve",
-    "baseUrl": ".",
+    "baseUrl": "./",
     "paths": {
-      "~/*": ["src/*"]
+      "~/*": ["src/*"],
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": [
+	  "next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": [
-    "node_modules",
-    "babel.config.js",
-    "metro.config.js",
-    "jest.config.js",
-    "**/*.test.ts",
-    "**/*.spec.ts",
-    "functions",
-    ".firebaserc",
-    "firebase.json"
+	  "next-template/node_modules"
   ]
 }
