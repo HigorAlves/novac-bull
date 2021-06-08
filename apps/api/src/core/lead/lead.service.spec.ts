@@ -1,7 +1,7 @@
 import { MongooseModule } from '@nestjs/mongoose'
 import { Test, TestingModule } from '@nestjs/testing'
-import { MongoClient } from 'mongodb'
 
+import { rootMongooseTestModule } from '../../../test/utils/mongodb'
 import { LeadService } from './lead.service'
 import { HTTP_CODE } from '~/constants/httpCode'
 import { LeadRepository } from '~/core/lead/lead.repository'
@@ -10,16 +10,11 @@ import { LeadSchema } from '~/schemas/lead.schema'
 
 describe('LeadService', () => {
 	let service: LeadService
-	let db
 
 	beforeAll(async () => {
-		const connection = await MongoClient.connect(process.env.MONGO_URL, {
-			useNewUrlParser: true,
-			useUnifiedTopology: true
-		})
-		db = connection.db()
 		const module: TestingModule = await Test.createTestingModule({
 			imports: [
+				rootMongooseTestModule(),
 				MongooseModule.forFeature([{ name: 'Lead', schema: LeadSchema }]),
 				LoggerModule
 			],
