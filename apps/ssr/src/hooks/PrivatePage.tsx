@@ -8,7 +8,7 @@ import redirect from '~/utils/redirect'
 const PrivatePage = (C: any) => {
 	return (layout: 'dashboard') => {
 		return class AuthComponent extends React.Component {
-			static async getInitialProps(ctx) {
+			static async getInitialProps(ctx: any) {
 				try {
 					const token = ServerCookie(ctx)[TOKEN_STORAGE_KEY]
 
