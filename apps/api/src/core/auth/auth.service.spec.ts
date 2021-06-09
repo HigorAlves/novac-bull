@@ -52,7 +52,7 @@ describe('Authentication Service', () => {
 		await closeInMongodConnection()
 	})
 
-	it('should be defined', () => {
+	it('should be defined', async () => {
 		expect(service).toBeDefined()
 	})
 
