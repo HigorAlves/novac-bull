@@ -17,6 +17,7 @@
 		"heroku-postbuild": "lerna run build --scope @novac/api --stream",
 		"test": "lerna run test --stream --concurrency 2",
 		"test:ci": "lerna run test:ci --stream --concurrency 2",
+		"test:ci:api": "lerna run test:ci --scope @novac/api",
 		"lint": "lerna run lint --stream --concurrency 2",
 		"prettier": "lerna run prettier --stream --concurrency 2",
 		"lighthouse": "lerna run lighthouse --stream --concurrency 2",
