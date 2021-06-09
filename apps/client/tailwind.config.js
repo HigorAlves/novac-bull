@@ -1,5 +1,6 @@
-const {breakpoints} = require('./src/assets/styles/grid');
+const { breakpoints } = require('./src/assets/styles/grid');
 const { spacing, borderRadius, borderWidth, borderColor } = require('./src/assets/styles/tailwind/utilities');
+const { fontSizeAndLineHeight } = require('./src/assets/styles/tailwind/fonts');
 
 module.exports = {
   purge: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
@@ -16,7 +17,10 @@ module.exports = {
     },
     spacing,
     borderRadius,
-    extend: {},
+    fontSize: { ...fontSizeAndLineHeight },
+    extend: {
+      lineHeight: { ...fontSizeAndLineHeight },
+    },
   },
   variants: {
     extend: {},
