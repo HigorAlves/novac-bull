@@ -29,9 +29,9 @@ jobs:
       - name: Install Dependencies
         run: yarn install
       - name: Eslint
-        run: yarn lint
+        run: yarn lint:api
       - name: Prettier
-        run: yarn prettier
+        run: yarn prettier:api
   test:
     name: Test
     needs: lint
