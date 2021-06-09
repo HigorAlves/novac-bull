@@ -4,6 +4,7 @@ import { MongooseModule } from '@nestjs/mongoose'
 import { PassportModule } from '@nestjs/passport'
 import { Test, TestingModule } from '@nestjs/testing'
 
+import { LoggerModule } from '../../../test/mocks/logger.interceptor'
 import {
 	closeInMongodConnection,
 	rootMongooseTestModule
@@ -14,7 +15,6 @@ import { AuthRepository } from '~/core/auth/auth.repository'
 import { AuthService } from '~/core/auth/auth.service'
 import { JwtStrategy } from '~/core/auth/strategys/jwt.strategy'
 import { UserModule } from '~/core/user/user.module'
-import { LoggerModule } from '~/interceptors/logger.interceptor'
 import { RecoverySchema } from '~/schemas/recovery.schema'
 
 describe('Authentication Service', () => {
