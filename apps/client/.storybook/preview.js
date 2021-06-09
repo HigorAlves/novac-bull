@@ -1,3 +1,9 @@
-export const parameters = {
-  actions: { argTypesRegex: '^on[A-Z].*' }
-}
+import React from 'react'
+
+export const decorators = [
+	(Story) => (
+		<>
+			<Story />
+		</>
+	)
+]

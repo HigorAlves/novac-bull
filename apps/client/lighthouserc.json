@@ -4,16 +4,12 @@
       "target": "temporary-public-storage"
     },
     "collect": {
-      "staticDistDir": "./",
-      "url": ["http://localhost:5000"],
-      "startServerCommand": "serve -s build",
-      "startServerReadyPattern": "ready on",
-      "numberOfRuns": 5
-    },
-    "ci": {
-      "assert": {
-        "preset": "lighthouse:recommended"
-      }
-    }
+			"url": [
+				"http://localhost:3000"
+			],
+			"startServerCommand": "npm run build:next && npm run start",
+			"startServerReadyPattern": "ready on",
+			"numberOfRuns": 5
+		}
   }
 }
