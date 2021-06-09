@@ -4,10 +4,24 @@
 	"collectCoverageFrom": [
 		"src/**/*.{js,jsx,tsx,ts}",
 		"!**/node_modules/**",
-		"!docs",
-		"!__mocks__"
+		"!docs"
 	],
 	"coverageDirectory": "coverage",
-	"moduleFileExtensions": ["ts", "tsx", "js", "jsx", "json", "node"],
-	"testPathIgnorePatterns": ["/node_modules/", "/build/", "__mocks__"]
+	"moduleFileExtensions": [
+		"ts",
+		"tsx",
+		"js",
+		"jsx",
+		"json",
+		"node"
+	],
+	"testPathIgnorePatterns": [
+		"/node_modules/",
+		"/.next/"
+	],
+	"moduleNameMapper": {
+		"~/(.*)": [
+			"<rootDir>/src/$1"
+		]
+	}
 }
