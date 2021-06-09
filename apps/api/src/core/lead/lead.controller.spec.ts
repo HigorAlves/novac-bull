@@ -1,7 +1,10 @@
 import { MongooseModule } from '@nestjs/mongoose'
 import { Test, TestingModule } from '@nestjs/testing'
 
-import { rootMongooseTestModule } from '../../../test/utils/mongodb'
+import {
+	closeInMongodConnection,
+	rootMongooseTestModule
+} from '../../../test/utils/mongodb'
 import { LeadController } from './lead.controller'
 import { LeadRepository } from '~/core/lead/lead.repository'
 import { LeadService } from '~/core/lead/lead.service'
@@ -23,6 +26,10 @@ describe('LeadController', () => {
 		}).compile()
 
 		controller = module.get<LeadController>(LeadController)
+	})
+
+	afterAll(() => {
+		closeInMongodConnection()
 	})
 
 	it('should be defined', () => {

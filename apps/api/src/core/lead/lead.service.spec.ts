@@ -27,8 +27,8 @@ describe('LeadService', () => {
 		service = module.get<LeadService>(LeadService)
 	})
 
-	afterAll(async () => {
-		await closeInMongodConnection()
+	afterAll(() => {
+		closeInMongodConnection()
 	})
 
 	it('should be defined', async () => {
