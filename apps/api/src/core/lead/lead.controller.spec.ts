@@ -28,8 +28,9 @@ describe('LeadController', () => {
 		controller = module.get<LeadController>(LeadController)
 	})
 
-	afterAll(() => {
+	afterAll(done => {
 		closeInMongodConnection()
+		done()
 	})
 
 	it('should be defined', () => {
