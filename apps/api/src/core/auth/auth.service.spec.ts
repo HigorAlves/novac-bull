@@ -48,8 +48,9 @@ describe('Authentication Service', () => {
 		service = module.get<AuthService>(AuthService)
 	})
 
-	afterAll(() => {
+	afterAll(done => {
 		closeInMongodConnection()
+		done()
 	})
 
 	it('should be defined', async () => {
