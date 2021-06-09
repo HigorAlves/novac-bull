@@ -1,10 +1,5 @@
 import { Body, Controller, Post, Res, UseInterceptors } from '@nestjs/common'
-import {
-	ApiCreatedResponse,
-	ApiOkResponse,
-	ApiResponse,
-	ApiTags
-} from '@nestjs/swagger'
+import { ApiOkResponse, ApiResponse, ApiTags } from '@nestjs/swagger'
 import { Response } from 'express'
 
 import { LoginDTO, RegisterUserDTO } from './dto'
@@ -47,13 +42,17 @@ export class AuthController {
 		return res.status(response.status).send(response)
 	}
 
-	@ApiCreatedResponse()
+	@ApiOkResponse({ description: 'Your Token is valid' })
+	@ApiResponse({
+		status: HTTP_CODE.BadRequest,
+		description: 'Token is invalid'
+	})
 	@Post('token')
 	async verifyToken(
 		@Body() { token }: VerifyTokenDTO,
 		@Res() response: Response
 	): Promise<Response> {
 		const result = await this.authService.isTokenValid(token)
-		return response.status(200).send(result)
+		return response.status(result.status).send(result)
 	}
 }
