@@ -1,6 +1,6 @@
 {
-	"bail": 1,
-	"silent": true,
+	"bail": true,
+	"silent": false,
 	"testTimeout": 5000,
 	"testRegex": ".*\\.spec\\.ts$",
 	"preset": "@shelf/jest-mongodb",

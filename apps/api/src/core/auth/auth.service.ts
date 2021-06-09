@@ -1,6 +1,7 @@
 import { ILogin, IUser } from '@jetpack/interfaces'
 import { Injectable } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
+import * as Sentry from '@sentry/node'
 import * as bcrypt from 'bcrypt'
 
 import { AuthRepository } from './auth.repository'
@@ -28,6 +29,15 @@ export class AuthService {
 				return bcrypt.compareSync(user.password, data.password)
 			} catch (error) {
 				this.logger.error(error)
+				Sentry.withScope(scope => {
+					scope.setUser({ user: user.email })
+					scope.addBreadcrumb({
+						category: 'auth',
+						message: 'Something with password validation was wrong',
+						level: Sentry.Severity.Error
+					})
+					Sentry.captureException(new Error(error))
+				})
 				return false
 			}
 		}
@@ -59,7 +69,7 @@ export class AuthService {
 		})
 
 		return {
-			message: 'Something went wront with your login',
+			message: 'Cannot logged in, email or password wrong',
 			status: HTTP_CODE.Unauthorized,
 			error: true
 		}
@@ -99,6 +109,16 @@ export class AuthService {
 				user: data.email
 			})
 
+			Sentry.withScope(scope => {
+				scope.setUser({ user: data.email })
+				scope.addBreadcrumb({
+					category: 'auth',
+					message: 'Something went wrong while trying to register a new user',
+					level: Sentry.Severity.Error
+				})
+				Sentry.captureException(new Error())
+			})
+
 			return {
 				message: 'Something went wrong with your registration process',
 				status: HTTP_CODE.BadRequest,
@@ -117,7 +137,6 @@ export class AuthService {
 	}
 
 	async isTokenValid(token: string): Promise<IResponse<boolean>> {
-		const message = 'todo'
 		this.logger.log('Trying to validate token')
 
 		try {
@@ -128,16 +147,24 @@ export class AuthService {
 				error: false,
 				status: HTTP_CODE.OK,
 				data: true,
-				message
+				message: 'Token is valid'
 			}
 		} catch (error) {
 			this.logger.log('This token is not valid')
+			Sentry.withScope(scope => {
+				scope.addBreadcrumb({
+					category: 'auth',
+					message: 'Cannot validation the token input.',
+					level: Sentry.Severity.Error
+				})
+				Sentry.captureException(new Error(error))
+			})
 
 			return {
 				error: false,
 				status: HTTP_CODE.BadRequest,
 				data: false,
-				message
+				message: 'Cannot validation the token input.'
 			}
 		}
 	}
