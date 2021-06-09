@@ -1,6 +1,7 @@
 import { MongooseModule } from '@nestjs/mongoose'
 import { Test, TestingModule } from '@nestjs/testing'
 
+import { LoggerModule } from '../../../test/mocks/logger.interceptor'
 import {
 	closeInMongodConnection,
 	rootMongooseTestModule
@@ -8,7 +9,6 @@ import {
 import { LeadController } from './lead.controller'
 import { LeadRepository } from '~/core/lead/lead.repository'
 import { LeadService } from '~/core/lead/lead.service'
-import { LoggerModule } from '~/interceptors/logger.interceptor'
 import { LeadSchema } from '~/schemas/lead.schema'
 
 describe('LeadController', () => {
