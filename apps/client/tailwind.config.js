@@ -1,4 +1,3 @@
-const { breakpoints } = require('./src/assets/styles/grid');
 const { spacing, borderRadius, borderWidth, borderColor } = require('./src/assets/styles/tailwind/utilities');
 const { fontSizeAndLineHeight } = require('./src/assets/styles/tailwind/fonts');
 
@@ -9,11 +8,11 @@ module.exports = {
     borderWidth,
     borderColor,
     screens: {
-      sm: `${breakpoints.sm}px`,
-      md: `${breakpoints.md}px`,
-      lg: `${breakpoints.lg}px`,
-      xl: `${breakpoints.xl}px`,
-      xxl: `${breakpoints.xxl}px`
+			sm: '576px',
+			md: '768px',
+			lg: '992px',
+			xl: '1200px',
+			xxl: '1400px'
     },
     spacing,
     borderRadius,
