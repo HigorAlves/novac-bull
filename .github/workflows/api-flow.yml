@@ -37,6 +37,13 @@ jobs:
     needs: lint
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    env:
+      LOGDNA_KEY: ${{ secrets.LOGDNA_KEY }}
+      LOGDNA_HOST_NAME: 'GITHUB_CI'
+      LOGDNA_APP: 'NOVAC'
+      LOGDNA_ENV: 'CI'
+      JWT_SECRET: 'CI'
+      SENDGRID_API_KEY: 'SG:YOUR_API_KEY'
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2-beta
