@@ -17,7 +17,7 @@ import { UserModule } from '~/core/user/user.module'
 import { LoggerModule } from '~/interceptors/logger.interceptor'
 import { RecoverySchema } from '~/schemas/recovery.schema'
 
-describe('LeadService', () => {
+describe('Authentication Service', () => {
 	let service: AuthService
 
 	const user: IUser = {
