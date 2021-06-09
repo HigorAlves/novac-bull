@@ -1,4 +1,4 @@
-name: CI - Lint
+name: CI - API flow
 on:
   push:
     branches:
