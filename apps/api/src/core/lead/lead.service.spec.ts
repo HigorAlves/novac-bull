@@ -1,7 +1,10 @@
 import { MongooseModule } from '@nestjs/mongoose'
 import { Test, TestingModule } from '@nestjs/testing'
 
-import { rootMongooseTestModule } from '../../../test/utils/mongodb'
+import {
+	closeInMongodConnection,
+	rootMongooseTestModule
+} from '../../../test/utils/mongodb'
 import { LeadService } from './lead.service'
 import { HTTP_CODE } from '~/constants/httpCode'
 import { LeadRepository } from '~/core/lead/lead.repository'
@@ -24,7 +27,11 @@ describe('LeadService', () => {
 		service = module.get<LeadService>(LeadService)
 	})
 
-	it('should be defined', () => {
+	afterAll(async () => {
+		await closeInMongodConnection()
+	})
+
+	it('should be defined', async () => {
 		expect(service).toBeDefined()
 	})
 
