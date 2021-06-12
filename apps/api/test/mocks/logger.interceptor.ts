@@ -7,23 +7,18 @@ export class Logger extends NestLogger {
 	}
 
 	log(message: string, metadata?: unknown) {
-		console.log(message, metadata)
 	}
 
 	warn(message: string, metadata?: unknown) {
-		console.log(message, metadata)
 	}
 
 	error(message: string, metadata?: unknown) {
-		console.log(message, metadata)
 	}
 
 	debug(message: string, metadata?: unknown) {
-		console.log(message, metadata)
 	}
 
 	verbose(message: string, metadata?: unknown) {
-		console.log(message, metadata)
 	}
 }
 
