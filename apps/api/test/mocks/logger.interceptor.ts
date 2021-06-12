@@ -6,20 +6,15 @@ export class Logger extends NestLogger {
 		super()
 	}
 
-	log(message: string, metadata?: unknown) {
-	}
+	log(message: string, metadata?: unknown) {}
 
-	warn(message: string, metadata?: unknown) {
-	}
+	warn(message: string, metadata?: unknown) {}
 
-	error(message: string, metadata?: unknown) {
-	}
+	error(message: string, metadata?: unknown) {}
 
-	debug(message: string, metadata?: unknown) {
-	}
+	debug(message: string, metadata?: unknown) {}
 
-	verbose(message: string, metadata?: unknown) {
-	}
+	verbose(message: string, metadata?: unknown) {}
 }
 
 @Module({
