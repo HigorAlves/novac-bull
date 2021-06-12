@@ -49,4 +49,18 @@ export class CategoryRepository {
 			return false
 		}
 	}
+
+	async update(userId: string, category: ICategory): Promise<boolean | string> {
+		const user = await this.Database.findById(userId).exec()
+		user.categories = user.categories.map((item: ICategory) =>
+			item.id === category.id ? (item = category) : item
+		)
+		try {
+			await user.save()
+			return true
+		} catch (e) {
+			this.logger.error('ERROR: ', e)
+			return false
+		}
+	}
 }
