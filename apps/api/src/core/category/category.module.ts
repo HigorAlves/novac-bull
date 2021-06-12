@@ -14,5 +14,4 @@ import { UserSchema } from '~/schemas/user.schema'
 	],
 	providers: [CategoryService]
 })
-export class CategoryModule {
-}
+export class CategoryModule {}
