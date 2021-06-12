@@ -1,7 +1,10 @@
 import { MongooseModule } from '@nestjs/mongoose'
 import { Test, TestingModule } from '@nestjs/testing'
 
-import { closeInMongodConnection, rootMongooseTestModule } from '../../../test/utils/mongodb'
+import {
+	closeInMongodConnection,
+	rootMongooseTestModule
+} from '../../../test/utils/mongodb'
 import { CategoryService } from './category.service'
 import { UserModule } from '~/core/user/user.module'
 import { LoggerModule } from '~/interceptors/logger.interceptor'

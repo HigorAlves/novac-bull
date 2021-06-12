@@ -23,14 +23,5 @@ export class CreateUserDto implements IUser {
 	@ApiProperty()
 	@IsNotEmpty({ message: ErrorMessages.isEmpty })
 	@IsString({ message: ErrorMessages.isString })
-	image: string
-
-	@ApiProperty()
-	@IsNotEmpty({ message: ErrorMessages.isEmpty })
-	locale: { currency: 'BRL' | 'USD'; language: 'pt-BR' | 'en-US' }
-
-	@ApiProperty()
-	@IsNotEmpty({ message: ErrorMessages.isEmpty })
-	@IsString({ message: ErrorMessages.isString })
 	role: 'client' | 'admin'
 }
