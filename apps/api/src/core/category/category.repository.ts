@@ -9,8 +9,7 @@ import { UserDocument } from '~/schemas/user.schema'
 export class CategoryRepository {
 	private logger = new Logger('CATEGORY_REPOSITORY')
 
-	constructor(@InjectModel('User') private Database: Model<UserDocument>) {
-	}
+	constructor(@InjectModel('User') private Database: Model<UserDocument>) {}
 
 	async create(userId: string, category: ICategory): Promise<boolean | string> {
 		const user = await this.Database.findById(userId).exec()

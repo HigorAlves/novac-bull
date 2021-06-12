@@ -5,5 +5,4 @@ import { CategoryService } from './category.service'
 @Module({
 	providers: [CategoryService]
 })
-export class CategoryModule {
-}
+export class CategoryModule {}
