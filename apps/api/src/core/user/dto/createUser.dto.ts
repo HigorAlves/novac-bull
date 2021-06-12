@@ -1,4 +1,4 @@
-import { IUser } from '@jetpack/interfaces'
+import { ICategory, IUser } from '@jetpack/interfaces'
 import { ApiProperty } from '@nestjs/swagger'
 import { IsNotEmpty, IsString } from 'class-validator'
 
@@ -24,4 +24,7 @@ export class CreateUserDto implements IUser {
 	@IsNotEmpty({ message: ErrorMessages.isEmpty })
 	@IsString({ message: ErrorMessages.isString })
 	role: 'client' | 'admin'
+
+	@ApiProperty()
+	categories: ICategory[] | null
 }

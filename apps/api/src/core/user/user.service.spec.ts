@@ -3,10 +3,7 @@ import { MongooseModule } from '@nestjs/mongoose'
 import { Test, TestingModule } from '@nestjs/testing'
 
 import { LoggerModule } from '../../../test/mocks/logger.interceptor'
-import {
-	closeInMongodConnection,
-	rootMongooseTestModule
-} from '../../../test/utils/mongodb'
+import { closeInMongodConnection, rootMongooseTestModule } from '../../../test/utils/mongodb'
 import { UserService } from './user.service'
 import { HTTP_CODE } from '~/constants/httpCode'
 import { UserRepository } from '~/core/user/user.repository'
@@ -15,6 +12,7 @@ import { UserSchema } from '~/schemas/user.schema'
 describe('User Services', () => {
 	let service: UserService
 	const userData: IUser = {
+		categories: [],
 		name: 'Savio Estolando',
 		email: 'savioestolando@maneirao.dev',
 		password: 'estolandounsaviao',

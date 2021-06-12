@@ -1,9 +1,5 @@
 import { IUser } from '@jetpack/interfaces'
-import {
-	Injectable,
-	InternalServerErrorException,
-	Logger
-} from '@nestjs/common'
+import { Injectable, InternalServerErrorException, Logger } from '@nestjs/common'
 import { InjectModel } from '@nestjs/mongoose'
 import { ObjectID } from 'mongodb'
 import { Model } from 'mongoose'
@@ -50,12 +46,14 @@ export class UserRepository {
 		return result.deletedCount != 0
 	}
 
-	async checkEmailAlreadyInUse(email: string) {
-		return this.Database.findOne({ email })
-	}
-
-	async updateUser(user: IUser, id: string): Promise<UserDocument> {
-		return await this.Database.findOneAndUpdate({ id }, user).exec()
+	async updateUser(
+		user: Pick<IUser, 'name'> & Pick<IUser, 'email'>,
+		id: string
+	): Promise<UserDocument> {
+		return await this.Database.findOneAndUpdate(
+			{ id },
+			{ email: user.email, name: user.name }
+		).exec()
 	}
 
 	async updatePassword(email: string, password: string): Promise<UserDocument> {
