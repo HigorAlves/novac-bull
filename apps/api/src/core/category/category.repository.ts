@@ -41,9 +41,9 @@ export class CategoryRepository {
 	}
 
 	async listAllCategories(userId: string): Promise<ICategory[] | boolean> {
-		const user = await this.Database.findById(userId).exec()
+		const { categories } = await this.Database.findById(userId).exec()
 		try {
-			return user.categories
+			return categories
 		} catch (e) {
 			this.logger.error('ERROR: ', e)
 			return false

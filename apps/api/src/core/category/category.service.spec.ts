@@ -1,11 +1,9 @@
 import { MongooseModule } from '@nestjs/mongoose'
 import { Test, TestingModule } from '@nestjs/testing'
 
-import {
-	closeInMongodConnection,
-	rootMongooseTestModule
-} from '../../../test/utils/mongodb'
+import { closeInMongodConnection, rootMongooseTestModule } from '../../../test/utils/mongodb'
 import { CategoryService } from './category.service'
+import { CategoryRepository } from '~/core/category/category.repository'
 import { UserModule } from '~/core/user/user.module'
 import { LoggerModule } from '~/interceptors/logger.interceptor'
 import { UserSchema } from '~/schemas/user.schema'
@@ -21,7 +19,7 @@ describe('Category Service', () => {
 				MongooseModule.forFeature([{ name: 'User', schema: UserSchema }]),
 				UserModule
 			],
-			providers: [CategoryService]
+			providers: [CategoryService, CategoryRepository]
 		}).compile()
 
 		service = module.get<CategoryService>(CategoryService)
@@ -34,5 +32,9 @@ describe('Category Service', () => {
 
 	it('should be defined', () => {
 		expect(service).toBeDefined()
+	})
+
+	it('should create new category', async () => {
+		// const {}: IResponse = await service.create()
 	})
 })

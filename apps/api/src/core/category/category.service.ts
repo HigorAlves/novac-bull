@@ -20,7 +20,29 @@ export class CategoryService {
 			return {
 				error: false,
 				message: 'New category added',
-				status: 201
+				status: HTTP_CODE.Created
+			}
+		} catch (e) {
+			this.logger.error(e)
+			return {
+				error: true,
+				message: e.message,
+				status: HTTP_CODE.BadRequest
+			}
+		}
+	}
+
+	async getAll(userId: string): Promise<IResponse<ICategory[] | boolean>> {
+		try {
+			const categories = await this.repository.listAllCategories(userId)
+
+			if (categories) {
+				return {
+					error: false,
+					message: 'List of categories',
+					status: HTTP_CODE.OK,
+					data: categories
+				}
 			}
 		} catch (e) {
 			this.logger.error(e)
