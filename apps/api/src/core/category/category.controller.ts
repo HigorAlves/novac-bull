@@ -2,6 +2,7 @@ import { IJWT } from '@jetpack/interfaces'
 import {
 	Body,
 	Controller,
+	Get,
 	Post,
 	Req,
 	Res,
@@ -51,7 +52,7 @@ export class CategoryController {
 		status: HTTP_CODE.BadRequest,
 		description: 'Cannot get list of all categories'
 	})
-	@Post()
+	@Get()
 	async list(@Req() req: Request, @Res() res: Response): Promise<Response> {
 		const { id } = req.user as IJWT
 		const response = await this.service.getAll(id)
