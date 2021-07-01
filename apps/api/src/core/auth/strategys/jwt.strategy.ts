@@ -1,10 +1,10 @@
+import { IJWT } from '@jetpack/interfaces'
 import { Injectable, UnauthorizedException } from '@nestjs/common'
 import { PassportStrategy } from '@nestjs/passport'
 import { ExtractJwt, Strategy } from 'passport-jwt'
 
 import { AuthService } from '../auth.service'
 import { JWT } from '~/constants'
-import { jwtPayload } from '~/types/jwtPayload'
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -16,7 +16,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 		})
 	}
 
-	async validate(payload: jwtPayload) {
+	async validate(payload: IJWT) {
 		const exists = await this.authService.userExists(payload.email)
 
 		if (exists) {

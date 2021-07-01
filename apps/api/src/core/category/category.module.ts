@@ -6,6 +6,7 @@ import { CategoryRepository } from '~/core/category/category.repository'
 import { UserModule } from '~/core/user/user.module'
 import { LoggerModule } from '~/interceptors/logger.interceptor'
 import { UserSchema } from '~/schemas/user.schema'
+import { CategoryController } from './category.controller';
 
 @Module({
 	imports: [
@@ -13,6 +14,7 @@ import { UserSchema } from '~/schemas/user.schema'
 		UserModule,
 		MongooseModule.forFeature([{ name: 'User', schema: UserSchema }])
 	],
-	providers: [CategoryService, CategoryRepository]
+	providers: [CategoryService, CategoryRepository],
+	controllers: [CategoryController]
 })
 export class CategoryModule {}
