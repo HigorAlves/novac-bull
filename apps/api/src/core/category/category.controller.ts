@@ -45,4 +45,16 @@ export class CategoryController {
 		const response = await this.service.create(id, data)
 		return res.status(response.status).send(response)
 	}
+
+	@ApiOkResponse({ description: 'List of all categories' })
+	@ApiResponse({
+		status: HTTP_CODE.BadRequest,
+		description: 'Cannot get list of all categories'
+	})
+	@Post()
+	async list(@Req() req: Request, @Res() res: Response): Promise<Response> {
+		const { id } = req.user as IJWT
+		const response = await this.service.getAll(id)
+		return res.status(response.status).send(response)
+	}
 }
