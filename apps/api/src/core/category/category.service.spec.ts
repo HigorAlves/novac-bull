@@ -36,8 +36,4 @@ describe('Category Service', () => {
 	it('should be defined', () => {
 		expect(service).toBeDefined()
 	})
-
-	it('should create new category', async () => {
-		// const {}: IResponse = await service.create()
-	})
 })
