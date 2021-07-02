@@ -20,6 +20,7 @@ export interface IUpdatePassword {
 export interface IJWT {
 	role: TRole
 	email: string
+	id: string
 }
 
 export interface IResponse<T = void> {

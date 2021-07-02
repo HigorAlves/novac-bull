@@ -23,11 +23,13 @@ export class User {
 
 	@Prop(
 		raw({
-			currency: { type: String },
-			language: { type: String }
+			name: { type: String },
+			icon: { type: String },
+			backgroundColor: { type: String },
+			type: { type: String }
 		})
 	)
-	locale: Record<string, string>
+	categories: Record<string, string>
 }
 
 export const UserSchema = SchemaFactory.createForClass(User)

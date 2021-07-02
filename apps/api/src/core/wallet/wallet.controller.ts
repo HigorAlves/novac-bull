@@ -1,3 +1,4 @@
+import { IJWT } from '@jetpack/interfaces'
 import {
 	Body,
 	Controller,
@@ -17,7 +18,6 @@ import { CreateTransactionDto } from '~/core/wallet/dto/createTransaction.dto'
 import { WalletService } from '~/core/wallet/wallet.service'
 import { JwtAuthGuard } from '~/guards'
 import { SentryInterceptor } from '~/interceptors/sentry.interceptor'
-import { jwtPayload } from '~/types/jwtPayload'
 
 @ApiTags('Wallet')
 @UseInterceptors(SentryInterceptor)
@@ -36,7 +36,7 @@ export class WalletController {
 
 	@Get()
 	async getAllWallets(@Req() req: Request, @Res() res: Response) {
-		const { id } = req.user as jwtPayload
+		const { id } = req.user as IJWT
 		const response = await this.service.getAllFromUser(id)
 		return res.status(response.status).send(response)
 	}
@@ -47,7 +47,7 @@ export class WalletController {
 		@Req() req: Request,
 		@Res() res: Response
 	) {
-		const { id } = req.user as jwtPayload
+		const { id } = req.user as IJWT
 		const response = await this.service.create(id, data)
 		return res.status(response.status).send(response)
 	}

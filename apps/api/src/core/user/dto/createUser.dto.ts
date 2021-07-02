@@ -4,7 +4,7 @@ import { IsNotEmpty, IsString } from 'class-validator'
 
 import { ErrorMessages } from '~/constants/dtoMessages'
 
-export class RegisterUserDTO implements IUser {
+export class CreateUserDto implements IUser {
 	@ApiProperty()
 	@IsNotEmpty({ message: ErrorMessages.isEmpty })
 	@IsString({ message: ErrorMessages.isString })
@@ -26,7 +26,5 @@ export class RegisterUserDTO implements IUser {
 	role: 'client' | 'admin'
 
 	@ApiProperty()
-	@IsNotEmpty({ message: ErrorMessages.isEmpty })
-	@IsString({ message: ErrorMessages.isString })
 	categories: ICategory[] | null
 }
