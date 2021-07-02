@@ -1,10 +1,8 @@
 module.exports = {
-	future: {
-		webpack5: true
-	},
+	future: {},
 	webpack: config => {
-		config.resolve.fallback = {fs: false, module: false}
-		
+		config.resolve.fallback = { fs: false, module: false }
+
 		return config
 	},
 	productionBrowserSourceMaps: true,
