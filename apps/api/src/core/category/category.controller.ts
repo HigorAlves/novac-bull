@@ -1,6 +1,21 @@
 import { IJWT } from '@jetpack/interfaces'
-import { Body, Controller, Get, Post, Put, Req, Res, UseGuards, UseInterceptors } from '@nestjs/common'
-import { ApiBearerAuth, ApiOkResponse, ApiResponse, ApiTags } from '@nestjs/swagger'
+import {
+	Body,
+	Controller,
+	Get,
+	Post,
+	Put,
+	Req,
+	Res,
+	UseGuards,
+	UseInterceptors
+} from '@nestjs/common'
+import {
+	ApiBearerAuth,
+	ApiOkResponse,
+	ApiResponse,
+	ApiTags
+} from '@nestjs/swagger'
 import { Request, Response } from 'express'
 
 import { HTTP_CODE } from '~/constants/httpCode'

@@ -1,7 +1,10 @@
 import { MongooseModule } from '@nestjs/mongoose'
 import { Test, TestingModule } from '@nestjs/testing'
 
-import { closeInMongodConnection, rootMongooseTestModule } from '../../../test/utils/mongodb'
+import {
+	closeInMongodConnection,
+	rootMongooseTestModule
+} from '../../../test/utils/mongodb'
 import { CategoryController } from './category.controller'
 import { CategoryRepository } from '~/core/category/category.repository'
 import { CategoryService } from '~/core/category/category.service'
