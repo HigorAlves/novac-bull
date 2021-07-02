@@ -1,13 +1,7 @@
 import React, { Fragment } from 'react'
 
 import { Popover, Transition } from '@headlessui/react'
-import {
-	ChartBarIcon,
-	CursorClickIcon,
-	MenuIcon,
-	ShieldCheckIcon,
-	XIcon
-} from '@heroicons/react/outline'
+import { MenuIcon, XIcon } from '@heroicons/react/outline'
 
 import { Button, Link } from '~/components'
 
@@ -16,20 +10,17 @@ const menuItems = [
 		name: 'Inicio',
 		description:
 			'Get a better understanding of where your traffic is coming from.',
-		href: '#',
-		icon: ChartBarIcon
+		href: '/'
 	},
 	{
 		name: 'Sobre',
 		description: 'Speak directly to your customers in a more meaningful way.',
-		href: '#',
-		icon: CursorClickIcon
+		href: '/sobre'
 	},
 	{
 		name: 'Recursos',
 		description: "Your customers' data will be safe and secure.",
-		href: '#',
-		icon: ShieldCheckIcon
+		href: '/recursos'
 	}
 ]
 
@@ -60,13 +51,12 @@ export function AppBar() {
 
 								<nav className={'hidden md:flex space-x-10'}>
 									{menuItems.map(item => (
-										<a
+										<Link
 											key={item.name}
-											href={item.href}
-											className='text-base font-medium text-gray-500 hover:text-gray-900'
-										>
-											{item.name}
-										</a>
+											link={item.href}
+											text={item.name}
+											medium
+										/>
 									))}
 								</nav>
 
@@ -112,19 +102,12 @@ export function AppBar() {
 										<div className='mt-6'>
 											<nav className='grid gap-y-8'>
 												{menuItems.map(item => (
-													<a
+													<Link
 														key={item.name}
-														href={item.href}
-														className='-m-3 p-3 flex items-center rounded-md hover:bg-gray-50'
-													>
-														<item.icon
-															className='flex-shrink-0 h-6 w-6 text-indigo-600'
-															aria-hidden='true'
-														/>
-														<span className='ml-3 text-base font-medium text-gray-900'>
-															{item.name}
-														</span>
-													</a>
+														link={item.href}
+														text={item.name}
+														medium
+													/>
 												))}
 											</nav>
 										</div>
@@ -135,7 +118,8 @@ export function AppBar() {
 												Começar grátis
 											</Button>
 											<p className='mt-6 text-center text-base font-medium text-gray-500'>
-												Já possui uma conta? <Link link={'/'} text={'Entrar'} />
+												Já possui uma conta?{' '}
+												<Link link={'/'} text={'Entrar'} colorfull />
 											</p>
 										</div>
 									</div>

@@ -7,12 +7,21 @@ import { BaseComponent } from './styled.link'
 interface IProps {
 	text: string
 	link: string
+	medium?: boolean
+	colorfull?: boolean
 }
 
-export function Link({ text, link }: IProps) {
+export function Link({
+	text,
+	link,
+	colorfull = false,
+	medium = false
+}: IProps) {
 	return (
 		<LinkC href={link}>
-			<BaseComponent>{text}</BaseComponent>
+			<BaseComponent medium={medium} colorfull={colorfull}>
+				{text}
+			</BaseComponent>
 		</LinkC>
 	)
 }
