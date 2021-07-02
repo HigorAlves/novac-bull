@@ -35,8 +35,9 @@ describe('User Services', () => {
 		service = module.get<UserService>(UserService)
 	})
 
-	afterAll(() => {
+	afterAll(done => {
 		closeInMongodConnection()
+		done()
 	})
 
 	it('should be defined', async () => {
