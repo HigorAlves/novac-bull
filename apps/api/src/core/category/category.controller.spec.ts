@@ -8,6 +8,7 @@ import {
 import { CategoryController } from './category.controller'
 import { CategoryRepository } from '~/core/category/category.repository'
 import { CategoryService } from '~/core/category/category.service'
+import { LoggerModule } from '~/interceptors/logger.interceptor'
 import { UserSchema } from '~/schemas/user.schema'
 
 describe('CategoryController', () => {
@@ -17,6 +18,7 @@ describe('CategoryController', () => {
 		const module: TestingModule = await Test.createTestingModule({
 			imports: [
 				rootMongooseTestModule(),
+				LoggerModule,
 				MongooseModule.forFeature([{ name: 'User', schema: UserSchema }])
 			],
 			controllers: [CategoryController],
