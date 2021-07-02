@@ -74,4 +74,25 @@ export class CategoryService {
 			}
 		}
 	}
+
+	async remove(userId: string, category: ICategory): Promise<IResponse> {
+		try {
+			const hasSuccess = await this.repository.delete(userId, category)
+
+			if (hasSuccess) {
+				return {
+					error: false,
+					message: 'Item has been removed',
+					status: HTTP_CODE.OK
+				}
+			}
+		} catch (e) {
+			this.logger.error(e)
+			return {
+				error: true,
+				message: e.message,
+				status: HTTP_CODE.InternalServerError
+			}
+		}
+	}
 }
