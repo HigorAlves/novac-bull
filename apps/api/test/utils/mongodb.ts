@@ -20,6 +20,7 @@ export const rootMongooseTestModule = (options: MongooseModuleOptions = {}) =>
 export const closeInMongodConnection = async () => {
 	try {
 		await mongoose.disconnect()
+		await mongoose.connection.close()
 		await mongod.stop()
 	} catch (e) {
 		console.log(e)

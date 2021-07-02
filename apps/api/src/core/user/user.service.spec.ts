@@ -15,6 +15,7 @@ import { UserSchema } from '~/schemas/user.schema'
 describe('User Services', () => {
 	let service: UserService
 	const userData: IUser = {
+		categories: [],
 		name: 'Savio Estolando',
 		email: 'savioestolando@maneirao.dev',
 		password: 'estolandounsaviao',
@@ -34,8 +35,9 @@ describe('User Services', () => {
 		service = module.get<UserService>(UserService)
 	})
 
-	afterAll(() => {
+	afterAll(done => {
 		closeInMongodConnection()
+		done()
 	})
 
 	it('should be defined', async () => {

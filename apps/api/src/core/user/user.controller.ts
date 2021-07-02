@@ -1,3 +1,4 @@
+import { IJWT } from '@jetpack/interfaces'
 import {
 	Body,
 	Controller,
@@ -16,7 +17,6 @@ import { UserService } from '~/core/user/user.service'
 import { Roles } from '~/decorators/roles.decorator'
 import { JwtAuthGuard, RolesGuard } from '~/guards'
 import { SentryInterceptor } from '~/interceptors/sentry.interceptor'
-import { jwtPayload } from '~/types/jwtPayload'
 import { Role } from '~/types/role.enum'
 
 @ApiTags('User')
@@ -36,7 +36,7 @@ export class UserController {
 		@Req() req: Request,
 		@Res() response: Response
 	) {
-		const { id } = req.user as jwtPayload
+		const { id } = req.user as IJWT
 		this.logger.log('Updatind a user data')
 		const result = await this.userService.update(id, user)
 		return response.status(result.status).send(result)

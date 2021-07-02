@@ -80,7 +80,10 @@ export class UserService {
 		}
 	}
 
-	async update(id: string, user: IUser): Promise<IResponse> {
+	async update(
+		id: string,
+		user: Pick<IUser, 'name'> & Pick<IUser, 'email'>
+	): Promise<IResponse> {
 		this.logger.log('Updated user data', { user: user.email })
 		delete user.email
 		try {

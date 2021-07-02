@@ -36,7 +36,7 @@ jobs:
     name: Test
     needs: lint
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 2
     env:
       LOGDNA_KEY: ${{ secrets.LOGDNA_KEY }}
       LOGDNA_HOST_NAME: 'GITHUB_CI'

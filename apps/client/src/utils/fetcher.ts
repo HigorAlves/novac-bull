@@ -11,7 +11,7 @@ const config = {
 	headers: { Authorization: `Bearer ${AuthToken.getToken()}` }
 }
 
-export const api = axios.create({
+export const API = axios.create({
 	baseURL: API_URL,
 	...config
 })
