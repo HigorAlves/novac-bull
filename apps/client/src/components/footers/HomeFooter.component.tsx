@@ -12,7 +12,7 @@ import {
 } from './styled.component'
 import { Button } from '~/components/'
 
-export default function HomeFooter() {
+export function HomeFooter() {
 	return (
 		<MainFooter>
 			<CopyrightDiv>
