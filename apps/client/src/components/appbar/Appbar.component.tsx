@@ -1,63 +1,68 @@
 import React, { Fragment } from 'react'
 
 import { Popover, Transition } from '@headlessui/react'
+import { MenuIcon, XIcon } from '@heroicons/react/outline'
 
-import { Button } from '~/components'
+import { Button, Link } from '~/components'
 
-const solutions = [
+const menuItems = [
 	{
 		name: 'Inicio',
 		description:
 			'Get a better understanding of where your traffic is coming from.',
-		href: '#pre-register'
+		href: '/'
 	},
 	{
-		name: 'Sobre Nós',
+		name: 'Sobre',
 		description: 'Speak directly to your customers in a more meaningful way.',
-		href: '#whynovac'
+		href: '/sobre'
+	},
+	{
+		name: 'Recursos',
+		description: "Your customers' data will be safe and secure.",
+		href: '/recursos'
 	}
 ]
 
-export default function HomeAppbar() {
+export function AppBar() {
 	return (
 		<nav>
 			<Popover className='relative bg-white'>
 				{({ open }) => (
 					<>
-						<div className='mx-auto px-4 sm:px-6 max-w-full'>
-							<div className='flex justify-between items-center border-b-2 border-gray-100 py-6 md:justify-start md:space-x-10'>
+						<div className='max-w-full mx-auto px-4 sm:px-6'>
+							<div className='flex justify-between items-center border-b-2 border-gray-100 py-4 sm:py-2 md:justify-start md:space-x-10'>
 								<div className='flex justify-start lg:w-0 lg:flex-1'>
-									<a href='#pre-register'>
-										<p>Icone Novac</p>
+									<a href='#'>
+										<span className='sr-only'>Workflow</span>
+										<img
+											className='h-8 w-auto sm:h-10'
+											src='https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg'
+											alt=''
+										/>
 									</a>
 								</div>
 								<div className='-mr-2 -my-2 md:hidden'>
 									<Popover.Button className='bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500'>
-										<p>Colocar icone de menu aqui</p>
+										<span className='sr-only'>Open menu</span>
+										<MenuIcon className='h-6 w-6' aria-hidden='true' />
 									</Popover.Button>
 								</div>
-								<Popover.Group as='nav' className='hidden md:flex space-x-10'>
-									<a
-										href='#pre-register'
-										className='text-base font-medium text-gray-500 hover:text-gray-900'
-									>
-										Inicio
-									</a>
-									<a
-										href='#whynovac'
-										className='text-base font-medium text-gray-500 hover:text-gray-900'
-									>
-										Recursos
-									</a>
-								</Popover.Group>
+
+								<nav className={'hidden md:flex space-x-10'}>
+									{menuItems.map(item => (
+										<Link
+											key={item.name}
+											link={item.href}
+											text={item.name}
+											medium
+										/>
+									))}
+								</nav>
+
 								<div className='hidden md:flex items-center justify-end md:flex-1 lg:w-0'>
-									<a
-										href='#'
-										className='whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900 mr-4'
-									>
-										Entrar
-									</a>
-									<Button primary>Começar Grátis</Button>
+									<Button>Entrar</Button>
+									<Button primary>Começar grátis</Button>
 								</div>
 							</div>
 						</div>
@@ -81,36 +86,40 @@ export default function HomeAppbar() {
 									<div className='pt-5 pb-6 px-5'>
 										<div className='flex items-center justify-between'>
 											<div>
-												<p>Logo do Novac aqui</p>
+												<img
+													className='h-8 w-auto'
+													src='https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg'
+													alt='Workflow'
+												/>
 											</div>
 											<div className='-mr-2'>
 												<Popover.Button className='bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500'>
-													<p>Icone de fechar aqui</p>
+													<span className='sr-only'>Close menu</span>
+													<XIcon className='h-6 w-6' aria-hidden='true' />
 												</Popover.Button>
 											</div>
 										</div>
 										<div className='mt-6'>
 											<nav className='grid gap-y-8'>
-												{solutions.map(item => (
-													<a
+												{menuItems.map(item => (
+													<Link
 														key={item.name}
-														href={item.href}
-														className='-m-3 p-3 flex items-center rounded-md hover:bg-gray-50'
-													>
-														<p>Icone aqui</p>
-														<span className='ml-3 text-base font-medium text-gray-900'>
-															{item.name}
-														</span>
-													</a>
+														link={item.href}
+														text={item.name}
+														medium
+													/>
 												))}
 											</nav>
 										</div>
 									</div>
 									<div className='py-6 px-5 space-y-6'>
 										<div>
-											<Button primary>Entrar</Button>
+											<Button primary full>
+												Começar grátis
+											</Button>
 											<p className='mt-6 text-center text-base font-medium text-gray-500'>
-												Ainda não é usuário? <Button>Começar Grátis</Button>
+												Já possui uma conta?{' '}
+												<Link link={'/'} text={'Entrar'} colorfull />
 											</p>
 										</div>
 									</div>

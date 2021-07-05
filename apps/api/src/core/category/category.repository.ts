@@ -50,7 +50,7 @@ export class CategoryRepository {
 		}
 	}
 
-	async update(userId: string, category: ICategory): Promise<boolean | string> {
+	async update(userId: string, category: ICategory): Promise<boolean> {
 		const user = await this.Database.findById(userId).exec()
 		user.categories = user.categories.map((item: ICategory) =>
 			item.id === category.id ? category : item

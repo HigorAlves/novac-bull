@@ -23,11 +23,11 @@ import { LoggerModule } from '~/interceptors/logger.interceptor'
 			useCreateIndex: true
 		}),
 		LoggerModule,
+		LeadModule,
 		AuthModule,
 		UserModule,
-		LeadModule,
-		WalletModule,
-		CategoryModule
+		CategoryModule,
+		WalletModule
 	]
 })
 export class AppModule {}

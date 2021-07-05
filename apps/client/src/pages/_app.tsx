@@ -1,5 +1,5 @@
-import '~/assets/styles/globals.css'
 import React from 'react'
+import '~/assets/styles/globals.css'
 
 import type { AppProps } from 'next/app'
 
@@ -12,4 +12,5 @@ function MyApp({ Component, pageProps }: AppProps) {
 		</LayoutWrapper>
 	)
 }
+
 export default MyApp
