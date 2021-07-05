@@ -1,9 +1,9 @@
 import React from 'react'
 
-import Image from 'next/image'
-
 // eslint-disable-next-line
+import Image from 'next/image'
 import Lottie from 'react-lottie'
+
 import {
 	Container,
 	TwoColumn,
