@@ -1,17 +1,20 @@
 import styled from 'styled-components'
 import tw from 'twin.macro'
 
-export const Container = styled.div`
+export const Container = styled.section`
 	${tw``}
 `
 export const TwoColumn = styled.div`
-	${tw`flex flex-col lg:flex-row lg:items-center max-w-screen-xl mx-auto py-20 md:py-24`}
+	${tw`flex flex-col lg:flex-row lg:items-center max-w-screen-xl mx-auto mt-24 md:py-16`}
 `
 export const LeftColumn = styled.div`
 	${tw` lg:w-5/12 text-center max-w-lg mx-auto lg:max-w-none lg:text-left`}
 `
 export const RightColumn = styled.div`
 	${tw` mt-12 lg:mt-0 flex-1 flex flex-col justify-center lg:self-end`}
+`
+export const DownloadColumn = styled.div`
+	${tw`flex text-center justify-center items-center space-x-4 mb-24`}
 `
 
 export const Heading = styled.h1`

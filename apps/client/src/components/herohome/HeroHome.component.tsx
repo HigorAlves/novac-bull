@@ -1,5 +1,7 @@
 import React from 'react'
 
+import Image from 'next/image'
+
 // eslint-disable-next-line
 import Lottie from 'react-lottie'
 import {
@@ -7,12 +9,15 @@ import {
 	TwoColumn,
 	LeftColumn,
 	RightColumn,
+	DownloadColumn,
 	Heading,
 	Paragraph,
 	Actions,
 	IllustrationContainer
 } from './styled.component'
 import moneyConnect from '~/assets/lottie/money-connect.json'
+import appleIcon from '~/assets/svgs/apple.svg'
+import playStoreIcon from '~/assets/svgs/play-store.svg'
 import { Button } from '~/components/'
 
 export default function HeroHome() {
@@ -27,7 +32,7 @@ export default function HeroHome() {
 
 	return (
 		<>
-			<Container>
+			<Container id='pre-register'>
 				<TwoColumn>
 					<LeftColumn>
 						<Heading>
@@ -55,6 +60,22 @@ export default function HeroHome() {
 						</IllustrationContainer>
 					</RightColumn>
 				</TwoColumn>
+				<DownloadColumn>
+					<Button download>
+						<Image src={playStoreIcon} width={20} height={20} />
+						<span className='ml-4 flex items-start flex-col leading-none'>
+							<span className='text-xs text-gray-600 mb-1'>Baixe na</span>
+							<span className='title-font font-medium'>Google Play</span>
+						</span>
+					</Button>
+					<Button download>
+						<Image src={appleIcon} width={20} height={20} />
+						<span className='ml-4 flex items-start flex-col leading-none'>
+							<span className='text-xs text-gray-600 mb-1'>Baixe na</span>
+							<span className='title-font font-medium'>App Store</span>
+						</span>
+					</Button>
+				</DownloadColumn>
 			</Container>
 		</>
 	)
