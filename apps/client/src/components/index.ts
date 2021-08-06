@@ -1,3 +1,1 @@
-export * from './Avatar/Avatar'
-export * from './Text/Text'
-export * from './Spacing/Spacing'
+export * from './Input/Input'
