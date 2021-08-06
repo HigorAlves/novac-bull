@@ -4,3 +4,4 @@ node_modules
 *.scss.d.ts
 serviceWorker.ts
 .storybook
+tailwind.config.js

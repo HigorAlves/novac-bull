@@ -1,19 +1,14 @@
-import { ICategory, IUser } from '@jetpack/interfaces'
+import { CategoryType } from '@jetpack/interfaces'
 import { ApiProperty } from '@nestjs/swagger'
 import { IsNotEmpty, IsString } from 'class-validator'
 
 import { ErrorMessages } from '~/constants/dtoMessages'
 
-export class RegisterUserDTO implements IUser {
+export class UpdateCategoryDTO {
 	@ApiProperty()
 	@IsNotEmpty({ message: ErrorMessages.isEmpty })
 	@IsString({ message: ErrorMessages.isString })
-	email: string
-
-	@ApiProperty()
-	@IsNotEmpty({ message: ErrorMessages.isEmpty })
-	@IsString({ message: ErrorMessages.isString })
-	password: string
+	id: string
 
 	@ApiProperty()
 	@IsNotEmpty({ message: ErrorMessages.isEmpty })
@@ -23,10 +18,15 @@ export class RegisterUserDTO implements IUser {
 	@ApiProperty()
 	@IsNotEmpty({ message: ErrorMessages.isEmpty })
 	@IsString({ message: ErrorMessages.isString })
-	role: 'client' | 'admin'
+	icon: string
 
 	@ApiProperty()
 	@IsNotEmpty({ message: ErrorMessages.isEmpty })
 	@IsString({ message: ErrorMessages.isString })
-	categories: ICategory[] | null
+	backgroundColor: string
+
+	@ApiProperty()
+	@IsNotEmpty({ message: ErrorMessages.isEmpty })
+	@IsString({ message: ErrorMessages.isString })
+	type: CategoryType
 }

@@ -24,7 +24,8 @@ describe('Authentication Service', () => {
 		name: 'Savio Estolando',
 		email: 'savioestolando@maneirao.dev',
 		password: 'estolandounsaviao',
-		role: 'client'
+		role: 'client',
+		categories: null
 	}
 
 	beforeAll(async () => {

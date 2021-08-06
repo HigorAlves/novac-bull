@@ -78,10 +78,26 @@ export class UserService {
 		}
 	}
 
-	async update(id: string, user: IUser) {
+	async update(
+		id: string,
+		user: Pick<IUser, 'name'> & Pick<IUser, 'email'>
+	): Promise<IResponse> {
 		this.logger.log('Updated user data', { user: user.email })
 		delete user.email
-		return this.repository.updateUser(user, id)
+		try {
+			await this.repository.updateUser(user, id)
+			return {
+				error: false,
+				message: 'Your data has been updated',
+				status: 200
+			}
+		} catch (e) {
+			return {
+				error: true,
+				message: e.message,
+				status: 500
+			}
+		}
 	}
 
 	async updatePassword(email: string, password: string): Promise<UserDocument> {
