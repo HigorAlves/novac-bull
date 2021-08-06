@@ -5,7 +5,7 @@ import { AuthToken } from '~/utils/authToken'
 const API_URL =
 	process.env.NODE_ENV === 'development'
 		? 'http://localhost:5000'
-		: 'https://www.api.novac.higoralves.dev'
+		: 'https://api.novac.higoralves.dev/api'
 
 const config = {
 	headers: { Authorization: `Bearer ${AuthToken.getToken()}` }

@@ -1,9 +1,10 @@
 module.exports = {
-	future: {},
-	webpack: config => {
-		config.resolve.fallback = { fs: false, module: false }
-		return config
-	},
-	productionBrowserSourceMaps: true,
-	trailingSlash: true
+  productionBrowserSourceMaps: true,
+  trailingSlash: true,
+  webpack: config => {
+    // Unset client-side javascript that only works server-side
+    config.resolve.fallback = { fs: false, module: false }
+
+    return config
+  }
 }

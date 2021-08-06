@@ -2,8 +2,6 @@ import React from 'react'
 
 import Head from 'next/head'
 
-import HomeAppbar from '~/components/appbars/HomeAppbar.component'
-
 interface IProps {
 	children: React.ReactNode
 }
@@ -11,13 +9,10 @@ interface IProps {
 const DefaultLayout = ({ children }: IProps) => (
 	<>
 		<Head>
-			<title>Novac Bull - Login</title>
+			<title>Novac Bull</title>
 		</Head>
-		<HomeAppbar />
 
-		<main className='text-white-400 bg-white-900 body-font h-screen pt-6'>
-			{children}
-		</main>
+		<main>{children}</main>
 	</>
 )
 

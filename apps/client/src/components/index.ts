@@ -1,1 +1,3 @@
-export { Button } from './buttons/button.component'
+export * from './Avatar/Avatar'
+export * from './Text/Text'
+export * from './Spacing/Spacing'
