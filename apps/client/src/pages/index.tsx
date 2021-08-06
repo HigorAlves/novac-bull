@@ -1,12 +1,12 @@
 import React from 'react'
 
 import styles from '~/assets/styles/Home.module.css'
-import { Input } from '~/components'
+import { Button } from '~/components'
 
 function Home() {
 	return (
 		<div className={styles.container}>
-			<Input placeholder={'higor alves @gmail.com'} />
+			<Button />
 		</div>
 	)
 }
