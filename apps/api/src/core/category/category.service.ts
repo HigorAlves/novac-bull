@@ -10,9 +10,7 @@ export class CategoryService {
 	constructor(
 		private readonly repository: CategoryRepository,
 		private readonly logger: Logger
-	) {
-		this.logger.setContext('CATEGORY_SERVICE')
-	}
+	) {}
 
 	async create(userId: string, category: ICategory): Promise<IResponse> {
 		try {

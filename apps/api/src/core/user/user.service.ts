@@ -8,9 +8,7 @@ import { UserDocument } from '~/schemas/user.schema'
 
 @Injectable()
 export class UserService {
-	constructor(private repository: UserRepository, private logger: Logger) {
-		this.logger.setContext('USER_SERVICE')
-	}
+	constructor(private repository: UserRepository, private logger: Logger) {}
 
 	async checkExists(email: string): Promise<boolean> {
 		this.logger.log('Checking if the users exists inside database')

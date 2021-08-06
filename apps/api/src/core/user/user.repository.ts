@@ -5,7 +5,7 @@ import {
 	Logger
 } from '@nestjs/common'
 import { InjectModel } from '@nestjs/mongoose'
-import { ObjectID } from 'mongodb'
+import { ObjectId } from 'mongodb'
 import { Model } from 'mongoose'
 
 import { UserDocument } from '~/schemas/user.schema'
@@ -44,7 +44,7 @@ export class UserRepository {
 
 	async deleteUser(id: string): Promise<boolean> {
 		const result = await this.Database.deleteOne({
-			_id: new ObjectID(id)
+			_id: new ObjectId(id)
 		})
 
 		return result.deletedCount != 0

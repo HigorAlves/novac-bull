@@ -1,6 +1,6 @@
 {
 	"name": "novacbull",
-	"version": "0.3.1-alpha.0",
+	"version": "0.3.0",
 	"license": "MIT",
 	"private": true,
 	"workspaces": [
@@ -43,28 +43,28 @@
 		]
 	},
 	"devDependencies": {
-		"@commitlint/cli": "^12.1.4",
-		"@commitlint/config-conventional": "^12.1.4",
-		"@commitlint/config-lerna-scopes": "^12.1.4",
-		"@typescript-eslint/eslint-plugin": "^4.25.0",
-		"@typescript-eslint/parser": "^4.25.0",
-		"commitlint": "^12.1.4",
-		"eslint": "^7.27.0",
+		"@commitlint/cli": "^13.1.0",
+		"@commitlint/config-conventional": "^13.1.0",
+		"@commitlint/config-lerna-scopes": "^13.1.0",
+		"@typescript-eslint/eslint-plugin": "^4.28.5",
+		"@typescript-eslint/parser": "^4.28.5",
+		"commitlint": "^13.1.0",
+		"eslint": "^7.31.0",
 		"eslint-config-prettier": "^8.3.0",
 		"eslint-config-standard": "^16.0.3",
-		"eslint-plugin-import": "^2.23.3",
+		"eslint-plugin-import": "^2.23.4",
 		"eslint-plugin-node": "^11.1.0",
 		"eslint-plugin-prettier": "^3.4.0",
 		"eslint-plugin-promise": "^5.1.0",
-		"eslint-plugin-react": "^7.23.2",
+		"eslint-plugin-react": "^7.24.0",
 		"eslint-plugin-standard": "^5.0.0",
-		"husky": "^6.0.0",
+		"husky": "^7.0.1",
 		"lerna": "^4.0.0",
 		"lerna-changelog": "^1.0.1",
-		"lint-staged": "^11.0.0",
-		"prettier": "^2.3.0",
-		"pretty-quick": "^3.1.0",
+		"lint-staged": "^11.1.1",
+		"prettier": "^2.3.2",
+		"pretty-quick": "^3.1.1",
 		"rimraf": "^3.0.2",
-		"standard-version": "^9.3.0"
+		"standard-version": "^9.3.1"
 	}
 }

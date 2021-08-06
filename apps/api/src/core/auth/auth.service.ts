@@ -17,9 +17,7 @@ export class AuthService {
 		private user: UserService,
 		private jwt: JwtService,
 		private logger: Logger
-	) {
-		this.logger.setContext('AUTH_SERVICE')
-	}
+	) {}
 
 	async isPasswordValid(user: ILogin): Promise<boolean> {
 		const { data } = await this.user.getByEmail(user.email)
