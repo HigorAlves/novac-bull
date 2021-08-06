@@ -7,9 +7,7 @@ import { Logger } from '~/interceptors/logger.interceptor'
 
 @Injectable()
 export class LeadService {
-	constructor(private repository: LeadRepository, private logger: Logger) {
-		this.logger.setContext('LEAD_SERVICE')
-	}
+	constructor(private repository: LeadRepository, private logger: Logger) {}
 
 	async registerNewLead(email: string): Promise<IResponse> {
 		try {

@@ -30,31 +30,26 @@ export class Logger extends NestLogger {
 	}
 
 	log(message: string, metadata?: unknown) {
-		this.logger.setContext(this.context)
 		this.logger.log(message)
 		this.winston.info(message, { context: this.context, metadata })
 	}
 
 	warn(message: string, metadata?: unknown) {
-		this.logger.setContext(this.context)
 		this.logger.warn(message)
 		this.winston.warn(message, { context: this.context, metadata })
 	}
 
 	error(message: string, metadata?: unknown) {
-		this.logger.setContext(this.context)
 		this.logger.error(message)
 		this.winston.error(message, { context: this.context, metadata })
 	}
 
 	debug(message: string, metadata?: unknown) {
-		this.logger.setContext(this.context)
 		this.logger.debug(message)
 		this.winston.debug(message, { context: this.context, metadata })
 	}
 
 	verbose(message: string, metadata?: unknown) {
-		this.logger.setContext(this.context)
 		this.logger.verbose(message)
 		this.winston.verbose(message, { context: this.context, metadata })
 	}
