@@ -2092,9 +2092,9 @@
     "@types/node" "*"
 
 "@types/coinbase-commerce-node@^1.0.5":
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/@types/coinbase-commerce-node/-/coinbase-commerce-node-1.0.5.tgz#946820d90f07eebfbaf089b32bcf7957897fae51"
-  integrity sha512-a8n5opiVSdeBvGC2v9EOgOU1H3HsXEq0Ji2kE+xhTPPYD/k9I5XMywbfZ1tQG92oPUG3vM8ssqxmWlkfZwNDLQ==
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/@types/coinbase-commerce-node/-/coinbase-commerce-node-1.0.6.tgz#7c0f4140ffda80d9099b399b39ca53780a4a5692"
+  integrity sha512-GuDFd6Ht/dOZUUbUrJWCxoNwOmMt1sLmn8kY7AkF7x3Np5B0Xy40DVv6SPeFcdL4lO3TAeHI8sogix0D01NJOg==
 
 "@types/connect@*":
   version "3.4.34"
@@ -10936,7 +10936,7 @@ strong-log-transformer@^2.1.0:
     minimist "^1.2.0"
     through "^2.3.4"
 
-styled-components@^5, styled-components@^5.3.0:
+styled-components@^5.3.0:
   version "5.3.0"
   resolved "https://registry.yarnpkg.com/styled-components/-/styled-components-5.3.0.tgz#e47c3d3e9ddfff539f118a3dd0fd4f8f4fb25727"
   integrity sha512-bPJKwZCHjJPf/hwTJl6TbkSZg/3evha+XPEizrZUGb535jLImwDUdjTNxXqjjaASt2M4qO4AVfoHJNe3XB/tpQ==
