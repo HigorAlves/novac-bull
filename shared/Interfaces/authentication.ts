@@ -5,6 +5,12 @@ export interface ILogin {
 	password: string
 }
 
+export interface IRegistration {
+	email: string
+	password: string
+	name: string
+}
+
 export interface INewPassword {
 	email: string
 	password: string

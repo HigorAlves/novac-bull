@@ -1,4 +1,5 @@
 import { ILogin, IUser } from '@jetpack/interfaces'
+import { IRegistration } from '@jetpack/interfaces/authentication'
 import { Injectable } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
 import * as Sentry from '@sentry/node'
@@ -73,11 +74,16 @@ export class AuthService {
 		}
 	}
 
-	async register(data: IUser): Promise<IResponse> {
+	async register(data: IRegistration): Promise<IResponse> {
 		const userExists = await this.user.checkExists(data.email)
+		const userData: IUser = {
+			...data,
+			role: 'client',
+			categories: []
+		}
 
 		if (!userExists) {
-			const user = await this.user.create(data)
+			const user = await this.user.create(userData)
 			if (!user.error) {
 				try {
 					await sendMail({
