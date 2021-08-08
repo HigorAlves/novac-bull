@@ -8,7 +8,7 @@ export default function Register() {
 	const dispatch = useDispatch()
 
 	function submitLogin() {
-		dispatch(registerRequestAction('teste', 'senha'))
+		dispatch(registerRequestAction('teste', 'senha', 'higor'))
 	}
 
 	return (
