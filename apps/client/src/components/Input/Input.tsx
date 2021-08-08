@@ -4,11 +4,12 @@ import * as S from './Style.Input'
 
 interface IProps {
 	htmlFor?: string
-	type: 'text' | 'password'
+	type: 'text' | 'password' | 'email'
 	id: string
-	placeholder: string
+	placeholder?: string
 	helpText?: string
 	name: string
+	label?: string
 }
 
 export function Input({
@@ -17,11 +18,12 @@ export function Input({
 	placeholder,
 	htmlFor,
 	type,
-	helpText
+	helpText,
+	label
 }: IProps) {
 	return (
 		<div>
-			{htmlFor && <S.Label htmlFor={htmlFor}>Email</S.Label>}
+			{htmlFor && <S.Label htmlFor={htmlFor}>{label}</S.Label>}
 			<div className='mt-1'>
 				<S.Input
 					type={type}
