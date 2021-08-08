@@ -10,6 +10,10 @@ interface IProps {
 	helpText?: string
 	name: string
 	label?: string
+	onChange?: any
+	value?: string
+	error?: boolean
+	hasError?: string | null
 }
 
 export function Input({
@@ -19,7 +23,10 @@ export function Input({
 	htmlFor,
 	type,
 	helpText,
-	label
+	hasError,
+	label,
+	onChange,
+	value
 }: IProps) {
 	return (
 		<div>
@@ -32,9 +39,16 @@ export function Input({
 					placeholder={placeholder}
 					aria-invalid='true'
 					aria-describedby='email-error'
+					onChange={onChange}
+					value={value}
+					hasError={hasError}
 				/>
 			</div>
-			{helpText && <S.HelpText id={`${id}-helpText`}>{helpText}</S.HelpText>}
+			{(helpText || hasError) && (
+				<S.HelpText hasError={hasError} id={`${id}-helpText`}>
+					{hasError || helpText}
+				</S.HelpText>
+			)}
 		</div>
 	)
 }
