@@ -36,6 +36,7 @@
   "dependencies": {
     "@headlessui/react": "^1.4.0",
     "@heroicons/react": "^1.0.3",
+    "@sentry/nextjs": "^6.11.0",
     "axios": "^0.21.1",
     "formik": "^2.2.9",
     "js-cookie": "^3.0.0",

@@ -8,6 +8,14 @@ function Home() {
 	return (
 		<div className={styles.container}>
 			<Typography as={'h3'}>Some test</Typography>
+			<button
+				type='button'
+				onClick={() => {
+					throw new Error('Another test error')
+				}}
+			>
+				CLICAR
+			</button>
 		</div>
 	)
 }
