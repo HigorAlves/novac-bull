@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import styles from '~/assets/styles/Home.module.css'
 import { Button, Select, Steps, Typography } from '~/components'
@@ -17,10 +17,16 @@ const people = [
 ]
 
 function Home() {
+	const [selected, setSelected] = useState(people[0])
 	return (
 		<div className={styles.container}>
 			<Typography as={'h3'}>Some test</Typography>
-			<Select options={people} label={'Select menu'} />
+			<Select
+				options={people}
+				label={'Select menu'}
+				setSelected={setSelected}
+				value={selected}
+			/>
 		</div>
 	)
 }
