@@ -8,6 +8,7 @@ interface IProps {
 	onClick?: () => void
 	full?: boolean
 	children: ReactChild
+	variant?: 'primary' | 'secondary'
 }
 
 export function Button(props: IProps) {
