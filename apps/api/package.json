@@ -78,7 +78,7 @@
 		"@types/bcrypt": "^5.0.0",
 		"@types/coinbase-commerce-node": "^1.0.5",
 		"@types/express": "^4.17.12",
-		"@types/jest": "^26.0.23",
+		"@types/jest": "^27.0.2",
 		"@types/mongoose": "^5.11.96",
 		"@types/node": "^15.12.2",
 		"@types/passport-jwt": "^3.0.5",
